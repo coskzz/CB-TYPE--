@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>コンテンツビジネス 5つの型 診断</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --R: #e84393;   /* レポーター */
+      --A: #3b82f6;   /* アービトラージ */
+      --C: #8b5cf6;   /* コラボ */
+      --P: #10b981;   /* プロシューマー */
+      --U: #f59e0b;   /* ウーバーイーツ */
+      --bg: #0f0f1a;
+      --surface: #1a1a2e;
+      --card: #16213e;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --radius: 16px;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 60px;
+    }
+
+    /* ===== HEADER ===== */
+    .app-header {
+      text-align: center;
+      margin-bottom: 32px;
+      max-width: 640px;
+    }
+    .app-header .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #e84393, #8b5cf6);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    .app-header h1 {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 800;
+      line-height: 1.35;
+      background: linear-gradient(135deg, #fff 30%, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .app-header p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* ===== PROGRESS ===== */
+    .progress-wrap {
+      width: 100%;
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: #2d3748;
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #e84393, #8b5cf6);
+      border-radius: 100px;
+      transition: width .4s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--card);
+      border: 1px solid #2d3748;
+      border-radius: var(--radius);
+      padding: 32px;
+      width: 100%;
+      max-width: 560px;
+      animation: fadeSlide .35s ease;
+    }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .q-number {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .q-text {
+      font-size: clamp(16px, 3.5vw, 20px);
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    /* ===== OPTIONS ===== */
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1.5px solid #2d3748;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all .2s;
+      background: transparent;
+      text-align: left;
+      width: 100%;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .option:hover { border-color: #4a5568; background: #1e293b; }
+    .option.selected {
+      border-color: #8b5cf6;
+      background: rgba(139,92,246,.1);
+    }
+    .option-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #4a5568;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .option.selected .option-icon {
+      background: #8b5cf6;
+      border-color: #8b5cf6;
+      color: #fff;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .nav-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 28px;
+    }
+    .btn {
+      padding: 12px 28px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-primary {
+      background: linear-gradient(135deg, #8b5cf6, #e84393);
+      color: #fff;
+    }
+    .btn-primary:disabled { opacity: .35; cursor: not-allowed; }
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid #4a5568;
+      color: var(--muted);
+      margin-right: 10px;
+    }
+
+    /* ===== START SCREEN ===== */
+    .start-screen { text-align: center; }
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin: 24px 0 32px;
+    }
+    .type-chip {
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      color: #fff;
+    }
+    .start-btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+    }
+
+    /* ===== RESULT SCREEN ===== */
+    .result-screen { animation: fadeSlide .4s ease; }
+    .result-hero {
+      text-align: center;
+      padding: 24px 0 28px;
+    }
+    .result-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin: 0 auto 16px;
+      box-shadow: 0 0 32px rgba(0,0,0,.4);
+    }
+    .result-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      opacity: .75;
+    }
+    .result-title {
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .result-tagline {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .result-body { margin-top: 8px; }
+    .result-section {
+      background: #0f172a;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+    .result-section h3 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      opacity: .65;
+    }
+    .result-section p { font-size: 14px; line-height: 1.75; color: #cbd5e1; }
+
+    .strengths-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .strengths-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+    .strengths-list li::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Score bars */
+    .score-bars { display: flex; flex-direction: column; gap: 10px; }
+    .score-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+    .score-name { width: 110px; flex-shrink: 0; font-size: 12px; }
+    .score-bar-bg { flex: 1; height: 8px; background: #2d3748; border-radius: 100px; overflow: hidden; }
+    .score-bar-fill { height: 100%; border-radius: 100px; transition: width 1s cubic-bezier(.4,0,.2,1); }
+    .score-pct { width: 32px; text-align: right; font-size: 11px; color: var(--muted); }
+
+    .retry-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      margin-top: 8px;
+      background: transparent;
+      border: 1.5px solid #4a5568;
+      color: var(--muted);
+    }
+    .retry-btn:hover { border-color: #8b5cf6; color: #fff; }
+
+    /* utils */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="badge">診断ツール</div>
+  <h1>コンテンツビジネス<br>5つの型 診断</h1>
+  <p>8つの質問に答えるだけで、あなたにぴったりな<br>コンテンツビジネスの型がわかります。</p>
+</div>
+
+<!-- Progress (hidden on start/result) -->
+<div class="progress-wrap hidden" id="progressWrap">
+  <div class="progress-label">
+    <span id="progressText">質問 1 / 8</span>
+    <span id="progressPct">0%</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+  </div>
+</div>
+
+<!-- ===== START SCREEN ===== -->
+<div class="card start-screen" id="startScreen">
+  <p style="color:var(--muted);font-size:14px;margin-bottom:4px;text-align:center;">診断できる5つの型</p>
+  <div class="type-grid">
+    <div class="type-chip" style="background:linear-gradient(135deg,#e84393,#c2185b);">📡 レポーター型</div>
+    <div class="type-chip" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">🔄 アービトラージ型</div>
+    <div class="type-chip" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">🤝 コラボ型</div>
+    <div class="type-chip" style="background:linear-gradient(135deg,#10b981,#047857);">📚 プロシューマー型</div>
+    <div class="type-chip" style="background:linear-gradient(135deg,#f59e0b,#d97706);">🚴 ウーバーイーツ型</div>
+  </div>
+  <button class="btn btn-primary start-btn" onclick="startQuiz()">診断スタート →</button>
+</div>
+
+<!-- ===== QUIZ SCREEN ===== -->
+<div class="card hidden" id="quizScreen">
+  <div class="q-number" id="qNumber">Q1 / 8</div>
+  <div class="q-text" id="qText"></div>
+  <div class="options" id="optionsContainer"></div>
+  <div class="nav-row">
+    <button class="btn btn-ghost hidden" id="backBtn" onclick="goBack()">戻る</button>
+    <button class="btn btn-primary" id="nextBtn" onclick="goNext()" disabled>次へ →</button>
+  </div>
+</div>
+
+<!-- ===== RESULT SCREEN ===== -->
+<div class="card result-screen hidden" id="resultScreen">
+  <div class="result-hero">
+    <div class="result-icon" id="resultIcon"></div>
+    <div class="result-label">あなたの型</div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-tagline" id="resultTagline"></div>
+  </div>
+
+  <div class="result-body">
+    <div class="result-section">
+      <h3>どんな型？</h3>
+      <p id="resultDesc"></p>
+    </div>
+    <div class="result-section">
+      <h3>あなたの強み</h3>
+      <ul class="strengths-list" id="resultStrengths"></ul>
+    </div>
+    <div class="result-section">
+      <h3>最初のアクション</h3>
+      <p id="resultAction"></p>
+    </div>
+    <div class="result-section">
+      <h3>スコア内訳</h3>
+      <div class="score-bars" id="scoreBars"></div>
+    </div>
+  </div>
+
+  <button class="btn retry-btn" onclick="retry()">もう一度診断する</button>
+</div>
+
+<script>
+// ===== DATA =====
+const TYPES = {
+  R: {
+    key: 'R',
+    name: 'レポーター型',
+    emoji: '📡',
+    color: '#e84393',
+    gradient: 'linear-gradient(135deg,#e84393,#c2185b)',
+    tagline: '面白い人・スゴイ人を紹介して稼ぐ「発信プロデューサー」',
+    desc: 'ベストセラー作家や専門家、面白い人を取材・紹介して発信するスタイル。自分が主役でなく「人を輝かせる」のが得意な人向け。コンテンツビジネスの著者・長倉氏自身もこの型で24年以上活躍しています。',
+    strengths: ['人脈・ネットワークを活かせる', '自分の専門性がなくてもOK', '紹介した人からの信頼が得やすい', '多様な業界の知識が自然に蓄積される'],
+    action: 'まず「この人面白い！」と思える人を1人決めて、その人を紹介する記事・動画・SNS投稿を1本作ってみましょう。インタビュー形式でもOKです。',
+  },
+  A: {
+    key: 'A',
+    name: 'アービトラージ型',
+    emoji: '🔄',
+    color: '#3b82f6',
+    gradient: 'linear-gradient(135deg,#3b82f6,#1d4ed8)',
+    tagline: '市場間の"情報差"を価値に変える「情報の橋渡し役」',
+    desc: '海外の最新情報や異業種のノウハウを日本向けに翻訳・再編集して届ける型。AI時代の今、リサーチ・翻訳・まとめ作業をAIが大幅にサポートしてくれるため、最も参入しやすい型のひとつです。',
+    strengths: ['海外や異業種への好奇心が武器になる', 'AIとの相性が非常に良い', 'フォロワーゼロ・実績ゼロからでも始められる', '情報格差が大きいほど価値が高まる'],
+    action: '好きな海外メディア・SNS・Podcastを1つ決めて、その情報を日本語でまとめたnote記事やメルマガを1本書いてみましょう。',
+  },
+  C: {
+    key: 'C',
+    name: 'コラボ型',
+    emoji: '🤝',
+    color: '#8b5cf6',
+    gradient: 'linear-gradient(135deg,#8b5cf6,#6d28d9)',
+    tagline: 'コラボで一気にマーケットを広げる「加速型プレーヤー」',
+    desc: 'SNS・YouTube・ライブ配信などで影響力のある人とコラボし、一気に認知とマーケットを拡大する型。すでにある程度の実績やフォロワーを持つ人が「月収100万→1000万」へスケールするのに最適です。',
+    strengths: ['既存の影響力を最大限に活かせる', 'コラボ相手の顧客を一気に獲得できる', '短期間で認知を爆発的に広げられる', '相互にメリットがあるため関係構築しやすい'],
+    action: '自分のジャンルで「コラボしたい！」と思える人を3人リストアップし、まず1人にDMかメールで相談してみましょう。',
+  },
+  P: {
+    key: 'P',
+    name: 'プロシューマー型',
+    emoji: '📚',
+    color: '#10b981',
+    gradient: 'linear-gradient(135deg,#10b981,#047857)',
+    tagline: '学びながら稼ぐ「成長発信プロデューサー」',
+    desc: 'プロデューサー（生産者）と消費者（コンシューマー）を同時にやる型。セミナー・講座に参加しながらその学びをコンテンツとして発信し収益化します。長倉氏も各業界の専門家をプロデュースしながらセミナーで学び続けています。',
+    strengths: ['学ぶコストが収益になる好循環', '「一緒に成長する」読者との共感が生まれやすい', '特定分野の専門家でなくてもOK', '継続するほどコンテンツが深まる'],
+    action: '今学んでいること・学びたいことを1つ決めて「〇〇を学んでみた」という記事やSNS投稿を今日から始めましょう。',
+  },
+  U: {
+    key: 'U',
+    name: 'ウーバーイーツ型',
+    emoji: '🚴',
+    color: '#f59e0b',
+    gradient: 'linear-gradient(135deg,#f59e0b,#d97706)',
+    tagline: '情報を集めて届ける「キュレーター型コンテンツ配達人」',
+    desc: 'すでに世の中にある情報をリサーチ・キュレーション・再編集して届ける型。「〇〇の本100冊を1冊にまとめてみた」系がまさにこれ。フォロワーゼロ・実績ゼロ・特別なスキルなしでも今日から始められる最も入門しやすい型です。',
+    strengths: ['スキルも実績もゼロから始められる', '情報収集力だけで価値を生み出せる', 'AIと組み合わせると爆速で量産できる', '需要のあるテーマを選べば確実に読まれる'],
+    action: '興味のあるテーマを1つ選び「〇〇について調べてみた・まとめてみた」という記事をnoteやブログに投稿してみましょう。',
+  },
+};
+
+const QUESTIONS = [
+  {
+    text: 'コンテンツビジネスの経験はどれくらいありますか？',
+    options: [
+      { text: '全くない。これから始めたい', scores: { U:3, A:2 } },
+      { text: '少し試したことがある程度', scores: { P:3, A:1, U:1 } },
+      { text: 'ある程度やってみて、少し収益も出ている', scores: { R:2, P:2 } },
+      { text: 'かなり経験があり、実績もある', scores: { C:3, R:2 } },
+    ],
+  },
+  {
+    text: 'SNSのフォロワー数や認知度は？',
+    options: [
+      { text: 'フォロワーはほぼゼロ。無名でOK', scores: { U:3, A:2 } },
+      { text: '数百〜数千人程度いる', scores: { P:2, R:1, A:1 } },
+      { text: '数万人以上のフォロワーや読者がいる', scores: { C:3, R:2 } },
+      { text: 'フォロワーは少ないが、リアルなネットワークは強い', scores: { R:3, P:1 } },
+    ],
+  },
+  {
+    text: '自分が最も得意・好きな活動はどれですか？',
+    options: [
+      { text: '情報を集めて整理・まとめること', scores: { U:3, A:1 } },
+      { text: '学んだことをアウトプット・発信すること', scores: { P:3 } },
+      { text: '面白い人や専門家を紹介・繋げること', scores: { R:3 } },
+      { text: '海外や異業種の情報を日本向けに届けること', scores: { A:3 } },
+      { text: '影響力のある人とコラボしてシナジーを出すこと', scores: { C:3 } },
+    ],
+  },
+  {
+    text: '月収の当面の目標を教えてください。',
+    options: [
+      { text: 'まず月10〜30万円を達成したい', scores: { U:2, A:2, P:1 } },
+      { text: '月30〜100万円を安定させたい', scores: { P:2, R:2, A:1 } },
+      { text: '月100万〜1000万円以上を狙いたい', scores: { C:3, R:1 } },
+    ],
+  },
+  {
+    text: '自分の専門性・強みについて当てはまるのは？',
+    options: [
+      { text: '特別なスキルや専門性は特にない', scores: { U:3, A:1 } },
+      { text: '今まさに何かを学んでいる最中', scores: { P:3 } },
+      { text: '専門性よりも人脈・コネクションが強い', scores: { R:3 } },
+      { text: '海外情報や異業種の知識に詳しい', scores: { A:3 } },
+      { text: '特定分野に専門性があり実績もある', scores: { C:3, R:1 } },
+    ],
+  },
+  {
+    text: 'コンテンツを作るときの好きなスタイルは？',
+    options: [
+      { text: '本・記事・ネットを読んで情報をまとめる', scores: { U:3 } },
+      { text: 'セミナーや講座に参加して学びを発信する', scores: { P:3 } },
+      { text: '面白い人に直接会ってインタビューする', scores: { R:3 } },
+      { text: '海外サイトや異分野の情報をリサーチする', scores: { A:3, U:1 } },
+      { text: '影響力ある人と一緒に動画・配信を作る', scores: { C:3 } },
+    ],
+  },
+  {
+    text: 'コンテンツビジネスを始める一番の動機は？',
+    options: [
+      { text: '副業として手軽に収入の柱を増やしたい', scores: { U:2, A:2 } },
+      { text: '学びのプロセス自体を収益化したい', scores: { P:3 } },
+      { text: '自分のネットワーク・人脈を活かしたい', scores: { R:3 } },
+      { text: '日本に届いていない情報を広めたい', scores: { A:3 } },
+      { text: 'すである影響力を使って一気に拡大したい', scores: { C:3 } },
+    ],
+  },
+  {
+    text: '将来的になりたい姿に一番近いのは？',
+    options: [
+      { text: '情報のキュレーターとして専門メディアを運営', scores: { U:3, A:1 } },
+      { text: '学びと成長を発信するインフルエンサー', scores: { P:3 } },
+      { text: '面白い人を世に送り出すプロデューサー', scores: { R:3 } },
+      { text: '異文化・海外情報の第一人者', scores: { A:3 } },
+      { text: '業界の大物とコラボしてビジネスを席巻', scores: { C:3 } },
+    ],
+  },
+];
+
+// ===== STATE =====
+let currentQ = 0;
+let answers = []; // { optionIndex } per question
+let scores = { R:0, A:0, C:0, P:0, U:0 };
+
+// ===== FUNCTIONS =====
+function startQuiz() {
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('progressWrap').classList.remove('hidden');
+  document.getElementById('quizScreen').classList.remove('hidden');
+  currentQ = 0;
+  answers = [];
+  scores = { R:0, A:0, C:0, P:0, U:0 };
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  document.getElementById('qNumber').textContent = `Q${currentQ+1} / ${QUESTIONS.length}`;
+  document.getElementById('qText').textContent = q.text;
+
+  // progress
+  const pct = Math.round((currentQ / QUESTIONS.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `質問 ${currentQ+1} / ${QUESTIONS.length}`;
+  document.getElementById('progressPct').textContent = pct + '%';
+
+  // back btn
+  document.getElementById('backBtn').classList.toggle('hidden', currentQ === 0);
+
+  // options
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  const labels = ['A','B','C','D','E'];
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
+    btn.innerHTML = `<div class="option-icon">${labels[i]}</div><span>${opt.text}</span>`;
+    btn.onclick = () => selectOption(i);
+    container.appendChild(btn);
+  });
+
+  // next btn state
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.disabled = answers[currentQ] === undefined;
+  nextBtn.textContent = currentQ === QUESTIONS.length - 1 ? '結果を見る ✓' : '次へ →';
+
+  // re-trigger animation
+  const screen = document.getElementById('quizScreen');
+  screen.style.animation = 'none';
+  requestAnimationFrame(() => { screen.style.animation = ''; });
+}
+
+function selectOption(i) {
+  answers[currentQ] = i;
+  document.querySelectorAll('.option').forEach((el, idx) => {
+    el.classList.toggle('selected', idx === i);
+  });
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function goNext() {
+  if (answers[currentQ] === undefined) return;
+  if (currentQ < QUESTIONS.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function goBack() {
+  if (currentQ > 0) { currentQ--; renderQuestion(); }
+}
+
+function calcScores() {
+  const s = { R:0, A:0, C:0, P:0, U:0 };
+  QUESTIONS.forEach((q, qi) => {
+    const ans = answers[qi];
+    if (ans === undefined) return;
+    const sc = q.options[ans].scores;
+    for (const [k, v] of Object.entries(sc)) s[k] += v;
+  });
+  return s;
+}
+
+function showResult() {
+  scores = calcScores();
+  const sorted = Object.entries(scores).sort((a,b) => b[1]-a[1]);
+  const topKey = sorted[0][0];
+  const type = TYPES[topKey];
+  const maxScore = sorted[0][1];
+
+  document.getElementById('quizScreen').classList.add('hidden');
+  document.getElementById('progressWrap').classList.add('hidden');
+  const rs = document.getElementById('resultScreen');
+  rs.classList.remove('hidden');
+
+  // hero
+  const icon = document.getElementById('resultIcon');
+  icon.textContent = type.emoji;
+  icon.style.background = type.gradient;
+
+  document.getElementById('resultTitle').textContent = type.name;
+  document.getElementById('resultTitle').style.color = type.color;
+  document.getElementById('resultTagline').textContent = type.tagline;
+
+  document.getElementById('resultDesc').textContent = type.desc;
+  document.getElementById('resultAction').textContent = type.action;
+
+  // strengths
+  const ul = document.getElementById('resultStrengths');
+  ul.innerHTML = type.strengths.map(s =>
+    `<li style="--dot:${type.color}"><span style="width:8px;height:8px;border-radius:50%;background:${type.color};flex-shrink:0;display:inline-block;"></span>${s}</li>`
+  ).join('');
+
+  // score bars
+  const barsEl = document.getElementById('scoreBars');
+  const typeOrder = ['R','A','C','P','U'];
+  const totalPossible = maxScore > 0 ? maxScore : 1;
+  barsEl.innerHTML = typeOrder.map(k => {
+    const t = TYPES[k];
+    const val = scores[k];
+    const pct = Math.round((val / (totalPossible || 1)) * 100);
+    return `
+      <div class="score-row">
+        <div class="score-name">${t.emoji} ${t.name.replace('型','型')}</div>
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width:0%;background:${t.gradient}" data-pct="${pct}"></div>
+        </div>
+        <div class="score-pct">${pct}%</div>
+      </div>`;
+  }).join('');
+
+  // animate bars after paint
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.score-bar-fill').forEach(el => {
+        el.style.width = el.dataset.pct + '%';
+      });
+    });
+  });
+}
+
+function retry() {
+  document.getElementById('resultScreen').classList.add('hidden');
+  document.getElementById('progressWrap').classList.remove('hidden');
+  document.getElementById('quizScreen').classList.remove('hidden');
+  currentQ = 0;
+  answers = [];
+  scores = { R:0, A:0, C:0, P:0, U:0 };
+  renderQuestion();
+}
+</script>
+</body>
+</html>
