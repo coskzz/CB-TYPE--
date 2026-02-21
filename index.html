@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>コンテンツビジネス5つの型 診断</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#6C5CE7;--primary-light:#A29BFE;--accent:#00CEC9;
+  --bg:#0F0E17;--surface:#1A1926;--surface2:#252336;
+  --text:#FFFFFE;--text-sub:#A7A9BE;
+  --reporter:#FF6B6B;--arbitrage:#4ECDC4;--collab:#FFE66D;
+  --prosumer:#A29BFE;--uber:#FF9FF3;
+  --radius:16px;--shadow:0 8px 32px rgba(0,0,0,.3);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  background:var(--bg);color:var(--text);min-height:100dvh;
+  display:flex;flex-direction:column;align-items:center;
+  overflow-x:hidden;line-height:1.7;
+}
+
+/* ── Background decoration ── */
+body::before{
+  content:"";position:fixed;top:-30%;left:-10%;
+  width:60vw;height:60vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(108,92,231,.15),transparent 70%);
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:"";position:fixed;bottom:-20%;right:-10%;
+  width:50vw;height:50vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,206,201,.1),transparent 70%);
+  pointer-events:none;z-index:0;
+}
+
+.container{
+  position:relative;z-index:1;width:100%;max-width:680px;
+  padding:24px 20px 60px;
+}
+
+/* ── Header ── */
+header{text-align:center;padding:40px 0 32px}
+header h1{
+  font-size:1.6rem;font-weight:800;letter-spacing:.02em;
+  background:linear-gradient(135deg,var(--primary-light),var(--accent));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
+
+/* ── Progress bar ── */
+.progress-wrap{
+  position:sticky;top:0;z-index:10;
+  background:rgba(15,14,23,.85);backdrop-filter:blur(12px);
+  padding:14px 0 10px;margin-bottom:16px;
+}
+.progress-bar{
+  height:6px;border-radius:3px;background:var(--surface2);overflow:hidden;
+}
+.progress-fill{
+  height:100%;width:0%;border-radius:3px;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  transition:width .4s ease;
+}
+.progress-label{
+  text-align:right;font-size:.75rem;color:var(--text-sub);margin-top:4px;
+}
+
+/* ── Card / Question ── */
+.card{
+  background:var(--surface);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius);padding:32px 28px;
+  box-shadow:var(--shadow);
+  animation:fadeUp .45s ease both;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.card.hidden{display:none}
+.q-number{
+  font-size:.75rem;font-weight:700;color:var(--accent);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;
+}
+.q-text{font-size:1.15rem;font-weight:700;margin-bottom:24px}
+
+/* ── Options ── */
+.options{display:flex;flex-direction:column;gap:12px}
+.opt-btn{
+  display:flex;align-items:center;gap:14px;
+  background:var(--surface2);border:2px solid transparent;
+  border-radius:12px;padding:16px 20px;
+  color:var(--text);font-size:.95rem;text-align:left;
+  cursor:pointer;transition:all .2s ease;
+  line-height:1.5;
+}
+.opt-btn:hover{
+  border-color:var(--primary-light);
+  background:rgba(108,92,231,.12);
+  transform:translateX(4px);
+}
+.opt-btn .icon{
+  flex-shrink:0;width:36px;height:36px;border-radius:10px;
+  display:grid;place-items:center;font-size:1.1rem;
+  background:rgba(255,255,255,.06);
+}
+.opt-btn:hover .icon{background:rgba(108,92,231,.25)}
+
+/* ── Intro & Result screens ── */
+.screen{text-align:center}
+.screen.hidden{display:none}
+
+.start-btn,.retry-btn,.share-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:28px;padding:16px 40px;
+  border:none;border-radius:60px;font-size:1rem;font-weight:700;
+  cursor:pointer;transition:all .25s ease;
+  color:#fff;
+}
+.start-btn{
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  box-shadow:0 4px 24px rgba(108,92,231,.4);
+}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(108,92,231,.55)}
+
+.retry-btn{
+  background:var(--surface2);border:2px solid var(--primary-light);
+  color:var(--primary-light);margin-right:12px;
+}
+.retry-btn:hover{background:rgba(108,92,231,.15)}
+
+.share-btn{
+  background:linear-gradient(135deg,var(--primary),#e84393);
+  box-shadow:0 4px 20px rgba(232,67,147,.3);
+}
+.share-btn:hover{transform:translateY(-2px)}
+
+/* ── Result ── */
+.result-type-badge{
+  display:inline-block;
+  font-size:2rem;font-weight:900;
+  margin:20px 0 8px;
+  padding:8px 28px;border-radius:60px;
+}
+.result-subtitle{color:var(--text-sub);font-size:.95rem;margin-bottom:28px}
+.result-desc{
+  text-align:left;background:var(--surface2);
+  border-radius:14px;padding:24px 22px;
+  font-size:.93rem;line-height:1.85;margin-bottom:28px;
+}
+.result-desc strong{color:var(--accent)}
+
+/* ── All types overview ── */
+.all-types{text-align:left;margin-top:36px}
+.all-types h3{
+  font-size:1rem;font-weight:700;margin-bottom:16px;
+  color:var(--text-sub);
+}
+.type-bar{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:10px;font-size:.85rem;
+}
+.type-bar .label{width:120px;flex-shrink:0;font-weight:600}
+.type-bar .bar-bg{
+  flex:1;height:10px;border-radius:5px;background:var(--surface);overflow:hidden;
+}
+.type-bar .bar-fill{
+  height:100%;border-radius:5px;transition:width .6s ease;
+}
+.type-bar .pct{width:40px;text-align:right;color:var(--text-sub)}
+
+/* ── CTA ── */
+.cta-box{
+  margin-top:36px;
+  background:linear-gradient(135deg,rgba(108,92,231,.15),rgba(0,206,201,.1));
+  border:1px solid rgba(108,92,231,.3);
+  border-radius:var(--radius);padding:28px 24px;text-align:center;
+}
+.cta-box h3{font-size:1.05rem;margin-bottom:10px}
+.cta-box p{font-size:.88rem;color:var(--text-sub);line-height:1.7}
+.cta-box a{
+  display:inline-block;margin-top:16px;padding:12px 32px;
+  border-radius:60px;font-weight:700;font-size:.9rem;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:#fff;text-decoration:none;
+  box-shadow:0 4px 20px rgba(108,92,231,.35);
+  transition:all .25s ease;
+}
+.cta-box a:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(108,92,231,.5)}
+
+/* ── Intro icons ── */
+.intro-icons{
+  display:flex;justify-content:center;gap:12px;
+  margin:24px 0 8px;flex-wrap:wrap;
+}
+.intro-icons span{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;border-radius:60px;font-size:.82rem;font-weight:600;
+  background:var(--surface2);
+}
+
+/* ── Responsive ── */
+@media(max-width:480px){
+  header h1{font-size:1.25rem}
+  .card{padding:24px 18px}
+  .q-text{font-size:1.05rem}
+  .opt-btn{padding:14px 16px;font-size:.88rem}
+  .result-type-badge{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>コンテンツビジネス<br>5つの型 診断</h1>
+    <p>7つの質問に答えるだけで、あなたにぴったりの型がわかる</p>
+  </header>
+
+  <!-- ====== INTRO ====== -->
+  <div id="intro" class="card screen">
+    <p style="font-size:1.1rem;font-weight:700;margin-bottom:12px">あなたに合った<br>コンテンツビジネスの型を診断！</p>
+    <p style="color:var(--text-sub);font-size:.9rem">
+      コンテンツビジネスには5つの型があります。<br>
+      あなたの経験・性格・目標から、<br>最適な型を見つけましょう。
+    </p>
+    <div class="intro-icons">
+      <span style="color:var(--reporter)">📡 レポーター型</span>
+      <span style="color:var(--arbitrage)">🌏 アービトラージ型</span>
+      <span style="color:var(--collab)">🤝 コラボ型</span>
+      <span style="color:var(--prosumer)">📚 プロシューマー型</span>
+      <span style="color:var(--uber)">📦 ウーバーイーツ型</span>
+    </div>
+    <button class="start-btn" onclick="startQuiz()">診断スタート →</button>
+    <p style="margin-top:16px;font-size:.75rem;color:var(--text-sub)">所要時間：約2分 ／ 全7問</p>
+  </div>
+
+  <!-- ====== PROGRESS ====== -->
+  <div id="progress-section" class="progress-wrap hidden">
+    <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+    <div id="progress-label" class="progress-label"></div>
+  </div>
+
+  <!-- ====== QUESTION ====== -->
+  <div id="question-card" class="card hidden"></div>
+
+  <!-- ====== RESULT ====== -->
+  <div id="result" class="card screen hidden"></div>
+
+</div>
+
+<script>
+const TYPES = {
+  reporter:  {name:"レポーター型",    emoji:"📡", color:"#FF6B6B",
+    desc:"あなたは人を見る目があり、面白い人・スゴイ人を見つけて<strong>紹介・発信する力</strong>に長けています。プロデューサー的なポジションで、業界の専門家やベストセラー作家を紹介しながらプロモーションをする型です。\n\n<strong>こんな人におすすめ：</strong>\n・人脈が広い、またはこれから広げたい\n・人の魅力を見抜くのが得意\n・自分が前面に出るよりも裏方が好き"},
+  arbitrage: {name:"アービトラージ型", emoji:"🌏", color:"#4ECDC4",
+    desc:"あなたは情報感度が高く、<strong>まだ日本に知られていない価値ある情報</strong>を見つける嗅覚があります。海外や他業界で成功している事例を日本市場に持ち込む「情報の裁定取引」で勝負する型です。AI時代の今、かなり始めやすいのが特徴。\n\n<strong>こんな人におすすめ：</strong>\n・海外の情報に触れる機会がある\n・トレンドに敏感\n・「これ日本にはまだないな」と感じることが多い"},
+  collab:    {name:"コラボ型",        emoji:"🤝", color:"#FFE66D",
+    desc:"あなたは人と組むことで力を発揮するタイプ。SNSやYouTube、ライブ配信などで<strong>誰かとコラボして一気にマーケットを広げる</strong>戦い方が合っています。すでにある程度の基盤がある人が次のステージに行くための型です。\n\n<strong>こんな人におすすめ：</strong>\n・月収100万〜1000万円を目指している\n・SNSやYouTubeでフォロワーがいる\n・ジョイントベンチャーに興味がある"},
+  prosumer:  {name:"プロシューマー型", emoji:"📚", color:"#A29BFE",
+    desc:"あなたは<strong>学びながら稼ぐ</strong>ことに最も適しています。プロデューサー（Producer）と消費者（Consumer）を同時にこなす型です。各業界の専門家をプロデュースしながら自分も学び、その学びをさらにコンテンツにしていきます。\n\n<strong>こんな人におすすめ：</strong>\n・好奇心が強く、学ぶことが好き\n・複数の分野に興味がある\n・インプットとアウトプットを同時にしたい"},
+  uber:      {name:"ウーバーイーツ型", emoji:"📦", color:"#FF9FF3",
+    desc:"あなたは情報を集めて整理し、<strong>わかりやすく届ける力</strong>を持っています。自分に専門性がなくても、すでにある情報をキュレーションして再編集するだけでコンテンツになる。「〇〇の本100冊を1冊にまとめてみた」のような型です。\n\n<strong>こんな人におすすめ：</strong>\n・特別なスキルや実績がまだない\n・情報を整理してまとめるのが好き\n・フォロワーゼロ・実績ゼロからでも始めたい"}
+};
+
+const QUESTIONS = [
+  {
+    text:"あなたの現在の状況に一番近いのは？",
+    opts:[
+      {icon:"🌱", label:"特別なスキルや実績はまだない",              scores:{uber:3}},
+      {icon:"🤝", label:"面白い人脈や知り合いが多い",                scores:{reporter:3}},
+      {icon:"🌍", label:"海外の情報に触れる機会が多い",              scores:{arbitrage:3}},
+      {icon:"📱", label:"SNSやYouTubeでフォロワーがいる",            scores:{collab:3}},
+      {icon:"📖", label:"色々な分野に興味があり学ぶのが好き",        scores:{prosumer:3}}
+    ]
+  },
+  {
+    text:"どんな働き方が理想ですか？",
+    opts:[
+      {icon:"🎤", label:"人を紹介したり、つなげたりする仕事",        scores:{reporter:3}},
+      {icon:"🔍", label:"海外や他業界の最新情報をリサーチする仕事",  scores:{arbitrage:3}},
+      {icon:"🎬", label:"誰かと一緒にプロジェクトを進める仕事",      scores:{collab:3}},
+      {icon:"🎓", label:"学びながら収入も得られる仕事",              scores:{prosumer:3}},
+      {icon:"📝", label:"情報を集めてまとめて届ける仕事",            scores:{uber:3}}
+    ]
+  },
+  {
+    text:"コンテンツビジネスでの目標は？",
+    opts:[
+      {icon:"🚀", label:"まずは月収10〜30万円を安定させたい",        scores:{uber:3,arbitrage:1}},
+      {icon:"💎", label:"月収100万円以上を目指したい",                scores:{collab:3}},
+      {icon:"👑", label:"自分のブランドを築きたい",                  scores:{reporter:2,prosumer:2}},
+      {icon:"📚", label:"新しい知識を得ながら稼ぎたい",              scores:{prosumer:3}},
+      {icon:"⚡", label:"できるだけ早く結果を出したい",               scores:{uber:2,arbitrage:2}}
+    ]
+  },
+  {
+    text:"あなたの一番の強みは？",
+    opts:[
+      {icon:"💬", label:"人脈やコミュニケーション力",                scores:{reporter:2,collab:2}},
+      {icon:"🌐", label:"語学力や海外経験",                          scores:{arbitrage:3}},
+      {icon:"🧠", label:"好奇心旺盛でインプット量が多い",            scores:{prosumer:2,uber:1}},
+      {icon:"✂️", label:"情報を整理・編集する力",                     scores:{uber:3}},
+      {icon:"🤷", label:"正直、まだ強みが見つかっていない",           scores:{uber:3}}
+    ]
+  },
+  {
+    text:"他の人のコンテンツを見てよく思うことは？",
+    opts:[
+      {icon:"📣", label:"「この人をもっと多くの人に紹介したい！」",  scores:{reporter:3}},
+      {icon:"💡", label:"「これ日本にはまだない情報だ！」",          scores:{arbitrage:3}},
+      {icon:"🤝", label:"「この人と一緒に何かやりたい！」",          scores:{collab:3}},
+      {icon:"🔬", label:"「もっと深く学んで、自分も伝えたい！」",    scores:{prosumer:3}},
+      {icon:"📋", label:"「この情報をわかりやすくまとめたい！」",    scores:{uber:3}}
+    ]
+  },
+  {
+    text:"AI時代のコンテンツビジネスで一番やりたいことは？",
+    opts:[
+      {icon:"🎯", label:"AIを使って面白い人や情報を発掘・発信する",  scores:{reporter:3}},
+      {icon:"🌏", label:"AIで海外情報を翻訳・編集して日本に届ける",  scores:{arbitrage:3}},
+      {icon:"📈", label:"AIを活用して他の人とのコラボを加速させる",  scores:{collab:3}},
+      {icon:"🔄", label:"AIで学習効率を上げつつ自分も教える側になる",scores:{prosumer:3}},
+      {icon:"📦", label:"AIで大量の情報を整理してコンテンツにする",  scores:{uber:3}}
+    ]
+  },
+  {
+    text:"リスクに対する考え方は？",
+    opts:[
+      {icon:"🛡️", label:"リスクは最小限にして堅実に始めたい",        scores:{uber:3}},
+      {icon:"🎲", label:"情報の目利きには自信がある",                scores:{arbitrage:3}},
+      {icon:"👥", label:"人と組むことでリスクを分散したい",          scores:{reporter:2,collab:2}},
+      {icon:"📘", label:"勉強しながら慎重に進めたい",                scores:{prosumer:3}},
+      {icon:"🔥", label:"大きなリターンのためならリスクも取れる",    scores:{collab:3}}
+    ]
+  }
+];
+
+let currentQ = 0;
+const scores = {reporter:0, arbitrage:0, collab:0, prosumer:0, uber:0};
+
+function $(id){return document.getElementById(id)}
+
+function startQuiz(){
+  $("intro").classList.add("hidden");
+  $("progress-section").classList.remove("hidden");
+  showQuestion();
+}
+
+function showQuestion(){
+  const q = QUESTIONS[currentQ];
+  const total = QUESTIONS.length;
+  $("progress-fill").style.width = ((currentQ)/total*100)+"%";
+  $("progress-label").textContent = `${currentQ+1} / ${total}`;
+
+  const card = $("question-card");
+  card.classList.remove("hidden");
+  card.style.animation = "none";
+  void card.offsetWidth;
+  card.style.animation = "";
+
+  let html = `<div class="q-number">Question ${currentQ+1}</div>`;
+  html += `<div class="q-text">${q.text}</div>`;
+  html += `<div class="options">`;
+  q.opts.forEach((o,i) => {
+    html += `<button class="opt-btn" onclick="answer(${i})">
+      <span class="icon">${o.icon}</span><span>${o.label}</span>
+    </button>`;
+  });
+  html += `</div>`;
+  card.innerHTML = html;
+}
+
+function answer(idx){
+  const q = QUESTIONS[currentQ];
+  const chosen = q.opts[idx].scores;
+  for(const k in chosen) scores[k] += chosen[k];
+
+  currentQ++;
+  if(currentQ < QUESTIONS.length){
+    showQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function saveProfile(type, allScores){
+  const profile = JSON.parse(localStorage.getItem('cbProfile') || '{"quizzes":{}}');
+  profile.quizzes = profile.quizzes || {};
+  profile.quizzes.v1 = {
+    type: type,
+    scores: {...allScores},
+    timestamp: new Date().toISOString()
+  };
+  profile.primaryType = type;
+  localStorage.setItem('cbProfile', JSON.stringify(profile));
+}
+
+function showResult(){
+  $("question-card").classList.add("hidden");
+  $("progress-fill").style.width = "100%";
+  $("progress-label").textContent = "完了！";
+
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const topKey = sorted[0][0];
+  const top = TYPES[topKey];
+  const maxScore = sorted[0][1];
+
+  saveProfile(topKey, scores);
+
+  const card = $("result");
+  card.classList.remove("hidden");
+  card.style.animation = "none";
+  void card.offsetWidth;
+  card.style.animation = "";
+
+  let html = `<p style="font-size:.85rem;color:var(--text-sub);margin-bottom:4px">あなたにぴったりの型は…</p>`;
+  html += `<div class="result-type-badge" style="background:${top.color}22;color:${top.color};border:2px solid ${top.color}">${top.emoji} ${top.name}</div>`;
+  html += `<p class="result-subtitle">5つの型の中で、あなたに最も合った戦い方です</p>`;
+  html += `<div class="result-desc">${top.desc.replace(/\n/g,"<br>")}</div>`;
+
+  html += `<div class="all-types"><h3>あなたの適性スコア</h3>`;
+  sorted.forEach(([key,val]) => {
+    const t = TYPES[key];
+    const pct = maxScore > 0 ? Math.round(val/maxScore*100) : 0;
+    html += `<div class="type-bar">
+      <span class="label" style="color:${t.color}">${t.emoji} ${t.name}</span>
+      <div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${t.color}"></div></div>
+      <span class="pct">${pct}%</span>
+    </div>`;
+  });
+  html += `</div>`;
+
+  html += `<div style="margin-top:32px">
+    <button class="retry-btn" onclick="retry()">🔄 もう一度診断する</button>
+    <button class="share-btn" onclick="shareResult('${topKey}')">📤 結果をシェア</button>
+  </div>`;
+
+  html += `<div class="cta-box">
+    <h3>💡 あなたの「売れる企画」をプロが直接決めます</h3>
+    <p>診断結果をもとに、<strong>あなたの型に合わせた</strong><br>
+    ブートキャンプ案内ページを用意しました。<br>
+    長倉があなたの企画をその場で決めます！</p>
+    <a href="./lp/">あなた専用のご案内を見る →</a>
+  </div>`;
+
+  card.innerHTML = html;
+}
+
+function retry(){
+  currentQ = 0;
+  for(const k in scores) scores[k] = 0;
+  $("result").classList.add("hidden");
+  $("result").innerHTML = "";
+  showQuestion();
+}
+
+function shareResult(typeKey){
+  const t = TYPES[typeKey];
+  const text = `【コンテンツビジネス5つの型 診断】\n私の診断結果は「${t.name}」でした！${t.emoji}\nあなたもやってみて👇`;
+  if(navigator.share){
+    navigator.share({title:"コンテンツビジネス5つの型 診断",text}).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(text).then(()=>{
+      alert("結果テキストをコピーしました！SNSに貼り付けてシェアしてください。");
+    }).catch(()=>{
+      prompt("以下をコピーしてシェアしてください：",text);
+    });
+  }
+}
+</script>
+</body>
+</html>
