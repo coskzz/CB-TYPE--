@@ -212,6 +212,9 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
 </div>
 
 <script>
+// ── GAS endpoint for analytics (set after Google Apps Script deployment) ──
+const GAS_ENDPOINT = '';
+
 const TYPES = {
   reporter:  {name:"レポーター型",    emoji:"📡", color:"#DC2626"},
   arbitrage: {name:"アービトラージ型", emoji:"🌏", color:"#0891B2"},
@@ -222,78 +225,79 @@ const TYPES = {
 
 const QUESTIONS = [
   {
-    text:"あなたの現在の状況に一番近いのは？",
-    opts:[
-      {icon:"🌱", label:"特別なスキルや実績はまだない",              scores:{uber:3}},
-      {icon:"🤝", label:"面白い人脈や知り合いが多い",                scores:{reporter:3}},
-      {icon:"🌍", label:"海外の情報に触れる機会が多い",              scores:{arbitrage:3}},
-      {icon:"📱", label:"SNSやYouTubeでフォロワーがいる",            scores:{collab:3}},
-      {icon:"📖", label:"色々な分野に興味があり学ぶのが好き",        scores:{prosumer:3}}
+    text: "何かを達成したとき、一番「やった！」と感じる瞬間は？",
+    opts: [
+      {icon:"🌊", label:"バラバラだった人たちが一つになって結果が出たとき",              scores:{collab:3, reporter:1}},
+      {icon:"⚡", label:"自分が作った仕組みで誰かが迷わず動けたとき",                    scores:{uber:3, arbitrage:1}},
+      {icon:"🌟", label:"思いがけず「あなたに聞いてよかった」と言われたとき",            scores:{reporter:3, prosumer:1}},
+      {icon:"🔥", label:"夢中で調べていたことが、ぴったりはまる場面に出会えたとき",      scores:{prosumer:3, collab:1}},
+      {icon:"🎯", label:"みんなより先に気づいて動けていたと気づいたとき",                scores:{arbitrage:3, uber:1}}
     ]
   },
   {
-    text:"どんな働き方が理想ですか？",
-    opts:[
-      {icon:"🎤", label:"人を紹介したり、つなげたりする仕事",        scores:{reporter:3}},
-      {icon:"🔍", label:"海外や他業界の最新情報をリサーチする仕事",  scores:{arbitrage:3}},
-      {icon:"🎬", label:"誰かと一緒にプロジェクトを進める仕事",      scores:{collab:3}},
-      {icon:"🎓", label:"学びながら収入も得られる仕事",              scores:{prosumer:3}},
-      {icon:"📝", label:"情報を集めてまとめて届ける仕事",            scores:{uber:3}}
+    text: "仕事や活動で「これが一番大事」と思うのは？",
+    opts: [
+      {icon:"📦", label:"積み上げた経験を誰でも使えるかたちにすること",                  scores:{uber:3, prosumer:1}},
+      {icon:"🌺", label:"一つのことを深く極めること",                                   scores:{prosumer:3, arbitrage:1}},
+      {icon:"💫", label:"人との出会いや縁を大切にすること",                             scores:{reporter:3, collab:2}},
+      {icon:"🌈", label:"みんなが力を合わせられる環境をつくること",                     scores:{collab:3, uber:1}},
+      {icon:"🏔️", label:"常に新しい情報や視点をアップデートし続けること",                scores:{arbitrage:3, reporter:1}}
     ]
   },
   {
-    text:"コンテンツビジネスでの目標は？",
-    opts:[
-      {icon:"🚀", label:"まずは月収10〜30万円を安定させたい",        scores:{uber:3,arbitrage:1}},
-      {icon:"💎", label:"月収100万円以上を目指したい",                scores:{collab:3}},
-      {icon:"👑", label:"自分のブランドを築きたい",                  scores:{reporter:2,prosumer:2}},
-      {icon:"📚", label:"新しい知識を得ながら稼ぎたい",              scores:{prosumer:3}},
-      {icon:"⚡", label:"できるだけ早く結果を出したい",               scores:{uber:2,arbitrage:2}}
+    text: "グループで何かプロジェクトをするとき、気づいたら自然とやっていることは？",
+    opts: [
+      {icon:"🗂️", label:"役割や手順を整理してチームが動きやすくする",                   scores:{uber:3, arbitrage:1}},
+      {icon:"🔭", label:"外の事例や誰も知らない情報を持ち込む",                          scores:{arbitrage:3, prosumer:1}},
+      {icon:"💡", label:"自分の専門性で徹底的にサポートする",                           scores:{prosumer:3, uber:1}},
+      {icon:"🌐", label:"詳しい人や経験者を探してつなぐ",                               scores:{reporter:3, collab:2}},
+      {icon:"🎵", label:"みんなの意見を引き出して整理する",                             scores:{collab:3, reporter:1}}
     ]
   },
   {
-    text:"あなたの一番の強みは？",
-    opts:[
-      {icon:"💬", label:"人脈やコミュニケーション力",                scores:{reporter:2,collab:2}},
-      {icon:"🌐", label:"語学力や海外経験",                          scores:{arbitrage:3}},
-      {icon:"🧠", label:"好奇心旺盛でインプット量が多い",            scores:{prosumer:2,uber:1}},
-      {icon:"✂️", label:"情報を整理・編集する力",                     scores:{uber:3}},
-      {icon:"🤷", label:"正直、まだ強みが見つかっていない",           scores:{uber:3}}
+    text: "新しいことを始めるとき、最初に自然とやることは？",
+    opts: [
+      {icon:"🗺️", label:"まず先行事例を徹底的に調べて全体像を掴む",                    scores:{arbitrage:3, reporter:1}},
+      {icon:"🤲", label:"一緒にやれる仲間や協力者を探す",                               scores:{collab:3, prosumer:1}},
+      {icon:"🧭", label:"ゴールから逆算して手順を組み立てる",                           scores:{uber:3, arbitrage:1}},
+      {icon:"🎙️", label:"経験者や関係者に話を聞きに行く",                               scores:{reporter:3, uber:1}},
+      {icon:"📖", label:"自分でとことん学んで理解してから動く",                         scores:{prosumer:3, collab:1}}
     ]
   },
   {
-    text:"他の人のコンテンツを見てよく思うことは？",
-    opts:[
-      {icon:"📣", label:"「この人をもっと多くの人に紹介したい！」",  scores:{reporter:3}},
-      {icon:"💡", label:"「これ日本にはまだない情報だ！」",          scores:{arbitrage:3}},
-      {icon:"🤝", label:"「この人と一緒に何かやりたい！」",          scores:{collab:3}},
-      {icon:"🔬", label:"「もっと深く学んで、自分も伝えたい！」",    scores:{prosumer:3}},
-      {icon:"📋", label:"「この情報をわかりやすくまとめたい！」",    scores:{uber:3}}
+    text: "自分の強みを一言で表すとしたら？",
+    opts: [
+      {icon:"⚙️", label:"複雑なことをシンプルに再現できる形にできる",                   scores:{uber:3, prosumer:1}},
+      {icon:"🔬", label:"気になったことを誰よりも深く掘り下げられる",                   scores:{prosumer:3, arbitrage:1}},
+      {icon:"🌊", label:"周りより早く流れを読んで動ける",                               scores:{arbitrage:3, uber:1}},
+      {icon:"🌉", label:"人と人をつないでまとめるのが得意",                             scores:{collab:3, reporter:1}},
+      {icon:"🎤", label:"人の話を引き出すのがうまい",                                  scores:{reporter:3, collab:2}}
     ]
   },
   {
-    text:"AI時代のコンテンツビジネスで一番やりたいことは？",
-    opts:[
-      {icon:"🎯", label:"AIを使って面白い人や情報を発掘・発信する",  scores:{reporter:3}},
-      {icon:"🌏", label:"AIで海外情報を翻訳・編集して日本に届ける",  scores:{arbitrage:3}},
-      {icon:"📈", label:"AIを活用して他の人とのコラボを加速させる",  scores:{collab:3}},
-      {icon:"🔄", label:"AIで学習効率を上げつつ自分も教える側になる",scores:{prosumer:3}},
-      {icon:"📦", label:"AIで大量の情報を整理してコンテンツにする",  scores:{uber:3}}
+    text: "好きな情報の集め方に近いのは？",
+    opts: [
+      {icon:"🌳", label:"一つのジャンルを深掘りして関連情報を網羅する",                  scores:{prosumer:3, collab:1}},
+      {icon:"🔗", label:"コミュニティや仲間の発信をチェックして共有する",                scores:{collab:3, uber:1}},
+      {icon:"🦅", label:"まだ多くの人が知らない情報を自分から取りにいく",               scores:{arbitrage:3, reporter:1}},
+      {icon:"📐", label:"体系的に学べる講座やロードマップで学ぶ",                       scores:{uber:3, arbitrage:1}},
+      {icon:"☕", label:"気になった人に直接会って、話から学ぶ",                         scores:{reporter:3, prosumer:1}}
     ]
   },
   {
-    text:"リスクに対する考え方は？",
-    opts:[
-      {icon:"🛡️", label:"リスクは最小限にして堅実に始めたい",        scores:{uber:3}},
-      {icon:"🎲", label:"情報の目利きには自信がある",                scores:{arbitrage:3}},
-      {icon:"👥", label:"人と組むことでリスクを分散したい",          scores:{reporter:2,collab:2}},
-      {icon:"📘", label:"勉強しながら慎重に進めたい",                scores:{prosumer:3}},
-      {icon:"🔥", label:"大きなリターンのためならリスクも取れる",    scores:{collab:3}}
+    text: "自分が発信するなら、どんなスタイルが一番しっくりくる？",
+    opts: [
+      {icon:"📋", label:"誰でも再現できるよう手順やポイントを整理して伝える",            scores:{uber:3, collab:1}},
+      {icon:"🎬", label:"実際に会って話した人のリアルな話を届ける",                     scores:{reporter:3, collab:1}},
+      {icon:"📓", label:"自分の経験や学びをリアルに記録しながら届ける",                 scores:{prosumer:3, uber:1}},
+      {icon:"🌏", label:"まだ注目されていない情報をいち早く届ける",                     scores:{arbitrage:3, prosumer:1}},
+      {icon:"🎪", label:"自分一人ではなく、誰かと一緒に作り上げる",                    scores:{collab:3, reporter:1}}
     ]
   }
 ];
 
 let currentQ = 0;
+let currentShuffled = [];
 const scores = {reporter:0, arbitrage:0, collab:0, prosumer:0, uber:0};
 
 function $(id){return document.getElementById(id)}
@@ -310,6 +314,9 @@ function showQuestion(){
   $("progress-fill").style.width = ((currentQ)/total*100)+"%";
   $("progress-label").textContent = `${currentQ+1} / ${total}`;
 
+  // Shuffle options for display (scores stay attached to each option object)
+  currentShuffled = [...q.opts].sort(() => Math.random() - 0.5);
+
   const card = $("question-card");
   card.classList.remove("hidden");
   card.style.animation = "none";
@@ -319,7 +326,7 @@ function showQuestion(){
   let html = `<div class="q-number">Question ${currentQ+1}</div>`;
   html += `<div class="q-text">${q.text}</div>`;
   html += `<div class="options">`;
-  q.opts.forEach((o,i) => {
+  currentShuffled.forEach((o,i) => {
     html += `<button class="opt-btn" onclick="answer(${i})">
       <span class="icon">${o.icon}</span><span>${o.label}</span>
     </button>`;
@@ -329,8 +336,8 @@ function showQuestion(){
 }
 
 function answer(idx){
-  const q = QUESTIONS[currentQ];
-  const chosen = q.opts[idx].scores;
+  // Use shuffled order to get scores
+  const chosen = currentShuffled[idx].scores;
   for(const k in chosen) scores[k] += chosen[k];
 
   currentQ++;
@@ -353,6 +360,22 @@ function saveProfile(type, allScores){
   localStorage.setItem('cbProfile', JSON.stringify(profile));
 }
 
+function sendToGAS(type, allScores){
+  if(!GAS_ENDPOINT) return;
+  try {
+    fetch(GAS_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify({
+        type: type,
+        scores: allScores,
+        ua: navigator.userAgent.substring(0, 200),
+        ref: document.referrer.substring(0, 200)
+      })
+    });
+  } catch(e){}
+}
+
 function showResult(){
   $("question-card").classList.add("hidden");
   $("progress-fill").style.width = "100%";
@@ -362,6 +385,7 @@ function showResult(){
   const topKey = sorted[0][0];
 
   saveProfile(topKey, scores);
+  sendToGAS(topKey, scores);
 
   const card = $("result");
   card.classList.remove("hidden");
@@ -390,6 +414,7 @@ function showResult(){
 
 function retry(){
   currentQ = 0;
+  currentShuffled = [];
   for(const k in scores) scores[k] = 0;
   $("result").classList.add("hidden");
   $("result").innerHTML = "";
