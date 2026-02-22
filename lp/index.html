@@ -21,16 +21,12 @@ body{
   display:flex;flex-direction:column;align-items:center;
   overflow-x:hidden;line-height:1.8;
 }
-.container{
-  width:100%;max-width:680px;
-  padding:0 20px 80px;
-}
+.container{width:100%;max-width:680px;padding:0 20px 80px}
 
 /* ── Top nav ── */
 .top-nav{
   display:flex;align-items:center;justify-content:space-between;
-  padding:14px 0;border-bottom:1px solid var(--border);
-  margin-bottom:0;
+  padding:14px 0;border-bottom:1px solid var(--border);margin-bottom:0;
 }
 .top-nav .back-link{
   display:inline-flex;align-items:center;gap:5px;
@@ -39,109 +35,18 @@ body{
 .top-nav .back-link:hover{color:var(--primary)}
 .top-nav .share-link{
   display:inline-flex;align-items:center;gap:5px;
-  color:var(--text-sub);font-size:.78rem;text-decoration:none;
-  cursor:pointer;background:none;border:none;padding:0;
+  color:var(--text-sub);font-size:.78rem;cursor:pointer;
+  background:none;border:none;padding:0;
 }
 .top-nav .share-link:hover{color:var(--primary)}
 
-/* ── Section base ── */
-.section{padding:40px 0;border-bottom:1px solid var(--border)}
-.section:last-child{border-bottom:none}
-
-/* ── LP Content Typography ── */
-.lp-body h2{
-  font-size:1.2rem;font-weight:800;
-  line-height:1.55;margin:40px 0 16px;
-  color:var(--text);
-}
-.lp-body h2:first-child{margin-top:0}
-.lp-body p{
-  margin-bottom:1em;color:var(--text);
-  font-size:.95rem;line-height:1.95;
-}
-.lp-body strong{color:var(--primary)}
-.lp-body ul,.lp-body ol{
-  margin:12px 0 16px 0;
-  list-style:none;
-}
-.lp-body ul li,.lp-body ol li{
-  position:relative;padding-left:1.4em;
-  margin-bottom:8px;font-size:.93rem;line-height:1.85;
-}
-.lp-body ul li::before{
-  content:"・";position:absolute;left:0;color:var(--primary);
-}
-.lp-body blockquote{
-  background:var(--surface2);
-  border-left:3px solid var(--primary);
-  border-radius:0 10px 10px 0;
-  padding:20px 20px 20px 22px;
-  margin:16px 0;font-size:.92rem;line-height:1.9;
-}
-.lp-body blockquote strong{color:var(--primary)}
-.lp-body hr{
-  border:none;border-top:1px solid var(--border);
-  margin:40px 0;
-}
-
-/* ── Section image ── */
-.section-img{
-  display:block;width:100%;max-width:600px;
-  margin:20px auto 28px;border-radius:12px;
-  box-shadow:var(--shadow);
-}
-
-/* ── Emphasis box ── */
-.emphasis-box{
-  background:linear-gradient(135deg,rgba(108,92,231,.06),rgba(0,168,107,.04));
-  border:1px solid rgba(108,92,231,.2);
-  border-radius:var(--radius);
-  padding:24px;margin:24px 0;text-align:center;
-}
-.emphasis-box p{font-size:1.05rem;font-weight:700;margin:0;color:var(--text)}
-
-/* ── CTA image button ── */
-.cta-img-link{
-  display:block;margin:32px auto;max-width:500px;
-  cursor:pointer;transition:transform .2s ease, opacity .2s ease;
-}
-.cta-img-link:hover{transform:scale(1.02);opacity:.92}
-.cta-img-link img{display:block;width:100%;border-radius:12px}
-
-/* ── CTA Section ── */
-.cta-section{
-  background:#fff;
-  border:1px solid var(--border);
-  border-top:3px solid var(--primary);
-  border-radius:var(--radius);
-  padding:36px 28px;text-align:center;
-  margin:36px 0;
-  box-shadow:var(--shadow);
-}
-.cta-section h3{font-size:1.1rem;margin-bottom:12px;color:var(--text)}
-.cta-section p{font-size:.88rem;color:var(--text-sub);margin-bottom:20px;line-height:1.75}
-.cta-btn{
-  display:inline-block;
-  padding:18px 44px;border-radius:60px;
-  font-weight:800;font-size:1rem;letter-spacing:.02em;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  color:#fff;text-decoration:none;
-  box-shadow:0 6px 24px rgba(108,92,231,.35);
-  transition:all .25s ease;
-}
-.cta-btn:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(108,92,231,.5)}
-.cta-price{margin-top:16px;font-size:.82rem;color:var(--text-sub)}
-.price-original{font-size:.9rem;color:var(--text-sub);text-decoration:line-through;margin-right:8px}
-.price-tag{font-size:2rem;font-weight:900;color:var(--primary)}
-
-/* ── Type intro card ── */
+/* ── Personalized intro card ── */
 .intro-card{
   background:var(--surface);
   border:1px solid var(--border);
   border-left:4px solid var(--type-color, var(--primary));
   border-radius:var(--radius);
-  padding:32px 28px;
-  margin:24px 0;
+  padding:32px 28px;margin:24px 0;
   box-shadow:var(--shadow);
   animation:fadeUp .45s ease both;
 }
@@ -149,54 +54,69 @@ body{
   from{opacity:0;transform:translateY(20px)}
   to{opacity:1;transform:translateY(0)}
 }
+.result-label{
+  font-size:.72rem;font-weight:700;color:var(--text-sub);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;
+}
+.type-badge{
+  display:inline-block;
+  font-size:1.3rem;font-weight:900;
+  padding:6px 20px;border-radius:60px;
+  background:color-mix(in srgb, var(--type-color, var(--primary)) 12%, white);
+  color:var(--type-color, var(--primary));
+  border:2px solid var(--type-color, var(--primary));
+  margin-bottom:20px;
+}
 
-/* ── Program box ── */
-.program-box{
+/* ── LP body typography ── */
+.lp-body h2{
+  font-size:1.2rem;font-weight:800;line-height:1.55;
+  margin:40px 0 16px;color:var(--text);
+}
+.lp-body h2:first-child{margin-top:0}
+.lp-body p{margin-bottom:1em;color:var(--text);font-size:.95rem;line-height:1.95}
+.lp-body strong{color:var(--primary)}
+.lp-body hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+
+/* ── Section image ── */
+.section-img{
+  display:block;width:100%;max-width:600px;
+  margin:20px auto 28px;border-radius:12px;box-shadow:var(--shadow);
+}
+
+/* ── Blockquote (schedule boxes) ── */
+.lp-body blockquote{
   background:var(--surface2);
-  border-radius:var(--radius);border:1px solid var(--border);
-  padding:24px;margin:20px 0;
+  border-left:3px solid var(--primary);
+  border-radius:0 10px 10px 0;
+  padding:20px 20px 20px 22px;
+  margin:20px 0;font-size:.9rem;line-height:2;
 }
-.program-box h4{
-  font-size:.88rem;color:var(--primary);
-  margin-bottom:12px;letter-spacing:.05em;
-  text-transform:uppercase;font-weight:700;
-}
+.lp-body blockquote strong{color:var(--primary)}
 
-/* ── Pricing box ── */
-.price-box{
-  background:var(--surface);
-  border:2px solid var(--primary);
-  border-radius:var(--radius);
-  padding:28px 24px;margin:24px 0;text-align:center;
+/* ── Bullet list (・style) ── */
+.lp-body .dot-list{list-style:none;margin:12px 0 16px;padding:0}
+.lp-body .dot-list li{
+  position:relative;padding-left:1.2em;
+  margin-bottom:6px;font-size:.95rem;line-height:1.85;
 }
-.price-box .label{font-size:.8rem;color:var(--text-sub);margin-bottom:4px}
-.price-box .main-price{font-size:2.2rem;font-weight:900;color:var(--primary)}
-.price-box .tax{font-size:.8rem;color:var(--text-sub)}
+.lp-body .dot-list li::before{content:"・";position:absolute;left:0;color:var(--text)}
 
-/* ── FAQ ── */
-.faq-item{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:12px;padding:20px;margin-bottom:12px;
+/* ── CTA image button ── */
+.cta-img-link{
+  display:block;margin:32px auto;max-width:500px;
+  cursor:pointer;transition:transform .2s ease,opacity .2s ease;
 }
-.faq-q{font-weight:700;margin-bottom:8px;font-size:.93rem;color:var(--text)}
-.faq-a{color:var(--text-sub);font-size:.88rem;line-height:1.8}
-
-/* ── Profile ── */
-.profile-section{padding:40px 0}
-.profile-img{
-  display:block;width:120px;height:120px;border-radius:50%;
-  margin:0 auto 16px;object-fit:cover;
-  box-shadow:var(--shadow);
+.cta-img-link:hover{transform:scale(1.02);opacity:.92}
+.cta-img-link img{display:block;width:100%;border-radius:12px}
+.cta-fallback{
+  display:block;text-align:center;
+  font-size:.82rem;color:var(--text-sub);
+  text-decoration:underline;margin-top:6px;
 }
-.profile-name{font-size:1.2rem;font-weight:800;margin-bottom:6px;text-align:center}
-.profile-title{color:var(--text-sub);font-size:.85rem;margin-bottom:16px;text-align:center}
-.profile-bio{font-size:.88rem;color:var(--text-sub);line-height:1.9}
 
 /* ── No profile state ── */
-.no-profile{
-  text-align:center;padding:60px 24px;
-}
+.no-profile{text-align:center;padding:60px 24px}
 .no-profile h2{font-size:1.1rem;margin-bottom:12px}
 .no-profile p{color:var(--text-sub);font-size:.9rem;margin-bottom:24px}
 .quiz-btn{
@@ -205,20 +125,15 @@ body{
   color:#fff;text-decoration:none;font-weight:700;
 }
 
-/* ── Highlight ── */
-.highlight{color:var(--accent)}
-
 /* ── Responsive ── */
 @media(max-width:480px){
   .lp-body h2{font-size:1.05rem}
-  .cta-btn{padding:16px 32px;font-size:.95rem}
   .intro-card{padding:24px 18px}
-  .price-tag{font-size:1.6rem}
+  .type-badge{font-size:1.1rem}
 }
 </style>
 </head>
 <body>
-
 <div class="container">
 
   <!-- TOP NAV -->
@@ -237,265 +152,321 @@ body{
   <!-- LP CONTENT -->
   <div id="lp-main" style="display:none">
 
-    <!-- PERSONALIZED INTRO -->
-    <div id="intro-section" class="section" style="padding-top:32px">
+    <!-- ====== PERSONALIZED INTRO (type-specific) ====== -->
 
-      <!-- reporter intro -->
-      <div id="intro-reporter" class="intro-card" style="display:none;--type-color:var(--reporter)">
-        <div class="lp-body">
-          <h2>「この人、もっと世に出るべきだ」と<br>思ったことはありますか？</h2>
-          <p>長倉です！</p>
-          <p>世の中には、才能がある人が山ほどいる。<br>
-          でも、埋もれてしまっている人も山ほどいる。</p>
-          <p>面白い人を知っている。<br>
-          すごい人を知っている。<br>
-          もっと広めたい人がいる。</p>
-          <p>でも、自分が前に出るタイプじゃない。</p>
-          <p>コンテンツを作るとしたら、<br>
-          自分の経験や実績じゃなくて、<br>
-          <strong>「誰か面白い人を紹介すること」から始めたい。</strong></p>
-          <p>そう感じているなら、<br>
-          実は今一番チャンスのある立ち位置にいる。</p>
-          <p>なぜか？</p>
-          <p>オレが24年間やってきたのも、ほぼそれだ。</p>
-          <p>編集者として、プロデューサーとして、<br>
-          面白い人を見つけて世に送り出す。</p>
-          <p>それが仕事だった。</p>
-          <p>そして、<br>
-          才能を持っている本人より、<br>
-          それを「届ける側」の方が稼いでいるケースは多い。</p>
-          <p>DJがアーティストより稼いでいるように。<br>
-          プロデューサーがアーティストより稼いでいるように。</p>
-          <p><strong>「紹介する側」「橋渡しをする側」</strong>こそが、<br>
-          コンテンツビジネスで強いポジションを取れる。</p>
-          <p>問題は1つ。</p>
-          <p><strong>「どうコンテンツとして形にするか」がわからない。</strong></p>
-          <p>その1点だけを解決するのが、このブートキャンプです。</p>
-          <p>読み続けてください。</p>
-        </div>
-      </div>
-
-      <!-- arbitrage intro -->
-      <div id="intro-arbitrage" class="intro-card" style="display:none;--type-color:var(--arbitrage)">
-        <div class="lp-body">
-          <h2>スターバックスは<br>イタリアのコーヒー文化を「輸入」した。</h2>
-          <p>長倉です！</p>
-          <p>1983年、ハワード・シュルツはイタリアのミラノを旅行した。</p>
-          <p>そこで見たのは、<br>
-          街角にある小さなエスプレッソバー。</p>
-          <p>バリスタが手際よくコーヒーを作り、<br>
-          客が立ったまま飲んで、さっと去っていく。</p>
-          <p>そのコーヒー文化に衝撃を受けた。</p>
-          <p>「アメリカにはこれがない。」</p>
-          <p>彼はその情報格差を利益に変えた。</p>
-          <p>その会社が、スターバックスだ。</p>
-          <p><strong>情報の差があるところには、<br>
-          必ずビジネスチャンスがある。</strong></p>
-          <p>海外でうまくいっている手法、<br>
-          ニッチな業界の知識、<br>
-          日本ではまだ広まっていないトレンド。</p>
-          <p>そこに目が向く人がいる。</p>
-          <p>「これ、日本ではまだ知られていない」<br>
-          「この情報、絶対需要があるはずなのに」</p>
-          <p>そういう嗅覚を持っている人が、<br>
-          AI時代に最も強い。</p>
-          <p>なぜか？</p>
-          <p>AIを使えば、<br>
-          海外情報の翻訳・編集・パッケージ化が<br>
-          これまでの10分の1の時間でできる。</p>
-          <p>ただ、正直に言う。</p>
-          <p><strong>情報を持っていても、「企画力」がなければ売れない。</strong></p>
-          <p>どのマーケットに届けるか。<br>
-          どういうタイトルにするか。<br>
-          どう価格をつけるか。</p>
-          <p>この「企画」だけはAIには任せられない。</p>
-          <p>あなたの持っている情報優位性を、<br>
-          <strong>売れる商品に変える1日</strong>が、このブートキャンプです。</p>
-          <p>読み続けてください。</p>
-        </div>
-      </div>
-
-      <!-- collab intro -->
-      <div id="intro-collab" class="intro-card" style="display:none;--type-color:var(--collab)">
-        <div class="lp-body">
-          <h2>人脈がある人と、<br>売れる人の違いって何だと思う？</h2>
-          <p>長倉です！</p>
-          <p>それは、<strong>「オファーがあるかどうか」</strong>だ。</p>
-          <p>つながりがある。<br>
-          紹介してもらえる関係がある。<br>
-          コラボの声がかかることもある。</p>
-          <p>でも、</p>
-          <p>「実際に何を売ればいいかわからない」<br>
-          「自分のコンテンツや商品がまだない」<br>
-          「販売ページが整っていない」</p>
-          <p>そういう状態だと、<br>
-          どれだけ機会が来ても活かせない。</p>
-          <p>音楽フェスを開こうとしても、<br>
-          出演するアーティストがいなければ成立しない。</p>
-          <p>コラボやJV（ジョイントベンチャー）は、<br>
-          一人では届けられない層に一気にリーチできる。</p>
-          <p>広告費ゼロで売上が倍になることもある。</p>
-          <p>でも、それには前提条件がある。</p>
-          <p><strong>コラボを受ける側も、<br>
-          魅力的でなければならない。</strong></p>
-          <ul>
-            <li>自分のコンテンツがある</li>
-            <li>LPや販売ページが整っている</li>
-            <li>自分のブランドが確立されている</li>
-          </ul>
-          <p>この基盤がなければ、チャンスは来ない。</p>
-          <p>そのコラボの基盤を<br>
-          <strong>1日で完成させる</strong>のが、このブートキャンプです。</p>
-          <p>読み続けてください。</p>
-        </div>
-      </div>
-
-      <!-- prosumer intro -->
-      <div id="intro-prosumer" class="intro-card" style="display:none;--type-color:var(--prosumer)">
-        <div class="lp-body">
-          <h2>「勉強すれば稼げる」は<br>本当か？</h2>
-          <p>長倉です！</p>
-          <p>10年間、本を読み続けた人がいた。</p>
-          <p>年間100冊読んでいた。<br>
-          セミナーにも通い続けた。<br>
-          オンライン講座も買い続けた。</p>
-          <p>でも、10年後に聞いてみると、<br>
-          収益には全く繋がっていなかった。</p>
-          <p>一方で、<br>
-          3ヶ月でコンテンツビジネスを始めて<br>
-          月収100万円を超えた人もいる。</p>
-          <p>差は何か？</p>
-          <p><strong>「インプットをアウトプットに変えたかどうか」</strong>だ。</p>
-          <p>知識と収益の間には橋が必要だ。</p>
-          <p>どれだけ学んでも、<br>
-          その橋を渡らなければ稼げない。</p>
-          <p>「何をコンテンツにすればいいかわからない」<br>
-          「形にするまでのハードルが高すぎる」<br>
-          「一人だとどうしても後回しにしてしまう」</p>
-          <p>インプットとアウトプットの間で止まっている。</p>
-          <p>でも、だからこそチャンスがある。</p>
-          <p>すでに<strong>「伝えるべき知識」</strong>が蓄積されているから。</p>
-          <p>あとは、それを形にする<br>
-          <strong>強制アウトプット環境</strong>があればいい。</p>
-          <p>「学んで終わり」から「学んで稼ぐ」への転換。<br>
-          それを1日で完成させるのが、このブートキャンプです。</p>
-          <p>読み続けてください。</p>
-        </div>
-      </div>
-
-      <!-- uber intro -->
-      <div id="intro-uber" class="intro-card" style="display:none;--type-color:var(--uber)">
-        <div class="lp-body">
-          <h2>ビジネス書の名著の多くは<br>「まとめ本」だった。</h2>
-          <p>長倉です！</p>
-          <p>世界で1500万部以上<br>
-          日本で500万部以上</p>
-          <p><strong>超ベストセラービジネス書<br>
-          デール・カーネギー『人を動かす』</strong></p>
-          <p>この本を読んだことがある人はわかると思うけど、<br>
-          ほとんど、</p>
-          <ul>
-            <li>歴史的な出来事</li>
-            <li>偉人の発言、行動</li>
-          </ul>
-          <p>など。<strong>「他人の事例」</strong>がたくさん使われている。</p>
-          <p>つまり、<br>
-          たくさんの情報を1冊の本にまとめているだけ。</p>
-          <p>古典的なビジネス書ベストセラーでも<br>
-          <strong>ゼロから書いているんじゃなくて<br>
-          「情報のまとめ」で作られている</strong>わけだ。</p>
-          <p>DJも同じ。</p>
-          <p>DJっていうのは、<br>
-          アーティストの曲を選んでつなげるのが仕事。</p>
-          <p>しかも、<br>
-          <strong>DJがアーティストより稼いでいる</strong>のも事実。</p>
-          <p>曲をゼロから作っているアーティストよりも<br>
-          すでにある曲を使っているDJが稼げる。</p>
-          <p>これをコンテンツビジネスに取り入れると、</p>
-          <p>世の中にたくさんある情報から、</p>
-          <ul>
-            <li>選んで</li>
-            <li>まとめる</li>
-          </ul>
-          <p>だけでコンテンツが作れる。</p>
-          <p>「自分には何もない」<br>
-          「特別なスキルがない」<br>
-          「実績がない」</p>
-          <p>は関係ない。</p>
-          <p>問題は<strong>「何を届けるか（企画）」</strong>と<br>
-          <strong>「どう形にするか（制作）」</strong>だけ。</p>
-          <p>その2つを1日で完成させるのが、このブートキャンプです。</p>
-          <p>読み続けてください。</p>
-        </div>
-      </div>
-
-      <!-- default intro (no quiz taken) -->
-      <div id="intro-default" class="intro-card" style="--type-color:var(--primary)">
-        <div class="lp-body">
-          <h2>コンテンツビジネスブートキャンプへようこそ</h2>
-          <p>長倉です！</p>
-          <p>2026年、コンテンツビジネスの戦い方が変わった。</p>
-          <p>AIが普及して「誰でもコンテンツが作れる時代」になった。</p>
-          <p>だからこそ、<strong>「企画力」</strong>だけが差になる。</p>
-          <p>良い企画を持った人だけが生き残り、<br>
-          売れ続けることができる。</p>
-          <p>このブートキャンプでは、<br>
-          オレが直接あなたの企画を決めて、<br>
-          その日のうちにコンテンツを完成させる。</p>
-          <p>先に診断を受けると、<br>
-          あなたの型に合わせたページが表示されます。</p>
-          <p style="margin-top:16px">
-            <a href="../" style="color:var(--primary);font-weight:700">
-              → 診断を受ける（約2分）
-            </a>
-          </p>
-        </div>
+    <!-- reporter -->
+    <div id="intro-reporter" class="intro-card" style="display:none;--type-color:var(--reporter)">
+      <div class="result-label">あなたの診断結果</div>
+      <div class="type-badge">📡 レポーター型</div>
+      <div class="lp-body">
+        <h2>「この人、もっと世に出るべきだ」と<br>思ったことはありますか？</h2>
+        <p>長倉です！</p>
+        <p>世の中には、才能がある人が山ほどいる。<br>
+        でも、埋もれてしまっている人も山ほどいる。</p>
+        <p>面白い人を知っている。<br>
+        すごい人を知っている。<br>
+        もっと広めたい人がいる。</p>
+        <p>でも、自分が前に出るタイプじゃない。</p>
+        <p>コンテンツを作るとしたら、<br>
+        自分の経験や実績じゃなくて、<br>
+        <strong>「誰か面白い人を紹介すること」から始めたい。</strong></p>
+        <p>そう感じているなら、<br>
+        実は今一番チャンスのある立ち位置にいる。</p>
+        <p>なぜか？</p>
+        <p>オレが24年間やってきたのも、ほぼそれだ。</p>
+        <p>編集者として、プロデューサーとして、<br>
+        面白い人を見つけて世に送り出す。</p>
+        <p>それが仕事だった。</p>
+        <p>そして、<br>
+        才能を持っている本人より、<br>
+        それを「届ける側」の方が稼いでいるケースは多い。</p>
+        <p>DJがアーティストより稼いでいるように。<br>
+        プロデューサーがアーティストより稼いでいるように。</p>
+        <p><strong>「紹介する側」「橋渡しをする側」</strong>こそが、<br>
+        コンテンツビジネスで強いポジションを取れる。</p>
+        <p>問題は1つ。</p>
+        <p><strong>「どうコンテンツとして形にするか」がわからない。</strong></p>
+        <p>その1点だけを解決するのが、このブートキャンプです。</p>
+        <p>読み続けてください。</p>
       </div>
     </div>
 
-    <!-- COMMON LP BODY -->
-    <div class="lp-body section">
+    <!-- arbitrage -->
+    <div id="intro-arbitrage" class="intro-card" style="display:none;--type-color:var(--arbitrage)">
+      <div class="result-label">あなたの診断結果</div>
+      <div class="type-badge">🌏 アービトラージ型</div>
+      <div class="lp-body">
+        <h2>スターバックスは<br>イタリアのコーヒー文化を「輸入」した。</h2>
+        <p>長倉です！</p>
+        <p>1983年、ハワード・シュルツはイタリアのミラノを旅行した。</p>
+        <p>そこで見たのは、<br>
+        街角にある小さなエスプレッソバー。</p>
+        <p>バリスタが手際よくコーヒーを作り、<br>
+        客が立ったまま飲んで、さっと去っていく。</p>
+        <p>そのコーヒー文化に衝撃を受けた。</p>
+        <p>「アメリカにはこれがない。」</p>
+        <p>彼はその情報格差を利益に変えた。</p>
+        <p>その会社が、スターバックスだ。</p>
+        <p><strong>情報の差があるところには、<br>
+        必ずビジネスチャンスがある。</strong></p>
+        <p>海外でうまくいっている手法、<br>
+        ニッチな業界の知識、<br>
+        日本ではまだ広まっていないトレンド。</p>
+        <p>そこに目が向く人がいる。</p>
+        <p>「これ、日本ではまだ知られていない」<br>
+        「この情報、絶対需要があるはずなのに」</p>
+        <p>そういう嗅覚を持っている人が、<br>
+        AI時代に最も強い。</p>
+        <p>なぜか？</p>
+        <p>AIを使えば、<br>
+        海外情報の翻訳・編集・パッケージ化が<br>
+        これまでの10分の1の時間でできる。</p>
+        <p>ただ、正直に言う。</p>
+        <p><strong>情報を持っていても、「企画力」がなければ売れない。</strong></p>
+        <p>どのマーケットに届けるか。<br>
+        どういうタイトルにするか。<br>
+        どう価格をつけるか。</p>
+        <p>この「企画」だけはAIには任せられない。</p>
+        <p>あなたの持っている情報優位性を、<br>
+        <strong>売れる商品に変える1日</strong>が、このブートキャンプです。</p>
+        <p>読み続けてください。</p>
+      </div>
+    </div>
 
-      <h2>「体験価値×AI」で誰でも<br>売れるコンテンツをつくれるようになりました！</h2>
+    <!-- collab -->
+    <div id="intro-collab" class="intro-card" style="display:none;--type-color:var(--collab)">
+      <div class="result-label">あなたの診断結果</div>
+      <div class="type-badge">🤝 コラボ型</div>
+      <div class="lp-body">
+        <h2>人脈がある人と、<br>売れる人の違いって何だと思う？</h2>
+        <p>長倉です！</p>
+        <p>それは、<strong>「オファーがあるかどうか」</strong>だ。</p>
+        <p>つながりがある。<br>
+        紹介してもらえる関係がある。<br>
+        コラボの声がかかることもある。</p>
+        <p>でも、</p>
+        <p>「実際に何を売ればいいかわからない」<br>
+        「自分のコンテンツや商品がまだない」<br>
+        「販売ページが整っていない」</p>
+        <p>そういう状態だと、<br>
+        どれだけ機会が来ても活かせない。</p>
+        <p>音楽フェスを開こうとしても、<br>
+        出演するアーティストがいなければ成立しない。</p>
+        <p>コラボやJV（ジョイントベンチャー）は、<br>
+        一人では届けられない層に一気にリーチできる。</p>
+        <p>広告費ゼロで売上が倍になることもある。</p>
+        <p>でも、それには前提条件がある。</p>
+        <p><strong>コラボを受ける側も、<br>
+        魅力的でなければならない。</strong></p>
+        <ul class="dot-list">
+          <li>自分のコンテンツがある</li>
+          <li>LPや販売ページが整っている</li>
+          <li>自分のブランドが確立されている</li>
+        </ul>
+        <p>この基盤がなければ、チャンスは来ない。</p>
+        <p>そのコラボの基盤を<br>
+        <strong>1日で完成させる</strong>のが、このブートキャンプです。</p>
+        <p>読み続けてください。</p>
+      </div>
+    </div>
+
+    <!-- prosumer -->
+    <div id="intro-prosumer" class="intro-card" style="display:none;--type-color:var(--prosumer)">
+      <div class="result-label">あなたの診断結果</div>
+      <div class="type-badge">📚 プロシューマー型</div>
+      <div class="lp-body">
+        <h2>「勉強すれば稼げる」は<br>本当か？</h2>
+        <p>長倉です！</p>
+        <p>10年間、本を読み続けた人がいた。</p>
+        <p>年間100冊読んでいた。<br>
+        セミナーにも通い続けた。<br>
+        オンライン講座も買い続けた。</p>
+        <p>でも、10年後に聞いてみると、<br>
+        収益には全く繋がっていなかった。</p>
+        <p>一方で、<br>
+        3ヶ月でコンテンツビジネスを始めて<br>
+        月収100万円を超えた人もいる。</p>
+        <p>差は何か？</p>
+        <p><strong>「インプットをアウトプットに変えたかどうか」</strong>だ。</p>
+        <p>知識と収益の間には橋が必要だ。</p>
+        <p>どれだけ学んでも、<br>
+        その橋を渡らなければ稼げない。</p>
+        <p>「何をコンテンツにすればいいかわからない」<br>
+        「形にするまでのハードルが高すぎる」<br>
+        「一人だとどうしても後回しにしてしまう」</p>
+        <p>インプットとアウトプットの間で止まっている。</p>
+        <p>でも、だからこそチャンスがある。</p>
+        <p>すでに<strong>「伝えるべき知識」</strong>が蓄積されているから。</p>
+        <p>あとは、それを形にする<br>
+        <strong>強制アウトプット環境</strong>があればいい。</p>
+        <p>「学んで終わり」から「学んで稼ぐ」への転換。<br>
+        それを1日で完成させるのが、このブートキャンプです。</p>
+        <p>読み続けてください。</p>
+      </div>
+    </div>
+
+    <!-- uber -->
+    <div id="intro-uber" class="intro-card" style="display:none;--type-color:var(--uber)">
+      <div class="result-label">あなたの診断結果</div>
+      <div class="type-badge">📦 ウーバーイーツ型</div>
+      <div class="lp-body">
+        <h2>ビジネス書の名著の多くは<br>「まとめ本」だった。</h2>
+        <p>長倉です！</p>
+        <p>世界で1500万部以上<br>
+        日本で500万部以上</p>
+        <p><strong>超ベストセラービジネス書<br>
+        デール・カーネギー『人を動かす』</strong></p>
+        <p>この本を読んだことがある人はわかると思うけど、<br>
+        ほとんど、</p>
+        <ul class="dot-list">
+          <li>歴史的な出来事</li>
+          <li>偉人の発言、行動</li>
+        </ul>
+        <p>など。<strong>「他人の事例」</strong>がたくさん使われている。</p>
+        <p>つまり、<br>
+        たくさんの情報を1冊の本にまとめているだけ。</p>
+        <p>古典的なビジネス書ベストセラーでも<br>
+        <strong>ゼロから書いているんじゃなくて<br>
+        「情報のまとめ」で作られている</strong>わけだ。</p>
+        <p>DJも同じ。</p>
+        <p>DJっていうのは、<br>
+        アーティストの曲を選んでつなげるのが仕事。</p>
+        <p>しかも、<br>
+        <strong>DJがアーティストより稼いでいる</strong>のも事実。</p>
+        <p>曲をゼロから作っているアーティストよりも<br>
+        すでにある曲を使っているDJが稼げる。</p>
+        <p>これをコンテンツビジネスに取り入れると、</p>
+        <p>世の中にたくさんある情報から、</p>
+        <ul class="dot-list">
+          <li>選んで</li>
+          <li>まとめる</li>
+        </ul>
+        <p>だけでコンテンツが作れる。</p>
+        <p>「自分には何もない」<br>
+        「特別なスキルがない」<br>
+        「実績がない」</p>
+        <p>は関係ない。</p>
+        <p>問題は<strong>「何を届けるか（企画）」</strong>と<br>
+        <strong>「どう形にするか（制作）」</strong>だけ。</p>
+        <p>その2つを1日で完成させるのが、このブートキャンプです。</p>
+        <p>読み続けてください。</p>
+      </div>
+    </div>
+
+    <!-- ====== COMMON LP BODY (original text faithful) ====== -->
+    <div class="lp-body">
+
+      <h2>2020年以降に起業した人が<br>次々と消えています！</h2>
+
+      <p>長倉です！</p>
+
+      <p>コンテンツビジネスのトレンドは<br>
+      大体3年サイクル。</p>
+
+      <p>2020年、コロナ禍に流行った<br>
+      ライブプロモーション時代。</p>
+
+      <p>この時期に起業した人が<br>
+      最近、次々と消えていっています！</p>
+
+      <p>トレンドは3年サイクルとはいえ、<br>
+      5年くらいはなんとか売上はつくれる。</p>
+
+      <p>昨年まではなんとか生き残れた人もいるけど<br>
+      2026年は2020年と同じやり方は通用しません。</p>
+
+      <p>2020年ごろに起業した人の特徴っていうのは、</p>
+
+      <p>・コピーライティングを知らない人たち<br>
+      ・コンテンツビジネスの歴史を知らない人たち</p>
+
+      <p>がほとんどなんだよね。<br>
+      つまり、</p>
+
+      <p><strong>コンテンツビジネスの基本がわかっていない</strong></p>
+
+      <p>わけだ。稼ぐための土台、基礎がないから<br>
+      トレンドが終わると売上も落ちていく。</p>
+
+      <p>オレが24年以上、<br>
+      コンテンツビジネス業界で<br>
+      生き残ることができているのは</p>
+
+      <p><strong>・コピーライティング<br>
+      ・企画力<br>
+      ・パーソナルブランディング</strong></p>
+
+      <p>といった土台があったから。</p>
+
+      <p>10年以上、生き残り続けている人は<br>
+      土台となる基本スキルを勉強してきた人だけ。</p>
+
+      <p>しかし、</p>
+
+      <p>コンテンツビジネス業界に革命が起きた。</p>
+
+      <p>2026年はAIを使えば、</p>
+
+      <p><strong>土台となる基本スキル<br>
+      （コピーライティングなど）</strong></p>
+
+      <p>が無くてもコンテンツビジネスで<br>
+      勝てる時代になったしまいました！</p>
+
+      <hr>
+
+      <h2>「体験価値×AI」で誰でも<br>売れるコンテンツを<br>つくれるようになりました！</h2>
 
       <img src="https://assets.st-note.com/img/1771485866-eptTnwc0CM7yWjvFzfD6OkIR.jpg" alt="" class="section-img" loading="lazy">
 
-      <p>先日やった、<br>
-      セールスページ制作セミナーでは、<br>
-      弊社のセールスレターのデータをプレゼントして<br>
-      AIを使ってセールスレターを書いてもらったら</p>
+      <p>先日やった、</p>
+
+      <p>セールスページ制作セミナー</p>
+
+      <p>では、弊社のセールスレターの<br>
+      データーをプレゼントして<br>
+      AIを使ってセールスレター書いてもらったら</p>
 
       <p>受講生のほとんどがその日のうちに<br>
       商品とセールスレターを書き上げることができた。</p>
 
       <p>セールスレターを書こうと思ったら、</p>
-      <ul>
-        <li>コピーライティング</li>
-        <li>セールスレターの型</li>
-      </ul>
+
+      <p>・コピーライティング<br>
+      ・セールスレターの型</p>
+
       <p>を知らないと書けなかった。<br>
       勉強しないといけないから時間もかかる。</p>
 
-      <p>AIを使えば、売れているレター、プロが書いたレターを読み込ませれば<br>
-      コピーライティングを知らなくても<br>
+      <p>AIを使えば、</p>
+
+      <p>売れているレター、<br>
+      プロが書いたレターを読み込まさせれば</p>
+
+      <p>コピーライティングを知らなくても<br>
       セールスレターが誰でも書けてしまう。</p>
 
       <p>セールスレターだけじゃない。</p>
-      <ul>
-        <li>電子書籍</li>
-        <li>オンライン講座</li>
-        <li>セミナー構成</li>
-      </ul>
-      <p>といったコンテンツはAIを使ってつくれるようになった。</p>
 
-      <p>ここで重要になってくるのが、<br>
-      <strong>「体験価値」をどれだけつくれるか？</strong></p>
+      <p>・電子書籍<br>
+      ・オンライン講座<br>
+      ・セミナー構成</p>
 
-      <p>情報価値はAIによって誰でもできる代わりに差別化が難しい。</p>
+      <p>といったコンテンツは<br>
+      AIを使ってつくれるようになった。</p>
 
-      <p>「体験価値」を高めるためにAIをガンガン使って時間を生む。</p>
+      <p>ここで重要になってくるのが、</p>
 
-      <p>これが<strong>2026年以降のコンテンツビジネスの戦い方</strong>になる。</p>
+      <p><strong>「体験価値」をどれだけつくれるか？</strong></p>
+
+      <p>ってこと。情報価値はAIによって<br>
+      誰でもできる代わりに差別化が難しい。</p>
+
+      <p>「体験価値」を高めるために<br>
+      AIをガンガン使って時間を生む。</p>
+
+      <p>これが2026年以降の<br>
+      コンテンツビジネスの戦い方になる。</p>
 
       <hr>
 
@@ -503,24 +474,52 @@ body{
 
       <img src="https://assets.st-note.com/img/1771485866-DR61JT7HE0uwIs3CkU2vmqKd.jpg" alt="" class="section-img" loading="lazy">
 
-      <p>オレが目標としているのは毎月1000人と会うってこと。<br>
-      今月も達成できた。</p>
+      <p>オレが目標としているのは<br>
+      毎月1000人と会うってこと。</p>
+
+      <p>今月も達成できた。</p>
 
       <p>オレが飲み会を重視しているのは、</p>
-      <ul>
-        <li>会ったこともない人</li>
-        <li>顔も知らない人</li>
-      </ul>
-      <p>から商品を買いたいとは思ってもらえないからだ。</p>
 
-      <p>さらに、会ったこともない人のコンテンツは紹介もしてもらえない。</p>
+      <p>・会ったこともない人<br>
+      ・顔も知らない人</p>
 
-      <p>コンテンツビジネスで長く生き残る人は<br>
-      <strong>紹介・リピート</strong>が売上のメイン。</p>
+      <p>から商品を買いたいとは<br>
+      思ってもらえないからだ。</p>
 
-      <p>だから、<strong>「体験価値」を必ずコンテンツに入れるべき</strong>なんだよね。</p>
+      <p>さらに、会ったこともない人の<br>
+      コンテンツは紹介もしてもらえない。</p>
 
-      <p>「体験価値」を高めるには<strong>人と会う時間</strong>を増やしていかないといけない。<br>
+      <p>コンテンツビジネスで<br>
+      長く生き残る人は</p>
+
+      <p><strong>・紹介<br>
+      ・リピート</strong></p>
+
+      <p>が売上のメイン。<br>
+      だから、</p>
+
+      <p><strong>「体験価値」を必ずコンテンツに入れるべき</strong></p>
+
+      <p>なんだよね。<br>
+      オレがプロデュースしている企画で言えば、</p>
+
+      <p>・出口王仁三郎の講座＋京都合宿<br>
+      ・シュタイナーや縄文は全12回の講座（そのうち4回はツアー）<br>
+      ・スーパープロデューサー養成講座＋ハワイ合宿<br>
+      ・たてばやし先生のAIセミナー＋作業会<br>
+      ・中村天風の講座＋ツアー<br>
+      ・地方創生チームWillSでは毎月のツアー</p>
+
+      <p>といったように<br>
+      必ず「体験価値」のある<br>
+      コンテンツを用意している。</p>
+
+      <p>こういった<br>
+      「体験価値」を高めるには</p>
+
+      <p><strong>人と会う時間</strong><br>
+      を増やしていかないといけない。<br>
       だから、AIを活用していきましょう。</p>
 
       <hr>
@@ -530,31 +529,63 @@ body{
       <img src="https://assets.st-note.com/img/1771485866-bLmaKFQYIxWZweSvGctngBXD.jpg" alt="" class="section-img" loading="lazy">
 
       <p>2026年以降の売れるコンテンツの特徴は、</p>
-      <ul>
-        <li>体験価値</li>
-        <li>AIの活用</li>
-      </ul>
-      <p>の2つ。ここで重要になるのが<strong>「売れる企画になっているかどうか？」</strong></p>
 
-      <p>こればかりはプロじゃないとわかりません。</p>
+      <p><strong>・体験価値<br>
+      ・AIの活用</strong></p>
 
-      <p><strong>企画づくりだけはAIには任せられない。</strong></p>
-      <ul>
-        <li>マーケット</li>
-        <li>アナタのキャラクター</li>
-        <li>商品、サービス内容</li>
-      </ul>
-      <p>によって企画が変わってくるから。ここがズレると売れない。</p>
+      <p>の2つ。ここで、重要になるのが</p>
 
-      <p>プロが見れば、その企画が1発で売れるか売れないかわかります。</p>
+      <p>「売れる企画になっているかどうか？」</p>
 
-      <p>オレの10分コンサルなんかでも企画やコンセプトは数分で決まります。</p>
+      <p>ってこと。こればかりは<br>
+      プロじゃないとわかりません。</p>
 
-      <p>直接会って話せば、アナタの企画がその場でわかる。</p>
+      <p><strong>企画づくりだけはAIには任せられない。</strong><br>
+      ・マーケット<br>
+      ・アナタのキャラクター<br>
+      ・商品、サービス内容</p>
 
-      <p>だから、<strong>ブートキャンプ</strong>という形で企画・コンセプトをその場でアドバイスして<br>
-      AIを使いコンテンツ制作まで終わらせる<br>
-      <strong>コンテンツビジネスブートキャンプ</strong>を開催することにしました！</p>
+      <p>によって企画が変わってくるから。<br>
+      ここがズレると売れない。</p>
+
+      <p>コンテンツビジネスの企画の考え方の基本として<br>
+      <strong>5つの型も紹介します。</strong></p>
+
+      <p>だけど結局のところ、</p>
+
+      <p>プロが見てその場でアドバイスした方が早い</p>
+
+      <p>わけです。企画づくりに何日も時間をかけている人がいるんだけど、悩んでいる時間がムダです。</p>
+
+      <p>プロが見れば、その企画が1発で<br>
+      売れるか売れないかわかります。</p>
+
+      <p>オレの10分コンサルなんかでも<br>
+      企画やコンセプトは数分で決まります。</p>
+
+      <p>直接会って話せば、<br>
+      アナタの企画がその場でわかる。</p>
+
+      <p>だから、</p>
+
+      <p><strong>ブートキャンプ</strong></p>
+
+      <p>という形で</p>
+
+      <p><strong>・企画<br>
+      ・コンセプト</strong><br>
+      をその場でアドバイスして<br>
+      AIを使いコンテンツ制作まで終わらせる</p>
+
+      <p><strong>コンテンツビジネスブートキャンプ</strong></p>
+
+      <p>を開催することにしました！<br>
+      ただ、コンテンツビジネスの企画づくりの<br>
+      基本は知っておいてほしいので</p>
+
+      <p><strong>売れる企画の考え方となる5つの型</strong></p>
+
+      <p>についても簡単に紹介します。</p>
 
       <hr>
 
@@ -562,26 +593,76 @@ body{
 
       <img src="https://assets.st-note.com/img/1771485866-3Rn0JKLbjIYBQeX56VW1stpM.png" alt="" class="section-img" loading="lazy">
 
+      <p>コンテンツビジネスの</p>
+
+      <p><strong>・企画づくり<br>
+      ・コンテンツ制作</strong></p>
+
+      <p>には5つの型がある。</p>
+
       <blockquote>
-        <p><strong>1. レポーター型</strong><br>
-        プロデューサーとしてベストセラー作家や面白い人、スゴイ人を<strong>紹介して発信、プロモーションをする型。</strong></p>
+        <p><strong>1.レポーター型</strong><br>
+        オレがまさにこの型でやっている。プロデューサーとしてベストセラー作家や面白い人、スゴイ人を<strong>紹介して発信、プロモーションをする型。</strong></p>
       </blockquote>
+
       <blockquote>
-        <p><strong>2. アービトラージ型</strong><br>
-        海外で仕入れた情報を日本で紹介していくなど。<strong>AI時代の今、かなり始めやすい型。</strong></p>
+        <p><strong>2.アービトラージ型</strong><br>
+        市場の価格差で利益を生むアービトラージの原理を使った型。コンテンツビジネスで言えば、海外で仕入れた情報を日本で紹介していくなど。<strong>AI時代の今、かなり始めやすい型。</strong></p>
       </blockquote>
+
       <blockquote>
-        <p><strong>3. コラボ型</strong><br>
-        SNSやYouTube、ライブ配信などで<strong>誰かとコラボをして一気にマーケットを広げる戦い方。</strong>「月収100万から1000万」を目指している人向け。</p>
+        <p><strong>3.コラボ型</strong><br>
+        SNSやYouTube、ライブ配信などで<strong>誰かとコラボをして一気にマーケットを広げる戦い方。</strong>初心者というよりも「月収100万から1000万」を目指している人向け。</p>
       </blockquote>
+
       <blockquote>
-        <p><strong>4. プロシューマー型</strong><br>
-        <strong>学びながら稼ぐ。</strong>プロデューサーと消費者（コンシューマー）を同時にやる。</p>
+        <p><strong>4.プロシューマー型</strong><br>
+        オレのもう1つの型がこれ。<strong>学びながら稼ぐ。</strong>プロデューサーと消費者（コンシューマー）を同時にやる。オレは各業界の専門家をプロデュースして、セミナーで新しいことを学び稼いでいる。</p>
       </blockquote>
+
       <blockquote>
-        <p><strong>5. ウーバーイーツ型</strong><br>
-        情報を集めてまとめる。そして届けるという<strong>コンテンツのウーバーイーツ。</strong></p>
+        <p><strong>5.ウーバーイーツ型</strong><br>
+        今一番アツイのがこれ。情報を集めてまとめる。そして、届けるという<strong>コンテンツのウーバーイーツ。</strong>最近のベストセラー本にもあるような「〇〇の本100冊を1冊にまとめてみた」系もこの型になる。</p>
       </blockquote>
+
+      <hr>
+
+      <h2>何もない人は「ウーバーイーツ型」</h2>
+
+      <p>5つの型の中で、</p>
+
+      <p>「自分には何もない」<br>
+      「特別なスキルがない」<br>
+      「実績がない」</p>
+
+      <p>という人にオススメなのが<br>
+      <strong>ウーバーイーツ型</strong>。</p>
+
+      <p>最近のベストセラー本にもあるような</p>
+
+      <p>「〇〇の本100冊を1冊にまとめてみた」系もこの型になる。</p>
+
+      <p>自分自身に専門性がなくてもいい。</p>
+
+      <p>すでに世の中にある情報を<br>
+      キュレーションして再編集するだけで、<br>
+      それがコンテンツになる。</p>
+
+      <p>・フォロワーゼロ<br>
+      ・実績ゼロ</p>
+
+      <p>でも始められる。</p>
+
+      <p>ただし、<br>
+      ウーバーイーツ型でも他の型でも、</p>
+
+      <p><strong>売れるかどうかは「企画」で決まる。</strong></p>
+
+      <p>同じウーバーイーツ型でも、<br>
+      企画次第で売上が変わる。</p>
+
+      <p>じゃあ、その「企画」は<br>
+      どうやって決めるのか？</p>
 
       <hr>
 
@@ -589,22 +670,46 @@ body{
 
       <img src="https://assets.st-note.com/img/1771485867-cJDkYXq9rVjFpwzMSKIRg7il.png" alt="" class="section-img" loading="lazy">
 
-      <p>コンテンツ作りで重要になる「企画・コンセプト」ですが、<br>
-      これに時間をかける人が多すぎる。</p>
+      <p>コンテンツ作りで重要になる<br>
+      「企画・コンセプト」ですが</p>
 
-      <p>なぜこうなるのか？それは、<strong>マーケットを知らないから。</strong></p>
+      <p>その</p>
 
-      <p>マーケットを知っていれば、企画は5分で決まる。</p>
+      <p><strong>・企画づくり<br>
+      ・コンセプト設計</strong></p>
 
-      <p>なかなかコンテンツビジネスが進まない人は、</p>
-      <ul>
-        <li>企画が決まらない</li>
-        <li>コンセプトが決まらない</li>
-      </ul>
-      <p>だから、コンテンツ制作に進まない。</p>
+      <p>これに時間をかける人が多すぎる。</p>
 
-      <p>そこで、オレが売れる企画・コンセプトを決めて<br>
-      1日でコンテンツを作り上げるブートキャンプをやることにしました！</p>
+      <p>なぜこうなるのか？</p>
+
+      <p>それは、<br>
+      <strong>マーケットを知らないから。</strong></p>
+
+      <p>マーケットを知っていれば、<br>
+      企画は5分で決まる。</p>
+
+      <p>そこから、売れるコンセプトを考える。<br>
+      コンセプトが決まれば</p>
+
+      <p>コンテンツビジネスの型で<br>
+      コンテンツをつくるだけ。</p>
+
+      <p>要は、なかなかコンテンツビジネスが<br>
+      進まない人は、</p>
+
+      <p><strong>・企画が決まらない<br>
+      ・コンセプトが決まらない</strong></p>
+
+      <p>だから、</p>
+
+      <p><strong>・コンテンツ制作に進まない</strong></p>
+
+      <p>わけよ。そこで、</p>
+
+      <p>オレが売れる企画・コンセプトを決めて<br>
+      1日でコンテンツを作り上げる</p>
+
+      <p>ブートキャンプをやることにしました！</p>
 
       <hr>
 
@@ -612,28 +717,51 @@ body{
 
       <img src="https://assets.st-note.com/img/1771485866-VBntqklcFWP7psy6T2hrjS50.png" alt="" class="section-img" loading="lazy">
 
-      <p>オレは24年間、数百のプロジェクトに関わってきた。</p>
-      <p>編集者時代には担当した<strong>142作中65作が5万部以上、22作が10万部以上。</strong></p>
-      <p>今も毎週プロモーションを回して、毎週売上を作っている。</p>
+      <p>オレは24年間、<br>
+      数百のプロジェクトに関わってきた。</p>
+
+      <p>編集者時代には<br>
+      担当した142作中65作が5万部以上、<br>
+      22作が10万部以上。</p>
+
+      <p>今も毎週プロモーションを回して、<br>
+      毎週売上を作っている。</p>
+
+      <p>つまり、</p>
+
+      <p><strong>「どのマーケットで、どんな企画が、<br>
+      　どんなコンセプトで売れるか」</strong></p>
+
+      <p>をずっとやり続けてきたのがオレ。</p>
 
       <p>アナタの経験や強みを聞けば、</p>
-      <ul>
-        <li>どのマーケットで勝負するべきか</li>
-        <li>どんな企画にするべきか</li>
-        <li>どんなコンセプトなら売れるか</li>
-      </ul>
+
+      <p>・どのマーケットで勝負するべきか<br>
+      ・どんな企画にするべきか<br>
+      ・どんなコンセプトなら売れるか</p>
+
       <p><strong>その場で判断できる。</strong></p>
 
-      <p>一人で何ヶ月も悩んでいることが、オレと話せば数分で決まる。</p>
+      <p>一人で何ヶ月も悩んでいることが、<br>
+      オレと話せば数分で決まる。</p>
+
+      <p>これは自慢じゃなくて、</p>
+
+      <p>24年間やってきた人間と<br>
+      これから始める人では</p>
+
+      <p><strong>見えているマーケットの解像度が違う</strong></p>
+
+      <p>というだけの話。</p>
 
       <p>だからこそ、</p>
-      <ul>
-        <li>コンテンツビジネス駆け出しの人</li>
-        <li>コンテンツビジネスがうまくいっていない人</li>
-        <li>コンテンツビジネスでもっとスケールしたい人</li>
-        <li>新しいコンテンツを制作したい人</li>
-        <li>企画・コンセプトで悩み続けてコンテンツ制作が進まない人</li>
-      </ul>
+
+      <p><strong>・コンテンツビジネス駆け出しの人<br>
+      ・コンテンツビジネスがうまくいっていない人<br>
+      ・コンテンツビジネスでもっとスケールしたい人<br>
+      ・新しいコンテンツを制作したい人<br>
+      ・企画、コンセプトで悩み続けてコンテンツ制作が進まない人</strong></p>
+
       <p>はブートキャンプで一気に仕上げましょう！</p>
 
       <hr>
@@ -642,308 +770,462 @@ body{
 
       <img src="https://assets.st-note.com/img/1771485867-Il2jXiyJcOv7ozCqF4V5Dpxu.png" alt="" class="section-img" loading="lazy">
 
+      <p>ブートキャンプ形式は毎回かなり好評。</p>
+
       <p>電子書籍ブートキャンプでは、<br>
-      参加者30人中<strong>29人が1日で電子書籍を書き上げた。</strong></p>
+      参加者30人中29人が1日で電子書籍を書き上げた。</p>
 
       <p>セールスページ制作セミナーでは、<br>
       参加者30人ほどで半数以上はセールスレターを書き上げていた。</p>
 
-      <ul>
-        <li>その場でやるから集中できる</li>
-        <li>オレが直接企画を決めるから迷わない</li>
-        <li>AIやツールの使い方がわからなければスタッフがサポート</li>
-      </ul>
+      <p>・その場でやるから集中できる<br>
+      ・オレが直接企画を決めるから迷わない<br>
+      ・AIやツールの使い方がわからなければスタッフがサポート</p>
 
       <p>やっぱり環境の力って大事なんだよね。</p>
 
       <p>今まで、オンラインコンテンツを見ても成果に繋がらなかった人は必ず来るべき。</p>
 
-      <p><strong>本当に1日で仕上がります！</strong></p>
+      <p>本当に1日で仕上がります！</p>
+
       <p>この体験を1回するだけで、今後のコンテンツビジネスの勢いが変わってくる。</p>
 
-    </div>
+      <p>「本当にできるんだ！」</p>
 
-    <!-- CTA IMAGE 1 -->
-    <a href="#" class="cta-img-link payment-link" target="_blank" rel="noopener">
-      <img src="https://assets.st-note.com/img/1771485866-71H8EqvcATLzaYrjhUGemgOW.png" alt="ブートキャンプに申し込む">
-    </a>
+      <p>っていうこの体験が人生を変える。<br>
+      それがブートキャンプなんです！</p>
 
-    <!-- PROGRAM DETAILS -->
-    <div class="lp-body section">
+      <p>それでは！</p>
 
-      <h2>【プログラム１】<br>コンテンツビジネスブートキャンプ</h2>
+      <p>具体的なプログラム内容についてです！<br>
+      このまま最後まで読み進めてください！</p>
+
+      <hr>
+
+      <h2>【プログラム１】コンテンツビジネスブートキャンプ</h2>
 
       <img src="https://assets.st-note.com/img/1771572022-gndoCDeRBzPFlKvN9jV13G8L.png" alt="" class="section-img" loading="lazy">
 
       <p>ブートキャンプでは具体的に、</p>
-      <ul>
-        <li>売れる企画、コンセプトのつくり方の講義</li>
-        <li>長倉がその場で企画、コンセプトを決めるグルコン</li>
-        <li>AIを使ってコンテンツ制作するワークショップ</li>
-      </ul>
-      <p>といった流れで進めていきます。</p>
 
-      <div class="emphasis-box">
-        <p>「全員の企画・コンセプトをオレが決めて、<br>ワークショップ中に全員がコンテンツ完成させる」<br>これがブートキャンプの目標。</p>
-      </div>
+      <p><strong>・売れる企画、コンセプトのつくり方の講義<br>
+      ・長倉がその場で企画、コンセプトを決めるグルコン<br>
+      ・AIを使ってコンテンツ制作するワークショップ</strong></p>
 
-      <div class="program-box">
-        <h4>日程・場所</h4>
-        <p style="margin:0;font-size:.9rem">
-          <strong>日程：</strong>3月22日（日）<br>
-          14:30〜19:00 ブートキャンプ<br>
-          19:30〜21:30 懇親会（任意参加・参加費別途）<br>
-          <br>
-          <strong>場所：</strong>東京都内（渋谷付近を予定）
-        </p>
-      </div>
+      <p>といった流れで進めていきます。<br>
+      当日の進捗具合でペース配分は変わる場合もあります。</p>
+
+      <p>ズバリ！</p>
+
+      <p><strong>「全員の企画、コンセプトをオレが決めて、ワークショップ中に全員がコンテンツ完成させる」</strong></p>
+
+      <p>これがブートキャンプの目標。</p>
+
+      <p>全員の企画を見るつもりなんで、オレも気合いが入っています！</p>
+
+      <p>なので、</p>
+
+      <p>これまで<strong>企画で悩み続けてコンテンツ制作まで進まなかった人</strong>は必ず来てください！</p>
+
+      <blockquote>
+        <p><strong>＜コンテンツビジネスブートキャンプの日程＞</strong></p>
+        <p><strong>■日程</strong><br>
+        3月22日(日)<br>
+        14:30〜19:00：ブートキャンプ<br>
+        19:30〜21:30：懇親会（任意参加・参加費別途）<br>
+        ※終了時間は前後する可能性があります。</p>
+        <p><strong>■場所</strong><br>
+        東京都内（渋谷付近を予定）</p>
+      </blockquote>
 
       <hr>
 
-      <h2>【プログラム２】<br>コンテンツビジネスの全てが学べるオンライン教材</h2>
+      <h2>【プログラム２】コンテンツビジネスの全てが学べるオンライン教材</h2>
 
       <img src="https://assets.st-note.com/img/1771566118-Yu1NRpsxV0DTwAfrSohzaEjZ.png" alt="" class="section-img" loading="lazy">
 
-      <p>ブートキャンプと合わせて、オンライン教材「コンテンツビジネス大全」が付属します。</p>
+      <p>ブートキャンプは、コンテンツ販売の一歩手前までみんなで一緒にコンテンツ制作をしていく。</p>
 
-      <div class="program-box">
-        <h4>長倉によるオンライン講義（全11回）</h4>
-        <ul style="margin:0">
-          <li>第0回：コンテンツビジネスの歴史</li>
-          <li>第1回：コンテンツビジネスの基本</li>
-          <li>第2回：勝てるマーケットとポジションの見つけ方</li>
-          <li>第3回：売れるコンテンツの企画と作り方</li>
-          <li>第4回：アナタに合った集客方法</li>
-          <li>第5回：売る前に欠かせない信頼関係の構築術</li>
-          <li>第6回：売れるプロモーション設計と価格の決め方</li>
-          <li>第7回：AIを使ったセールスレターの書き方</li>
-          <li>第8回：コンテンツ販売の仕組み化＆自動化</li>
-          <li>第9回：プロデューサーという道</li>
-          <li>第10回：コンテンツビジネスを成功させるために</li>
-        </ul>
-        <p style="margin-top:12px;margin-bottom:0;font-size:.82rem;color:var(--text-sub)">各回約30〜40分の動画</p>
-      </div>
+      <p>ただし、「販売はアナタ自身」です。</p>
+
+      <p>だから、</p>
+
+      <p><strong>・コンテンツビジネスの基本<br>
+      ・セールス<br>
+      ・販売<br>
+      ・ブランディング戦略</strong></p>
+
+      <p>といったコンテンツビジネスの一連の流れが学べるオンライン教材「コンテンツビジネス大全」をつけました。</p>
+
+      <blockquote>
+        <p><strong>■長倉によるオンライン講義（全11回）</strong></p>
+        <p><strong>第0回：コンテンツビジネスの歴史</strong><br>
+        ・これまでにどんな流れがあったのか？<br>
+        ・時代に合った戦略を立てるための基礎知識</p>
+        <p><strong>第1回：コンテンツビジネスの基本</strong><br>
+        ・始め方から稼ぎ方まで、一連の流れを掴む<br>
+        ・コンテンツビジネスで最も重要な5つのポイント</p>
+        <p><strong>第2回：勝てるマーケットとポジションの見つけ方</strong><br>
+        ・マーケットについて知る<br>
+        ・勝てるマーケットを見つける方法<br>
+        ・販売ターゲットの絞り方</p>
+        <p><strong>第3回：売れるコンテンツの企画と作り方</strong><br>
+        ・コンテンツの種類を知る<br>
+        ・アナタに合ったコンテンツを決める<br>
+        ・売上を左右する「企画力」</p>
+        <p><strong>第4回：アナタに合った集客方法</strong><br>
+        ・今の時代に合った濃い見込み客の集め方<br>
+        ・SNSやフォロワー数に左右されない戦略</p>
+        <p><strong>第5回：売る前に欠かせない信頼関係の構築術</strong><br>
+        ・教育済みの客を集める方法<br>
+        ・リアルで会うことの重要性</p>
+        <p><strong>第6回：売れるプロモーション設計と価格の決め方</strong><br>
+        ・売上を最大化する価格の決め方<br>
+        ・売れる「4つのパターン」</p>
+        <p><strong>第7回：AIを使って誰でもできる！売れるセールスレターの書き方</strong><br>
+        ・AIを使った執筆の極意<br>
+        ・効率的に長い文章を書くコツ</p>
+        <p><strong>第8回：コンテンツ販売の仕組み化＆自動化</strong><br>
+        ・コンテンツを資産化して不労所得を得る方法<br>
+        ・テンプレート集</p>
+        <p><strong>第9回：プロデューサーという道</strong><br>
+        ・自分のコンテンツに依存しない売上の上げ方<br>
+        ・人をプロデュースして稼ぐ方法</p>
+        <p><strong>第10回：コンテンツビジネスを成功させるために</strong><br>
+        ・この世界で長く生き残るための秘訣<br>
+        ・やってはいけないタブーとは？</p>
+      </blockquote>
+
+      <p>どの講義も<strong>各回約30〜40分の動画</strong>となっている。</p>
+
+      <p>オンライン講義で長く生き残るための「本質」を学び、ワークショップでAIを使った「実践」に落とし込む。</p>
+
+      <p>オンライン講義はブートキャンプ当日までに全部見ていなくても大丈夫。（だけど、第3回くらいまでは見ておいてもらえると当日の話が理解しやすいはず。）</p>
 
       <hr>
 
-      <h2>今回のブートキャンプで何ができるか</h2>
+      <h2>今回のブートキャンプで<br>何ができるか</h2>
 
       <img src="https://assets.st-note.com/img/1771485866-0UbeRLPm8QDFJjG9nHKstolX.png" alt="" class="section-img" loading="lazy">
 
-      <ul>
-        <li>セミナーを開催したい人 → <strong>セミナーの構成・台本</strong>が完成</li>
-        <li>オンライン講座を作りたい人 → <strong>オンライン講座用の資料・構成</strong>が完成</li>
-        <li>音声教材を作りたい人 → <strong>音声教材のための台本</strong>が完成</li>
-        <li>テキストコンテンツを販売したい人 → <strong>テキストコンテンツのパッケージ</strong>が完成</li>
-      </ul>
+      <p>・セミナーを開催したい人<br>
+      ・オンライン講座を作りたい人<br>
+      ・音声教材を作りたい人<br>
+      ・テキストコンテンツを販売したい人</p>
+
+      <p>このブートキャンプに来れば、<br>
+      アナタのコンテンツが<strong>1日で完成します。</strong></p>
+
+      <p>たとえば、</p>
+
+      <p>・セミナーを開催したい人<br>
+      → <strong>セミナーの構成・台本</strong>が完成</p>
+
+      <p>・オンライン講座を作りたい人<br>
+      → <strong>オンライン講座用の資料・構成</strong>が完成</p>
+
+      <p>・音声教材を作りたい人<br>
+      → <strong>音声教材のための台本</strong>が完成</p>
+
+      <p>・テキストコンテンツを販売したい人<br>
+      → <strong>テキストコンテンツのパッケージ</strong>が完成</p>
+
+      <p>動画や音声コンテンツにしたい人は、後日その台本をもとに撮影するだけ。</p>
 
       <hr>
 
-      <h2>飲み会もやります！</h2>
+      <h2>もちろん飲み会もやります！</h2>
 
       <img src="https://assets.st-note.com/img/1771485866-egxWMqQfnEYX1m56wN82HJly.png" alt="" class="section-img" loading="lazy">
 
-      <p>ブートキャンプ後に懇親会（飲み会）もやります！</p>
+      <p>ブートキャンプが終わったら希望者のみで飲み会へ行きましょう！</p>
 
-      <p>オレが毎月1000人と会うことを目標にしているのは、<br>
-      コンテンツビジネスは<strong>「人とのつながり」</strong>が全ての基盤だから。</p>
+      <p>懇親会では、</p>
 
-      <p>ブートキャンプ参加者同士でつながって、<br>
-      お互いを紹介し合ったり、コラボしたりすることで<br>
-      ビジネスが加速する。</p>
+      <p><strong>・長倉に相談ができる</strong></p>
 
-      <p>せっかくリアルで集まるんだから、<br>
-      飲みながら話せる時間もつくりましょう！</p>
+      <p>のはもちろん</p>
 
-      <div class="program-box">
-        <h4>懇親会詳細</h4>
-        <p style="margin:0;font-size:.9rem">
-          <strong>日時：</strong>3月22日（日）19:30〜21:30<br>
-          <strong>参加：</strong>任意参加・参加費別途<br>
-          <strong>場所：</strong>会場付近を予定
-        </p>
-      </div>
+      <p><strong>・参加者同士のコラボ</strong></p>
 
-    </div>
+      <p>なんかも生まれたりする。</p>
 
-    <!-- CTA IMAGE 2 -->
-    <a href="#" class="cta-img-link payment-link" target="_blank" rel="noopener">
-      <img src="https://assets.st-note.com/img/1771485866-71H8EqvcATLzaYrjhUGemgOW.png" alt="ブートキャンプに申し込む">
-    </a>
+      <p>原田さんとやっている出版塾TACでもそうなんだけど面白い企画は、飲み会で生まれている。</p>
 
-    <!-- PRICING SECTION -->
-    <div class="lp-body section">
+      <p>知らない業界、知らない世界の話が聞けるのも飲み会の良いところ。</p>
+
+      <p>飲み会でもアナタと話せるのを楽しみに待っています！</p>
+
+      <p>※参加は任意です。<br>
+      ※懇親会費は別途頂戴します。</p>
+
+      <hr>
 
       <h2>気になる参加費について</h2>
 
-      <ul>
-        <li>コンテンツビジネスブートキャンプ</li>
-        <li>コンテンツビジネス大全（オンライン教材）</li>
-      </ul>
+      <p>どうでしょうか。</p>
 
-      <p>オンラインで事前学習してもらい、リアルの場でコンテンツ制作をする。</p>
+      <p><strong>・コンテンツビジネスブートキャンプ<br>
+      ・コンテンツビジネス大全（オンライン教材）</strong></p>
+
+      <p>オンラインで事前学習してもらい、<br>
+      リアルの場でコンテンツ制作をする。</p>
 
       <p>コンテンツビジネス大全を過去に買ってくれた人を見ていても、実際にコンテンツ制作まで進むのは1割いるかいないか。</p>
 
-      <p>だから、コンテンツビジネスブートキャンプを企画したんです。</p>
+      <p>だから、</p>
 
-      <p>オンライン教材を30万円で販売していたことも考えて、ブートキャンプの参加費は</p>
+      <p>コンテンツビジネスブートキャンプ</p>
 
-      <div class="price-box">
-        <div class="label">定価</div>
-        <div class="main-price">297,000円<span class="tax">（税込）</span></div>
-      </div>
+      <p>を企画したんです。</p>
+
+      <p>オンライン教材を30万円で販売していたことも考えて、<br>
+      ブートキャンプの参加費は</p>
+
+      <p><strong>定価：297,000円(税込)</strong></p>
 
       <p>としました！</p>
 
-      <p>ブートキャンプ中は、オレがその場で企画、コンセプトを決めていく。<br>
-      つまり、<strong>実質コンサルを受けながらコンテンツ制作ができる</strong>わけです。<br>
-      オレの普段のコンサル、コーチングの価格を考えれば破格であることは言うまでもありません！</p>
+      <p>ブートキャンプ中は、オレがその場で企画、コンセプトを決めていく。</p>
+
+      <p>つまり、実質コンサルを受けながらコンテンツ制作ができるわけです。</p>
+
+      <p>オレの普段のコンサル、コーチングの価格を考えれば破格であることは言うまでもありません！</p>
 
       <hr>
 
       <h2>２０名限定！早期割引でご案内します！</h2>
 
-      <p>っていうことも考えると３０名が限界。しかし、<strong>先行販売の時点で１０名の枠が埋まっています。</strong><br>
-      なので、コンテンツビジネスブートキャンプは<strong>２０名限定</strong>での募集となります！</p>
+      <p>ブートキャンプでは、</p>
 
-      <p>さらに、コンテンツビジネスは、</p>
-      <ul>
-        <li>能力がなくていい</li>
-        <li>お金がなくていい</li>
-      </ul>
-      <p>まさに「誰でもできる」ビジネスだから少しでも心理的ハードルを下げたい。</p>
+      <p>「オレが全員の企画を見て、その場で決める。」</p>
 
-      <div class="emphasis-box">
-        <p><span class="price-original">定価：297,000円のところ</span><br>
-        早期申込をした先着20名に限り<br>
-        <span class="price-tag">特別価格：198,000円（税込）</span></p>
-      </div>
+      <p>っていうことも考えると３０名が限界。<br>
+      しかし、先行販売の時点で１０名の枠が埋まっています。</p>
 
-      <p>ちなみに「コンテンツも何もない」って人も安心してきてほしい。<br>
-      そういう人のために「コンテンツビジネス大全」っていうオンライン教材を用意してるので！</p>
+      <p>なので、</p>
 
-    </div>
+      <p>コンテンツビジネス<br>
+      ブートキャンプは</p>
 
-    <!-- CTA MAIN -->
-    <div class="cta-section">
-      <h3>🔥 残り20名限定・早期割引でご案内</h3>
-      <p>1日で企画からコンテンツ制作まで完成させる。<br>
-      長倉が直接あなたの企画を決めます。</p>
-      <a href="#" class="cta-btn payment-link" target="_blank" rel="noopener">
-        今すぐ申し込む（198,000円）
-      </a>
-      <div class="cta-price">
-        <span class="price-original">定価 297,000円 →</span>
-        <span style="color:var(--primary);font-weight:700">早期割引価格 198,000円（税込）</span>
-      </div>
-    </div>
+      <p><strong>２０名限定</strong></p>
 
-    <!-- POSTSCRIPT -->
-    <div class="lp-body section">
+      <p>での募集となります！<br>
+      さらに、コンテンツビジネスは、</p>
 
-      <h2>追伸：AIに企画を相談しないでください</h2>
+      <p><strong>・能力がなくていい<br>
+      ・お金がなくていい</strong></p>
 
-      <img src="https://assets.st-note.com/img/1771485866-vNYRCqes8KXcPrQFGgkO45hx.png" alt="" class="section-img" loading="lazy">
+      <p>まさに「誰でもできる」ビジネスだから<br>
+      少しでも心理的ハードルを下げたい。</p>
 
-      <p>AIのおかげで、コンテンツビジネスは格段にやりやすくなった。</p>
+      <p>そこで、</p>
 
-      <p>電子書籍も1日で書ける。セールスレターも1日で書ける。<br>
-      資料作成も、リサーチも、どんどん効率化できる。</p>
+      <p>定価：297,000円のところ<br>
+      早期申込をした先着20名に限り</p>
 
-      <p>だから<strong>「AIを使えば誰でもできる」</strong>と思いがちだけど、<br>
-      それは<strong>作業の効率化</strong>の話。</p>
+      <p><strong>特別価格：１９８,０００円（税込）</strong></p>
 
-      <p>ここで一つだけ気をつけてほしいことがある。</p>
+      <p>でご案内します！<br>
+      オレは本気で、</p>
 
-      <p><strong>「企画」と「キラーコンテンツ」はAIに相談してもうまくいかない。</strong></p>
+      <p><strong>全員の企画を決めて、コンテンツを完成させる</strong></p>
 
-      <p>なぜか？AIが出すのは<strong>平均化された答え</strong>だからだ。</p>
+      <p>ことをブートキャンプの目標にしているんで<br>
+      会いに来てくれたら嬉しい！</p>
 
-      <p>みんなと同じような質問を投げて、みんなと同じような答えをもらって、<br>
-      みんなと同じようなコンテンツを作る。</p>
+      <p><strong>ちなみに「コンテンツも何もない」って人も安心してきてほしい。</strong></p>
 
-      <p>そしたら何が起こるか？<strong>何の特徴もないコンテンツが出来上がってしまう。</strong></p>
+      <p>そういう人のために「コンテンツビジネス大全」っていうオンライン教材を用意してるので！</p>
 
-      <p>だからこそ、最初の「企画」だけはプロと一緒に考えた方がいい。</p>
+      <p>では。</p>
 
-      <ul>
-        <li>最初の企画をプロと一緒に固めて</li>
-        <li>それ以降をAIでどんどん量産する</li>
-        <li>AIで拡散させる</li>
-      </ul>
+      <p>ブートキャンプでお会いしましょう！</p>
 
-      <p><strong>これが一番うまくいく順番です。</strong></p>
+      <blockquote>
+        <p><strong>＜コンテンツビジネスブートキャンプの詳細＞</strong></p>
+        <p><strong>【プログラム１】コンテンツビジネスブートキャンプ</strong><br>
+        ■日程<br>
+        3月22日(日)<br>
+        14:30〜19:00：ブートキャンプ<br>
+        19:30〜21:30：懇親会（任意参加・参加費別途）<br>
+        ※終了時間は前後する可能性があります。</p>
+        <p>■場所<br>
+        東京都内（渋谷付近を予定）</p>
+        <p><strong>【プログラム２】コンテンツビジネス大全（オンライン教材）</strong><br>
+        ※購入後すぐに専用のサイトでご視聴いただけます。</p>
+        <p>■定員<br>
+        20名限定</p>
+        <p>■価格<br>
+        <s>通常価格：297,000円のところ</s><br>
+        特別価格：198,000円（税込）</p>
+      </blockquote>
 
-      <p>では。講座でお会いしましょう！</p>
-      <p style="font-size:1.1rem;font-weight:700;margin-top:8px">長倉</p>
+    </div><!-- /lp-body -->
 
-    </div>
-
-    <!-- FAQ -->
-    <div class="section">
-      <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:20px;color:var(--text)">よくある質問</h2>
-
-      <div class="faq-item">
-        <div class="faq-q">Q：コンテンツビジネス初心者ですが参加しても大丈夫ですか？</div>
-        <div class="faq-a">はい、大丈夫です。むしろ、これから始める人こそ「最初の企画」が肝心ですので、ぜひご参加ください。私が直接、あなたの強みや経験を聞いて、勝てるマーケットと企画を提案します。</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">Q：まだ売りたい商品が決まっていませんが参加できますか？</div>
-        <div class="faq-a">はい、問題ありません。商品がない状態から、まずは集客のための「キラーコンテンツ（フロント商品）」をこの日に作ります。そのキラーコンテンツができれば、自然と本命商品のアイデアも見えてきます。</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">Q：当日はパソコンが必要ですか？</div>
-        <div class="faq-a">はい、その場で企画書や台本を作成していただきますので、ノートパソコンをお持ちいただくことを推奨しています。</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">Q：自分のビジネス（業界）でも通用しますか？</div>
-        <div class="faq-a">どのような業界でも「コンテンツビジネスの型」は共通です。あなたの業界に合わせた切り口やコンセプトをその場でアドバイスさせていただきます。</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">Q：通信環境（Wi-Fi）の準備は必要ですか？</div>
-        <div class="faq-a">当日は会場に完備されているWi-Fiをご利用いただけますので、ご自身で用意する必要はございません。電源コンセントもございます。</div>
-      </div>
-    </div>
-
-    <!-- CTA FINAL -->
-    <div class="cta-section">
-      <h3>お問い合わせ</h3>
-      <p>
-        「銀行振込で参加したい」などのお問い合わせは以下まで。<br>
-        メール：<a href="mailto:mail.nagakura@factory-llc.jp" style="color:var(--primary)">mail.nagakura@factory-llc.jp</a><br>
-        TEL：03-4520-5423（10時〜夜22時まで対応）
-      </p>
-      <a href="#" class="cta-btn payment-link" target="_blank" rel="noopener">
-        ブートキャンプに申し込む →
-      </a>
-    </div>
-
-    <!-- PROFILE -->
-    <div class="profile-section section">
-      <img src="https://assets.st-note.com/img/1771485866-Ek3BeJRZgi2N64QoYFHOCsUq.png" alt="長倉顕太" class="profile-img" loading="lazy">
-      <div class="profile-name">長倉顕太</div>
-      <div class="profile-title">1,100万部編集者 / 作家 / プロデューサー</div>
-      <div class="profile-bio">
-        <p>1973年、東京生まれ。学習院大学卒業後、28歳の時に出版社に転職し、編集者としてベストセラーを連発。今までに企画・編集した本の累計は1100万部を超える。</p>
-        <p>編集者時代の10年間では、担当した142作中65作が5万部以上、22作が10万部以上、年間ベストセラーに6作ランクインの実績がある。</p>
-        <p>独立後は8年間にわたりホノルル、サンフランシスコに拠点を移して活動し、現在はコンテンツのプロデュースやマーケティング、コンサルティング、教育事業などに携わっている。</p>
-        <p>自身も著者として14冊出版。主な著書に20万部を突破した『移動する人はうまくいく』など多数。</p>
-      </div>
-    </div>
-
-    <!-- CTA IMAGE 3 (final) -->
+    <!-- CTA IMAGE BUTTON 1 -->
     <a href="#" class="cta-img-link payment-link" target="_blank" rel="noopener">
       <img src="https://assets.st-note.com/img/1771485866-71H8EqvcATLzaYrjhUGemgOW.png" alt="ブートキャンプに申し込む">
     </a>
+    <a href="#" class="cta-fallback payment-link" target="_blank" rel="noopener">ボタンが機能しない場合はこちらから</a>
 
-    <div style="text-align:center;padding:20px 0;font-size:.75rem;color:var(--text-sub)">
-      <a href="https://internationalpublishers-syndicate.com/ips/tokushohou.html" target="_blank" style="color:var(--text-sub);margin-right:16px">特定商取引法</a>
-      <a href="https://internationalpublishers-syndicate.com/privacy/" target="_blank" style="color:var(--text-sub)">プライバシーポリシー</a>
+    <!-- POSTSCRIPT -->
+    <div class="lp-body">
+
+      <h2>追伸<br>AIに企画を相談しないでください</h2>
+
+      <img src="https://assets.st-note.com/img/1771485866-vNYRCqes8KXcPrQFGgkO45hx.png" alt="" class="section-img" loading="lazy">
+
+      <p>最後まで読んでくれてありがとう。</p>
+
+      <p>何度も言いますがAIのおかげで、<br>
+      コンテンツビジネスは格段にやりやすくなった。</p>
+
+      <p>電子書籍も1日で書ける。<br>
+      セールスレターも1日で書ける。<br>
+      資料作成も、リサーチも、どんどん効率化できる。</p>
+
+      <p>だから、</p>
+
+      <p><strong>「AIを使えば誰でもできる」</strong></p>
+
+      <p>と思いがちだけど、<br>
+      それは<strong>作業の効率化</strong>の話。</p>
+
+      <p>ここで一つだけ<br>
+      気をつけてほしいことがある。</p>
+
+      <p><strong>「企画」と「キラーコンテンツ」は</strong><br>
+      <strong>AIに相談してもうまくいかない。</strong></p>
+
+      <p>なぜか？</p>
+
+      <p>AIが出すのは<strong>平均化された答え</strong>だからだ。</p>
+
+      <p>みんなと同じような質問を投げて、<br>
+      みんなと同じような答えをもらって、<br>
+      みんなと同じようなコンテンツを作る。</p>
+
+      <p>そしたら何が起こるか？</p>
+
+      <p><strong>何の特徴もないコンテンツが</strong><br>
+      <strong>出来上がってしまう。</strong></p>
+
+      <p>だからこそ、<br>
+      最初の「企画」だけは<br>
+      プロと一緒に考えた方がいい。</p>
+
+      <p>キラーコンテンツのコンセプトを<br>
+      どう設計するか。</p>
+
+      <p>ここは<strong>オレに任せてほしい。</strong></p>
+
+      <p>オレは20年以上、<br>
+      コンテンツビジネスの業界で<br>
+      結果を出し続けてきた。</p>
+
+      <p>担当した142作中65作が5万部以上、<br>
+      22作が10万部以上。</p>
+
+      <p>毎週プロモーションを回して、<br>
+      毎週売上を作っている。</p>
+
+      <p>それくらい「企画」と「コンセプト」に<br>
+      向き合い続けてきた人間です。</p>
+
+      <p>だからこそ、<br>
+      アナタの企画を一緒に考えたい。</p>
+
+      <p>・最初の企画をプロと一緒に固めて<br>
+      ・それ以降をAIでどんどん量産する<br>
+      ・AIで拡散させる</p>
+
+      <p><strong>これが一番うまくいく順番です。</strong></p>
+
+      <p>このブートキャンプでは、<br>
+      オレがアナタのキラーコンテンツを<br>
+      一緒に考え、一緒に作ります。</p>
+
+      <p>ここで固めた企画を持ち帰って、<br>
+      あとはAIでどんどん形にしていってください。</p>
+
+      <p>では。<br>
+      講座でお会いしましょう！</p>
+
+      <p>長倉</p>
+
+    </div><!-- /lp-body postscript -->
+
+    <!-- CTA IMAGE BUTTON 2 -->
+    <a href="#" class="cta-img-link payment-link" target="_blank" rel="noopener">
+      <img src="https://assets.st-note.com/img/1771485866-71H8EqvcATLzaYrjhUGemgOW.png" alt="ブートキャンプに申し込む">
+    </a>
+    <a href="#" class="cta-fallback payment-link" target="_blank" rel="noopener">ボタンが機能しない場合はこちらから</a>
+
+    <!-- FAQ -->
+    <div class="lp-body" style="margin-top:40px">
+
+      <blockquote>
+        <p><strong>Q：コンテンツビジネス初心者ですが参加しても大丈夫ですか？</strong><br>
+        <strong>A：</strong>はい、大丈夫です。むしろ、これから始める人こそ「最初の企画」が肝心ですので、ぜひご参加ください。私が直接、あなたの強みや経験を聞いて、勝てるマーケットと企画を提案します。</p>
+      </blockquote>
+
+      <blockquote>
+        <p><strong>Q：まだ売りたい商品が決まっていませんが参加できますか？</strong><br>
+        <strong>A：</strong>はい、問題ありません。商品がない状態から、まずは集客のための「キラーコンテンツ（フロント商品）」をこの日に作ります。そのキラーコンテンツができれば、自然と本命商品のアイデアも見えてきます。</p>
+      </blockquote>
+
+      <blockquote>
+        <p><strong>Q：当日はパソコンが必要ですか？</strong><br>
+        <strong>A：</strong>はい、その場で企画書や台本を作成していただきますので、ノートパソコンをお持ちいただくことを推奨しています。</p>
+      </blockquote>
+
+      <blockquote>
+        <p><strong>Q：自分のビジネス（業界）でも通用しますか？</strong><br>
+        <strong>A：</strong>どのような業界でも「コンテンツビジネスの型」は共通です。あなたの業界に合わせた切り口やコンセプトをその場でアドバイスさせていただきます。</p>
+      </blockquote>
+
+      <blockquote>
+        <p><strong>Q：通信環境（Wi-Fi）の準備は必要ですか？</strong><br>
+        <strong>A：</strong>当日は会場に完備されているWi-Fiをご利用いただけますので、ご自身で用意する必要はございませんのでご安心ください。また電源コンセントもございます。</p>
+      </blockquote>
+
+      <hr>
+
+      <h2>お問い合わせについて</h2>
+
+      <p>「銀行振込で参加したい」などのお問い合わせをよくいただきます。<br>
+      その他、お支払いに関することやお困りごとは、以下の窓口までお気軽にご連絡をください。</p>
+
+      <p>メール：<a href="mailto:mail.nagakura@factory-llc.jp" style="color:var(--primary)">mail.nagakura@factory-llc.jp</a><br>
+      TEL：03-4520-5423<br>
+      （10時〜夜22時まで対応）</p>
+
+    </div>
+
+    <!-- CTA IMAGE BUTTON 3 -->
+    <a href="#" class="cta-img-link payment-link" target="_blank" rel="noopener">
+      <img src="https://assets.st-note.com/img/1771485866-71H8EqvcATLzaYrjhUGemgOW.png" alt="ブートキャンプに申し込む">
+    </a>
+    <a href="#" class="cta-fallback payment-link" target="_blank" rel="noopener">ボタンが機能しない場合はこちらから</a>
+
+    <!-- PROFILE -->
+    <div class="lp-body" style="margin-top:40px">
+      <h2>長倉顕太<br>プロフィール</h2>
+
+      <img src="https://assets.st-note.com/img/1771485866-Ek3BeJRZgi2N64QoYFHOCsUq.png" alt="長倉顕太" class="section-img" loading="lazy">
+
+      <p>1973年、東京生まれ。学習院大学卒業後、職を転々としたあと28歳の時に出版社に転職し、編集者としてベストセラーを連発。今までに企画・編集した本の累計は1100万部を超える。</p>
+
+      <p>編集者時代の10年間では、担当した142作中65作が5万部以上、22作が10万部以上、年間ベストセラーに6作ランクインの実績がある。</p>
+
+      <p>独立後は8年間にわたりホノルル、サンフランシスコに拠点を移して活動し、現在はコンテンツのプロデュースやこれらを活用したマーケティング、2拠点生活の経験を活かしたビジネスのオンライン化／テレワーク化のコンサルティング、海外での子育ての経験（とくにギフテッド教育に詳しい）から教育事業などに携わっている。</p>
+
+      <p>自身も著者として14冊出版。主な著書に20万部を突破した『移動する人はうまくいく』『人生は28歳までに決まる』など多数。<br>
+      最新刊は『豊かな人だけが知っていること〜時間貧困にならない51の習慣〜』。</p>
+
+      <p>IPS出版株式会社<br>
+      <a href="https://internationalpublishers-syndicate.com/ips/tokushohou.html" target="_blank" style="color:var(--text-sub)">特定商取引法</a>　|　<a href="https://internationalpublishers-syndicate.com/privacy/" target="_blank" style="color:var(--text-sub)">プライバシーポリシー</a></p>
     </div>
 
   </div><!-- /lp-main -->
@@ -951,7 +1233,6 @@ body{
 </div><!-- /container -->
 
 <script>
-// ── Payment URLs by type ──
 const PAYMENT_URLS = {
   reporter:  'https://factory-llc.teachable.com/purchase?product_id=6643494',
   arbitrage: 'https://factory-llc.teachable.com/purchase?product_id=6643495',
@@ -961,16 +1242,11 @@ const PAYMENT_URLS = {
 };
 const DEFAULT_PAYMENT = 'https://factory-llc.teachable.com/purchase?product_id=6643494';
 
-// ── Read profile from localStorage ──
 function getProfile() {
-  try {
-    return JSON.parse(localStorage.getItem('cbProfile') || '{}');
-  } catch(e) {
-    return {};
-  }
+  try { return JSON.parse(localStorage.getItem('cbProfile') || '{}'); }
+  catch(e) { return {}; }
 }
 
-// ── Compute personalized type ──
 function computeType(profile) {
   if (!profile.quizzes) return null;
   const v1 = profile.quizzes.v1;
@@ -978,7 +1254,6 @@ function computeType(profile) {
   return v1.type;
 }
 
-// ── Share page ──
 function sharePage() {
   const text = 'コンテンツビジネスブートキャンプ｜1日で売れるコンテンツを作り上げる';
   if (navigator.share) {
@@ -992,37 +1267,25 @@ function sharePage() {
   }
 }
 
-// ── Initialize page ──
 function init() {
   const profile = getProfile();
   const type = computeType(profile);
 
-  // Set payment URL for all .payment-link elements
   const payUrl = (type && PAYMENT_URLS[type]) ? PAYMENT_URLS[type] : DEFAULT_PAYMENT;
-  document.querySelectorAll('.payment-link').forEach(el => {
-    el.href = payUrl;
-  });
+  document.querySelectorAll('.payment-link').forEach(el => { el.href = payUrl; });
 
   if (!type) {
     document.getElementById('no-profile').style.display = 'block';
     document.getElementById('lp-main').style.display = 'block';
-    document.getElementById('intro-default').style.display = 'block';
     return;
   }
 
-  // Show main content
   document.getElementById('lp-main').style.display = 'block';
 
-  // Show appropriate intro
   const introEl = document.getElementById('intro-' + type);
-  if (introEl) {
-    introEl.style.display = 'block';
-  } else {
-    document.getElementById('intro-default').style.display = 'block';
-  }
+  if (introEl) introEl.style.display = 'block';
 }
 
-// Run on load
 init();
 </script>
 </body>
