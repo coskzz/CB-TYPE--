@@ -326,7 +326,8 @@ const TYPE_COLORS = {
 };
 const TYPE_ORDER = ['reporter','arbitrage','collab','prosumer','uber'];
 
-let gasUrl   = localStorage.getItem('cbAdmin_gasUrl') || '';
+const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbxuFasSFzxGpZoOnSjFlGFz9GWVapCQsKyH1M0hqv-7g20MpduXCOo2S8Z-wR1trk2H/exec';
+let gasUrl   = localStorage.getItem('cbAdmin_gasUrl') || DEFAULT_GAS_URL;
 let savedPass = localStorage.getItem('cbAdmin_pass') || '';
 
 // ── Init ──
