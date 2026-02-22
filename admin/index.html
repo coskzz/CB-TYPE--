@@ -399,7 +399,14 @@ function logout(){
   showPanel('login-panel');
 }
 
-// ── JSONP helper (CORSを回避してGASに接続) ──
+// ── fetch helper ──
+async function fetchWithCORS(url){
+  const res = await fetch(url, {method:'GET', credentials:'omit', redirect:'follow'});
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+// ── JSONP helper (フォールバック) ──
 function fetchJSONP(url){
   return new Promise(function(resolve, reject){
     const cbName = '__gasCb' + Date.now();
@@ -423,35 +430,42 @@ function fetchJSONP(url){
     script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName;
     script.onerror = function(){
       cleanup();
-      reject(new Error('GASへの接続に失敗しました'));
+      reject(new Error('JSONP失敗'));
     };
     document.head.appendChild(script);
   });
 }
 
-// ── Data ──
+// ── Data (fetch → JSONP フォールバック) ──
 async function fetchData(pass){
   setDashboardLoading();
+  const url = `${gasUrl}?auth=${encodeURIComponent(pass)}`;
+  let json;
   try {
-    const json = await fetchJSONP(`${gasUrl}?auth=${encodeURIComponent(pass)}`);
-
-    if(json.error){
-      localStorage.removeItem('cbAdmin_pass');
-      savedPass = '';
+    json = await fetchWithCORS(url);
+  } catch(e1){
+    try {
+      json = await fetchJSONP(url);
+    } catch(e2){
       showPanel('login-panel');
-      document.getElementById('login-alert').textContent = 'パスワードが正しくありません。';
+      document.getElementById('login-alert').textContent = `接続エラー (fetch: ${e1.message} / JSONP: ${e2.message})`;
       document.getElementById('login-alert').classList.remove('hidden');
       return;
     }
-
-    savedPass = pass;
-    localStorage.setItem('cbAdmin_pass', pass);
-    renderDashboard(json.rows || []);
-  } catch(err){
-    showPanel('login-panel');
-    document.getElementById('login-alert').textContent = `接続エラー: ${err.message}`;
-    document.getElementById('login-alert').classList.remove('hidden');
   }
+
+  if(json.error){
+    localStorage.removeItem('cbAdmin_pass');
+    savedPass = '';
+    showPanel('login-panel');
+    document.getElementById('login-alert').textContent = 'パスワードが正しくありません。';
+    document.getElementById('login-alert').classList.remove('hidden');
+    return;
+  }
+
+  savedPass = pass;
+  localStorage.setItem('cbAdmin_pass', pass);
+  renderDashboard(json.rows || []);
 }
 
 function refresh(){
