@@ -79,7 +79,7 @@ summary:hover{color:var(--primary)}
     <label for="pass">管理パスワード</label>
     <input type="password" id="pass" placeholder="パスワードを入力"
       onkeydown="if(event.key==='Enter')open()">
-    <button class="btn" onclick="open()">ダッシュボードを開く →</button>
+    <button class="btn" onclick="openDashboard()">ダッシュボードを開く →</button>
     <p class="note">ダッシュボードは別タブで開きます。<br>Google Apps Script が回答データをレンダリングします。</p>
   </div>
 
@@ -222,7 +222,7 @@ function renderDashboard(rows) {
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbxuFasSFzxGpZoOnSjFlGFz9GWVapCQsKyH1M0hqv-7g20MpduXCOo2S8Z-wR1trk2H/exec';
 
-function open(){
+function openDashboard(){
   const pass = document.getElementById('pass').value.trim();
   if(!pass){ alert('パスワードを入力してください'); return; }
   window.open(GAS_URL + '?auth=' + encodeURIComponent(pass), '_blank');
