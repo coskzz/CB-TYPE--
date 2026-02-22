@@ -7,12 +7,12 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --primary:#6C5CE7;--primary-light:#A29BFE;--accent:#00CEC9;
-  --bg:#0F0E17;--surface:#1A1926;--surface2:#252336;
-  --text:#FFFFFE;--text-sub:#A7A9BE;
-  --reporter:#FF6B6B;--arbitrage:#4ECDC4;--collab:#FFE66D;
-  --prosumer:#A29BFE;--uber:#FF9FF3;
-  --radius:16px;--shadow:0 8px 32px rgba(0,0,0,.3);
+  --primary:#6C5CE7;--primary-light:#8B7CF6;--accent:#00A86B;
+  --bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F0F2F8;
+  --border:#E2E8F0;--text:#1A1A2E;--text-sub:#64748B;
+  --reporter:#DC2626;--arbitrage:#0891B2;--collab:#D97706;
+  --prosumer:#7C3AED;--uber:#DB2777;
+  --radius:16px;--shadow:0 2px 16px rgba(0,0,0,.07);
 }
 html{font-size:16px;scroll-behavior:smooth}
 body{
@@ -20,20 +20,6 @@ body{
   background:var(--bg);color:var(--text);min-height:100dvh;
   display:flex;flex-direction:column;align-items:center;
   overflow-x:hidden;line-height:1.7;
-}
-
-/* ── Background decoration ── */
-body::before{
-  content:"";position:fixed;top:-30%;left:-10%;
-  width:60vw;height:60vw;border-radius:50%;
-  background:radial-gradient(circle,rgba(108,92,231,.15),transparent 70%);
-  pointer-events:none;z-index:0;
-}
-body::after{
-  content:"";position:fixed;bottom:-20%;right:-10%;
-  width:50vw;height:50vw;border-radius:50%;
-  background:radial-gradient(circle,rgba(0,206,201,.1),transparent 70%);
-  pointer-events:none;z-index:0;
 }
 
 .container{
@@ -45,16 +31,16 @@ body::after{
 header{text-align:center;padding:40px 0 32px}
 header h1{
   font-size:1.6rem;font-weight:800;letter-spacing:.02em;
-  background:linear-gradient(135deg,var(--primary-light),var(--accent));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  color:var(--primary);
 }
 header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
 
 /* ── Progress bar ── */
 .progress-wrap{
   position:sticky;top:0;z-index:10;
-  background:rgba(15,14,23,.85);backdrop-filter:blur(12px);
+  background:rgba(247,248,252,.9);backdrop-filter:blur(12px);
   padding:14px 0 10px;margin-bottom:16px;
+  border-bottom:1px solid var(--border);
 }
 .progress-bar{
   height:6px;border-radius:3px;background:var(--surface2);overflow:hidden;
@@ -70,7 +56,7 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
 
 /* ── Card / Question ── */
 .card{
-  background:var(--surface);border:1px solid rgba(255,255,255,.06);
+  background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius);padding:32px 28px;
   box-shadow:var(--shadow);
   animation:fadeUp .45s ease both;
@@ -84,111 +70,85 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
   font-size:.75rem;font-weight:700;color:var(--accent);
   text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;
 }
-.q-text{font-size:1.15rem;font-weight:700;margin-bottom:24px}
+.q-text{font-size:1.15rem;font-weight:700;margin-bottom:24px;color:var(--text)}
 
 /* ── Options ── */
 .options{display:flex;flex-direction:column;gap:12px}
 .opt-btn{
   display:flex;align-items:center;gap:14px;
-  background:var(--surface2);border:2px solid transparent;
+  background:var(--surface2);border:2px solid var(--border);
   border-radius:12px;padding:16px 20px;
   color:var(--text);font-size:.95rem;text-align:left;
   cursor:pointer;transition:all .2s ease;
   line-height:1.5;
 }
 .opt-btn:hover{
-  border-color:var(--primary-light);
-  background:rgba(108,92,231,.12);
+  border-color:var(--primary);
+  background:rgba(108,92,231,.05);
   transform:translateX(4px);
 }
 .opt-btn .icon{
   flex-shrink:0;width:36px;height:36px;border-radius:10px;
   display:grid;place-items:center;font-size:1.1rem;
-  background:rgba(255,255,255,.06);
+  background:rgba(108,92,231,.08);
 }
-.opt-btn:hover .icon{background:rgba(108,92,231,.25)}
+.opt-btn:hover .icon{background:rgba(108,92,231,.15)}
 
-/* ── Intro & Result screens ── */
+/* ── Intro & screens ── */
 .screen{text-align:center}
 .screen.hidden{display:none}
 
-.start-btn,.retry-btn,.share-btn{
+.start-btn{
   display:inline-flex;align-items:center;gap:8px;
   margin-top:28px;padding:16px 40px;
   border:none;border-radius:60px;font-size:1rem;font-weight:700;
   cursor:pointer;transition:all .25s ease;
   color:#fff;
-}
-.start-btn{
   background:linear-gradient(135deg,var(--primary),var(--accent));
-  box-shadow:0 4px 24px rgba(108,92,231,.4);
+  box-shadow:0 4px 24px rgba(108,92,231,.3);
 }
-.start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(108,92,231,.55)}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(108,92,231,.45)}
 
-.retry-btn{
-  background:var(--surface2);border:2px solid var(--primary-light);
-  color:var(--primary-light);margin-right:12px;
+/* ── Transition screen ── */
+.transition-screen{
+  text-align:center;padding:60px 24px;
 }
-.retry-btn:hover{background:rgba(108,92,231,.15)}
+.transition-screen .check{
+  font-size:3rem;margin-bottom:20px;
+  animation:popIn .4s ease both;
+}
+@keyframes popIn{
+  from{opacity:0;transform:scale(.5)}
+  to{opacity:1;transform:scale(1)}
+}
+.transition-screen h2{
+  font-size:1.2rem;font-weight:800;color:var(--text);
+  margin-bottom:12px;
+}
+.transition-screen p{color:var(--text-sub);font-size:.9rem;margin-bottom:24px}
+.loading-dots{
+  display:inline-flex;gap:6px;align-items:center;
+  margin-top:8px;
+}
+.loading-dots span{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--primary);opacity:.3;
+  animation:dot-pulse 1.2s ease-in-out infinite;
+}
+.loading-dots span:nth-child(2){animation-delay:.2s}
+.loading-dots span:nth-child(3){animation-delay:.4s}
+@keyframes dot-pulse{
+  0%,100%{opacity:.3;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.3)}
+}
 
-.share-btn{
-  background:linear-gradient(135deg,var(--primary),#e84393);
-  box-shadow:0 4px 20px rgba(232,67,147,.3);
+.retry-link{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--text-sub);font-size:.8rem;
+  cursor:pointer;background:none;border:none;
+  margin-top:16px;text-decoration:underline;
 }
-.share-btn:hover{transform:translateY(-2px)}
-
-/* ── Result ── */
-.result-type-badge{
-  display:inline-block;
-  font-size:2rem;font-weight:900;
-  margin:20px 0 8px;
-  padding:8px 28px;border-radius:60px;
-}
-.result-subtitle{color:var(--text-sub);font-size:.95rem;margin-bottom:28px}
-.result-desc{
-  text-align:left;background:var(--surface2);
-  border-radius:14px;padding:24px 22px;
-  font-size:.93rem;line-height:1.85;margin-bottom:28px;
-}
-.result-desc strong{color:var(--accent)}
-
-/* ── All types overview ── */
-.all-types{text-align:left;margin-top:36px}
-.all-types h3{
-  font-size:1rem;font-weight:700;margin-bottom:16px;
-  color:var(--text-sub);
-}
-.type-bar{
-  display:flex;align-items:center;gap:12px;
-  margin-bottom:10px;font-size:.85rem;
-}
-.type-bar .label{width:120px;flex-shrink:0;font-weight:600}
-.type-bar .bar-bg{
-  flex:1;height:10px;border-radius:5px;background:var(--surface);overflow:hidden;
-}
-.type-bar .bar-fill{
-  height:100%;border-radius:5px;transition:width .6s ease;
-}
-.type-bar .pct{width:40px;text-align:right;color:var(--text-sub)}
-
-/* ── CTA ── */
-.cta-box{
-  margin-top:36px;
-  background:linear-gradient(135deg,rgba(108,92,231,.15),rgba(0,206,201,.1));
-  border:1px solid rgba(108,92,231,.3);
-  border-radius:var(--radius);padding:28px 24px;text-align:center;
-}
-.cta-box h3{font-size:1.05rem;margin-bottom:10px}
-.cta-box p{font-size:.88rem;color:var(--text-sub);line-height:1.7}
-.cta-box a{
-  display:inline-block;margin-top:16px;padding:12px 32px;
-  border-radius:60px;font-weight:700;font-size:.9rem;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  color:#fff;text-decoration:none;
-  box-shadow:0 4px 20px rgba(108,92,231,.35);
-  transition:all .25s ease;
-}
-.cta-box a:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(108,92,231,.5)}
+.retry-link:hover{color:var(--primary)}
 
 /* ── Intro icons ── */
 .intro-icons{
@@ -198,7 +158,7 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
 .intro-icons span{
   display:inline-flex;align-items:center;gap:6px;
   padding:8px 16px;border-radius:60px;font-size:.82rem;font-weight:600;
-  background:var(--surface2);
+  background:var(--surface2);border:1px solid var(--border);
 }
 
 /* ── Responsive ── */
@@ -207,7 +167,6 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
   .card{padding:24px 18px}
   .q-text{font-size:1.05rem}
   .opt-btn{padding:14px 16px;font-size:.88rem}
-  .result-type-badge{font-size:1.5rem}
 }
 </style>
 </head>
@@ -222,7 +181,7 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
 
   <!-- ====== INTRO ====== -->
   <div id="intro" class="card screen">
-    <p style="font-size:1.1rem;font-weight:700;margin-bottom:12px">あなたに合った<br>コンテンツビジネスの型を診断！</p>
+    <p style="font-size:1.1rem;font-weight:700;margin-bottom:12px;color:var(--text)">あなたに合った<br>コンテンツビジネスの型を診断！</p>
     <p style="color:var(--text-sub);font-size:.9rem">
       コンテンツビジネスには5つの型があります。<br>
       あなたの経験・性格・目標から、<br>最適な型を見つけましょう。
@@ -247,23 +206,18 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
   <!-- ====== QUESTION ====== -->
   <div id="question-card" class="card hidden"></div>
 
-  <!-- ====== RESULT ====== -->
+  <!-- ====== RESULT (transition) ====== -->
   <div id="result" class="card screen hidden"></div>
 
 </div>
 
 <script>
 const TYPES = {
-  reporter:  {name:"レポーター型",    emoji:"📡", color:"#FF6B6B",
-    desc:"あなたは人を見る目があり、面白い人・スゴイ人を見つけて<strong>紹介・発信する力</strong>に長けています。プロデューサー的なポジションで、業界の専門家やベストセラー作家を紹介しながらプロモーションをする型です。\n\n<strong>こんな人におすすめ：</strong>\n・人脈が広い、またはこれから広げたい\n・人の魅力を見抜くのが得意\n・自分が前面に出るよりも裏方が好き"},
-  arbitrage: {name:"アービトラージ型", emoji:"🌏", color:"#4ECDC4",
-    desc:"あなたは情報感度が高く、<strong>まだ日本に知られていない価値ある情報</strong>を見つける嗅覚があります。海外や他業界で成功している事例を日本市場に持ち込む「情報の裁定取引」で勝負する型です。AI時代の今、かなり始めやすいのが特徴。\n\n<strong>こんな人におすすめ：</strong>\n・海外の情報に触れる機会がある\n・トレンドに敏感\n・「これ日本にはまだないな」と感じることが多い"},
-  collab:    {name:"コラボ型",        emoji:"🤝", color:"#FFE66D",
-    desc:"あなたは人と組むことで力を発揮するタイプ。SNSやYouTube、ライブ配信などで<strong>誰かとコラボして一気にマーケットを広げる</strong>戦い方が合っています。すでにある程度の基盤がある人が次のステージに行くための型です。\n\n<strong>こんな人におすすめ：</strong>\n・月収100万〜1000万円を目指している\n・SNSやYouTubeでフォロワーがいる\n・ジョイントベンチャーに興味がある"},
-  prosumer:  {name:"プロシューマー型", emoji:"📚", color:"#A29BFE",
-    desc:"あなたは<strong>学びながら稼ぐ</strong>ことに最も適しています。プロデューサー（Producer）と消費者（Consumer）を同時にこなす型です。各業界の専門家をプロデュースしながら自分も学び、その学びをさらにコンテンツにしていきます。\n\n<strong>こんな人におすすめ：</strong>\n・好奇心が強く、学ぶことが好き\n・複数の分野に興味がある\n・インプットとアウトプットを同時にしたい"},
-  uber:      {name:"ウーバーイーツ型", emoji:"📦", color:"#FF9FF3",
-    desc:"あなたは情報を集めて整理し、<strong>わかりやすく届ける力</strong>を持っています。自分に専門性がなくても、すでにある情報をキュレーションして再編集するだけでコンテンツになる。「〇〇の本100冊を1冊にまとめてみた」のような型です。\n\n<strong>こんな人におすすめ：</strong>\n・特別なスキルや実績がまだない\n・情報を整理してまとめるのが好き\n・フォロワーゼロ・実績ゼロからでも始めたい"}
+  reporter:  {name:"レポーター型",    emoji:"📡", color:"#DC2626"},
+  arbitrage: {name:"アービトラージ型", emoji:"🌏", color:"#0891B2"},
+  collab:    {name:"コラボ型",        emoji:"🤝", color:"#D97706"},
+  prosumer:  {name:"プロシューマー型", emoji:"📚", color:"#7C3AED"},
+  uber:      {name:"ウーバーイーツ型", emoji:"📦", color:"#DB2777"}
 };
 
 const QUESTIONS = [
@@ -406,8 +360,6 @@ function showResult(){
 
   const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
   const topKey = sorted[0][0];
-  const top = TYPES[topKey];
-  const maxScore = sorted[0][1];
 
   saveProfile(topKey, scores);
 
@@ -417,37 +369,23 @@ function showResult(){
   void card.offsetWidth;
   card.style.animation = "";
 
-  let html = `<p style="font-size:.85rem;color:var(--text-sub);margin-bottom:4px">あなたにぴったりの型は…</p>`;
-  html += `<div class="result-type-badge" style="background:${top.color}22;color:${top.color};border:2px solid ${top.color}">${top.emoji} ${top.name}</div>`;
-  html += `<p class="result-subtitle">5つの型の中で、あなたに最も合った戦い方です</p>`;
-  html += `<div class="result-desc">${top.desc.replace(/\n/g,"<br>")}</div>`;
+  card.innerHTML = `
+    <div class="transition-screen">
+      <div class="check">✅</div>
+      <h2>診断が完了しました！</h2>
+      <p>あなたの型に合わせた<br>特別なページをご用意しています。</p>
+      <div class="loading-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <br>
+      <button class="retry-link" onclick="retry()">🔄 もう一度診断する</button>
+    </div>
+  `;
 
-  html += `<div class="all-types"><h3>あなたの適性スコア</h3>`;
-  sorted.forEach(([key,val]) => {
-    const t = TYPES[key];
-    const pct = maxScore > 0 ? Math.round(val/maxScore*100) : 0;
-    html += `<div class="type-bar">
-      <span class="label" style="color:${t.color}">${t.emoji} ${t.name}</span>
-      <div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${t.color}"></div></div>
-      <span class="pct">${pct}%</span>
-    </div>`;
-  });
-  html += `</div>`;
-
-  html += `<div style="margin-top:32px">
-    <button class="retry-btn" onclick="retry()">🔄 もう一度診断する</button>
-    <button class="share-btn" onclick="shareResult('${topKey}')">📤 結果をシェア</button>
-  </div>`;
-
-  html += `<div class="cta-box">
-    <h3>💡 あなたの「売れる企画」をプロが直接決めます</h3>
-    <p>診断結果をもとに、<strong>あなたの型に合わせた</strong><br>
-    ブートキャンプ案内ページを用意しました。<br>
-    長倉があなたの企画をその場で決めます！</p>
-    <a href="./lp/">あなた専用のご案内を見る →</a>
-  </div>`;
-
-  card.innerHTML = html;
+  // Auto-redirect after 1.5s
+  setTimeout(() => {
+    window.location.href = './lp/';
+  }, 1500);
 }
 
 function retry(){
@@ -455,21 +393,9 @@ function retry(){
   for(const k in scores) scores[k] = 0;
   $("result").classList.add("hidden");
   $("result").innerHTML = "";
+  $("progress-fill").style.width = "0%";
+  $("progress-label").textContent = "";
   showQuestion();
-}
-
-function shareResult(typeKey){
-  const t = TYPES[typeKey];
-  const text = `【コンテンツビジネス5つの型 診断】\n私の診断結果は「${t.name}」でした！${t.emoji}\nあなたもやってみて👇`;
-  if(navigator.share){
-    navigator.share({title:"コンテンツビジネス5つの型 診断",text}).catch(()=>{});
-  } else {
-    navigator.clipboard.writeText(text).then(()=>{
-      alert("結果テキストをコピーしました！SNSに貼り付けてシェアしてください。");
-    }).catch(()=>{
-      prompt("以下をコピーしてシェアしてください：",text);
-    });
-  }
 }
 </script>
 </body>

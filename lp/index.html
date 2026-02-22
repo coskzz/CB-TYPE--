@@ -7,12 +7,12 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --primary:#6C5CE7;--primary-light:#A29BFE;--accent:#00CEC9;
-  --bg:#0F0E17;--surface:#1A1926;--surface2:#252336;
-  --text:#FFFFFE;--text-sub:#A7A9BE;
-  --reporter:#FF6B6B;--arbitrage:#4ECDC4;--collab:#FFE66D;
-  --prosumer:#A29BFE;--uber:#FF9FF3;
-  --radius:16px;--shadow:0 8px 32px rgba(0,0,0,.3);
+  --primary:#6C5CE7;--primary-light:#8B7CF6;--accent:#00A86B;
+  --bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F0F2F8;
+  --border:#E2E8F0;--text:#1A1A2E;--text-sub:#64748B;
+  --reporter:#DC2626;--arbitrage:#0891B2;--collab:#D97706;
+  --prosumer:#7C3AED;--uber:#DB2777;
+  --radius:16px;--shadow:0 2px 16px rgba(0,0,0,.08);
 }
 html{font-size:16px;scroll-behavior:smooth}
 body{
@@ -21,145 +21,128 @@ body{
   display:flex;flex-direction:column;align-items:center;
   overflow-x:hidden;line-height:1.8;
 }
-body::before{
-  content:"";position:fixed;top:-30%;left:-10%;
-  width:60vw;height:60vw;border-radius:50%;
-  background:radial-gradient(circle,rgba(108,92,231,.12),transparent 70%);
-  pointer-events:none;z-index:0;
-}
-body::after{
-  content:"";position:fixed;bottom:-20%;right:-10%;
-  width:50vw;height:50vw;border-radius:50%;
-  background:radial-gradient(circle,rgba(0,206,201,.08),transparent 70%);
-  pointer-events:none;z-index:0;
-}
 .container{
-  position:relative;z-index:1;width:100%;max-width:680px;
+  width:100%;max-width:680px;
   padding:0 20px 80px;
 }
 
-/* ── LP Header ── */
-.lp-header{
-  text-align:center;padding:40px 0 32px;
-  border-bottom:1px solid rgba(255,255,255,.06);
+/* ── Top nav ── */
+.top-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;border-bottom:1px solid var(--border);
   margin-bottom:0;
 }
-.lp-header .back-link{
-  display:inline-flex;align-items:center;gap:6px;
-  color:var(--text-sub);font-size:.8rem;text-decoration:none;
-  margin-bottom:20px;
+.top-nav .back-link{
+  display:inline-flex;align-items:center;gap:5px;
+  color:var(--text-sub);font-size:.78rem;text-decoration:none;
 }
-.lp-header .back-link:hover{color:var(--primary-light)}
-
-/* ── Type Banner ── */
-.type-banner{
-  display:flex;flex-direction:column;align-items:center;
-  padding:28px 24px 20px;
-  background:var(--surface);
-  border-top:3px solid var(--type-color, var(--primary));
-  border-radius:0 0 var(--radius) var(--radius);
-  margin-bottom:0;
+.top-nav .back-link:hover{color:var(--primary)}
+.top-nav .share-link{
+  display:inline-flex;align-items:center;gap:5px;
+  color:var(--text-sub);font-size:.78rem;text-decoration:none;
+  cursor:pointer;background:none;border:none;padding:0;
 }
-.type-banner .label{
-  font-size:.72rem;font-weight:700;color:var(--text-sub);
-  letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;
-}
-.type-badge{
-  font-size:1.5rem;font-weight:900;
-  padding:8px 24px;border-radius:60px;
-  background:color-mix(in srgb, var(--type-color, var(--primary)) 20%, transparent);
-  color:var(--type-color, var(--primary));
-  border:2px solid var(--type-color, var(--primary));
-  margin-bottom:8px;
-}
+.top-nav .share-link:hover{color:var(--primary)}
 
 /* ── Section base ── */
-.section{
-  padding:40px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
+.section{padding:40px 0;border-bottom:1px solid var(--border)}
 .section:last-child{border-bottom:none}
 
 /* ── LP Content Typography ── */
 .lp-body h2{
   font-size:1.2rem;font-weight:800;
-  line-height:1.5;margin:36px 0 16px;
+  line-height:1.55;margin:40px 0 16px;
   color:var(--text);
 }
 .lp-body h2:first-child{margin-top:0}
 .lp-body p{
   margin-bottom:1em;color:var(--text);
-  font-size:.95rem;line-height:1.9;
+  font-size:.95rem;line-height:1.95;
 }
-.lp-body strong{color:var(--accent)}
+.lp-body strong{color:var(--primary)}
 .lp-body ul,.lp-body ol{
   margin:12px 0 16px 0;
   list-style:none;
 }
 .lp-body ul li,.lp-body ol li{
   position:relative;padding-left:1.4em;
-  margin-bottom:6px;font-size:.93rem;
+  margin-bottom:8px;font-size:.93rem;line-height:1.85;
 }
 .lp-body ul li::before{
-  content:"・";position:absolute;left:0;color:var(--primary-light);
+  content:"・";position:absolute;left:0;color:var(--primary);
 }
 .lp-body blockquote{
   background:var(--surface2);
   border-left:3px solid var(--primary);
   border-radius:0 10px 10px 0;
   padding:20px 20px 20px 22px;
-  margin:20px 0;font-size:.9rem;line-height:1.9;
+  margin:16px 0;font-size:.92rem;line-height:1.9;
 }
-.lp-body blockquote strong{color:var(--primary-light)}
+.lp-body blockquote strong{color:var(--primary)}
 .lp-body hr{
-  border:none;border-top:1px solid rgba(255,255,255,.08);
-  margin:36px 0;
-}
-.lp-body .emphasis-box{
-  background:linear-gradient(135deg,rgba(108,92,231,.12),rgba(0,206,201,.08));
-  border:1px solid rgba(108,92,231,.3);
-  border-radius:var(--radius);
-  padding:24px;margin:24px 0;
-  text-align:center;
-}
-.lp-body .emphasis-box p{
-  font-size:1.05rem;font-weight:700;margin:0;
-  color:var(--text);
+  border:none;border-top:1px solid var(--border);
+  margin:40px 0;
 }
 
-/* ── CTA ── */
+/* ── Section image ── */
+.section-img{
+  display:block;width:100%;max-width:600px;
+  margin:20px auto 28px;border-radius:12px;
+  box-shadow:var(--shadow);
+}
+
+/* ── Emphasis box ── */
+.emphasis-box{
+  background:linear-gradient(135deg,rgba(108,92,231,.06),rgba(0,168,107,.04));
+  border:1px solid rgba(108,92,231,.2);
+  border-radius:var(--radius);
+  padding:24px;margin:24px 0;text-align:center;
+}
+.emphasis-box p{font-size:1.05rem;font-weight:700;margin:0;color:var(--text)}
+
+/* ── CTA image button ── */
+.cta-img-link{
+  display:block;margin:32px auto;max-width:500px;
+  cursor:pointer;transition:transform .2s ease, opacity .2s ease;
+}
+.cta-img-link:hover{transform:scale(1.02);opacity:.92}
+.cta-img-link img{display:block;width:100%;border-radius:12px}
+
+/* ── CTA Section ── */
 .cta-section{
-  background:linear-gradient(135deg,rgba(108,92,231,.18),rgba(0,206,201,.12));
-  border:1px solid rgba(108,92,231,.35);
+  background:#fff;
+  border:1px solid var(--border);
+  border-top:3px solid var(--primary);
   border-radius:var(--radius);
   padding:36px 28px;text-align:center;
   margin:36px 0;
+  box-shadow:var(--shadow);
 }
-.cta-section h3{font-size:1.1rem;margin-bottom:12px}
-.cta-section p{font-size:.88rem;color:var(--text-sub);margin-bottom:20px;line-height:1.7}
+.cta-section h3{font-size:1.1rem;margin-bottom:12px;color:var(--text)}
+.cta-section p{font-size:.88rem;color:var(--text-sub);margin-bottom:20px;line-height:1.75}
 .cta-btn{
   display:inline-block;
   padding:18px 44px;border-radius:60px;
   font-weight:800;font-size:1rem;letter-spacing:.02em;
   background:linear-gradient(135deg,var(--primary),var(--accent));
   color:#fff;text-decoration:none;
-  box-shadow:0 6px 28px rgba(108,92,231,.45);
+  box-shadow:0 6px 24px rgba(108,92,231,.35);
   transition:all .25s ease;
 }
-.cta-btn:hover{transform:translateY(-3px);box-shadow:0 8px 36px rgba(108,92,231,.6)}
-.cta-price{
-  margin-top:16px;font-size:.82rem;color:var(--text-sub);
-}
-.cta-price s{color:rgba(167,169,190,.5)}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(108,92,231,.5)}
+.cta-price{margin-top:16px;font-size:.82rem;color:var(--text-sub)}
+.price-original{font-size:.9rem;color:var(--text-sub);text-decoration:line-through;margin-right:8px}
+.price-tag{font-size:2rem;font-weight:900;color:var(--primary)}
 
-/* ── Type intro ── */
+/* ── Type intro card ── */
 .intro-card{
   background:var(--surface);
-  border:1px solid rgba(255,255,255,.06);
+  border:1px solid var(--border);
+  border-left:4px solid var(--type-color, var(--primary));
   border-radius:var(--radius);
   padding:32px 28px;
   margin:24px 0;
-  border-top:3px solid var(--type-color, var(--primary));
+  box-shadow:var(--shadow);
   animation:fadeUp .45s ease both;
 }
 @keyframes fadeUp{
@@ -167,37 +150,48 @@ body::after{
   to{opacity:1;transform:translateY(0)}
 }
 
-/* ── Highlight ── */
-.highlight{color:var(--accent)}
-.highlight-warm{color:#FF6B6B}
-
 /* ── Program box ── */
 .program-box{
   background:var(--surface2);
-  border-radius:var(--radius);
+  border-radius:var(--radius);border:1px solid var(--border);
   padding:24px;margin:20px 0;
 }
 .program-box h4{
-  font-size:.9rem;color:var(--primary-light);
+  font-size:.88rem;color:var(--primary);
   margin-bottom:12px;letter-spacing:.05em;
   text-transform:uppercase;font-weight:700;
 }
 
+/* ── Pricing box ── */
+.price-box{
+  background:var(--surface);
+  border:2px solid var(--primary);
+  border-radius:var(--radius);
+  padding:28px 24px;margin:24px 0;text-align:center;
+}
+.price-box .label{font-size:.8rem;color:var(--text-sub);margin-bottom:4px}
+.price-box .main-price{font-size:2.2rem;font-weight:900;color:var(--primary)}
+.price-box .tax{font-size:.8rem;color:var(--text-sub)}
+
 /* ── FAQ ── */
 .faq-item{
-  border:1px solid rgba(255,255,255,.07);
+  background:var(--surface);
+  border:1px solid var(--border);
   border-radius:12px;padding:20px;margin-bottom:12px;
 }
-.faq-q{font-weight:700;margin-bottom:8px;font-size:.93rem}
-.faq-a{color:var(--text-sub);font-size:.88rem;line-height:1.75}
+.faq-q{font-weight:700;margin-bottom:8px;font-size:.93rem;color:var(--text)}
+.faq-a{color:var(--text-sub);font-size:.88rem;line-height:1.8}
 
 /* ── Profile ── */
-.profile-section{
-  text-align:center;padding:40px 0;
+.profile-section{padding:40px 0}
+.profile-img{
+  display:block;width:120px;height:120px;border-radius:50%;
+  margin:0 auto 16px;object-fit:cover;
+  box-shadow:var(--shadow);
 }
-.profile-name{font-size:1.2rem;font-weight:800;margin-bottom:8px}
-.profile-title{color:var(--text-sub);font-size:.85rem;margin-bottom:16px}
-.profile-bio{font-size:.88rem;color:var(--text-sub);line-height:1.85;text-align:left}
+.profile-name{font-size:1.2rem;font-weight:800;margin-bottom:6px;text-align:center}
+.profile-title{color:var(--text-sub);font-size:.85rem;margin-bottom:16px;text-align:center}
+.profile-bio{font-size:.88rem;color:var(--text-sub);line-height:1.9}
 
 /* ── No profile state ── */
 .no-profile{
@@ -211,20 +205,15 @@ body::after{
   color:#fff;text-decoration:none;font-weight:700;
 }
 
-/* ── Price badge ── */
-.price-tag{
-  font-size:2rem;font-weight:900;color:var(--accent);
-}
-.price-original{
-  font-size:.9rem;color:var(--text-sub);text-decoration:line-through;margin-right:8px;
-}
+/* ── Highlight ── */
+.highlight{color:var(--accent)}
 
 /* ── Responsive ── */
 @media(max-width:480px){
   .lp-body h2{font-size:1.05rem}
   .cta-btn{padding:16px 32px;font-size:.95rem}
   .intro-card{padding:24px 18px}
-  .type-badge{font-size:1.2rem}
+  .price-tag{font-size:1.6rem}
 }
 </style>
 </head>
@@ -232,10 +221,10 @@ body::after{
 
 <div class="container">
 
-  <!-- HEADER -->
-  <div class="lp-header">
-    <a href="../" class="back-link">← 診断に戻る</a>
-    <p style="color:var(--text-sub);font-size:.82rem;margin-bottom:0">コンテンツビジネスブートキャンプ</p>
+  <!-- TOP NAV -->
+  <div class="top-nav">
+    <a href="../" class="back-link">← 診断し直す</a>
+    <button class="share-link" onclick="sharePage()">📤 シェア</button>
   </div>
 
   <!-- NO PROFILE STATE -->
@@ -456,7 +445,7 @@ body::after{
           <p>先に診断を受けると、<br>
           あなたの型に合わせたページが表示されます。</p>
           <p style="margin-top:16px">
-            <a href="../" style="color:var(--primary-light);font-weight:700">
+            <a href="../" style="color:var(--primary);font-weight:700">
               → 診断を受ける（約2分）
             </a>
           </p>
@@ -468,6 +457,8 @@ body::after{
     <div class="lp-body section">
 
       <h2>「体験価値×AI」で誰でも<br>売れるコンテンツをつくれるようになりました！</h2>
+
+      <img src="https://assets.st-note.com/img/1771485866-eptTnwc0CM7yWjvFzfD6OkIR.jpg" alt="" class="section-img" loading="lazy">
 
       <p>先日やった、<br>
       セールスページ制作セミナーでは、<br>
@@ -510,6 +501,8 @@ body::after{
 
       <h2>会ったこともない人に<br>紹介もリピートも生まれない</h2>
 
+      <img src="https://assets.st-note.com/img/1771485866-DR61JT7HE0uwIs3CkU2vmqKd.jpg" alt="" class="section-img" loading="lazy">
+
       <p>オレが目標としているのは毎月1000人と会うってこと。<br>
       今月も達成できた。</p>
 
@@ -533,6 +526,8 @@ body::after{
       <hr>
 
       <h2>売れる企画かどうかは<br>プロしかわかりません！</h2>
+
+      <img src="https://assets.st-note.com/img/1771485866-bLmaKFQYIxWZweSvGctngBXD.jpg" alt="" class="section-img" loading="lazy">
 
       <p>2026年以降の売れるコンテンツの特徴は、</p>
       <ul>
@@ -565,6 +560,8 @@ body::after{
 
       <h2>誰でもできる！売れるコンテンツをつくるための5つの型</h2>
 
+      <img src="https://assets.st-note.com/img/1771485866-3Rn0JKLbjIYBQeX56VW1stpM.png" alt="" class="section-img" loading="lazy">
+
       <blockquote>
         <p><strong>1. レポーター型</strong><br>
         プロデューサーとしてベストセラー作家や面白い人、スゴイ人を<strong>紹介して発信、プロモーションをする型。</strong></p>
@@ -590,6 +587,8 @@ body::after{
 
       <h2>企画とコンセプトで悩みすぎ</h2>
 
+      <img src="https://assets.st-note.com/img/1771485867-cJDkYXq9rVjFpwzMSKIRg7il.png" alt="" class="section-img" loading="lazy">
+
       <p>コンテンツ作りで重要になる「企画・コンセプト」ですが、<br>
       これに時間をかける人が多すぎる。</p>
 
@@ -610,6 +609,8 @@ body::after{
       <hr>
 
       <h2>プロ中のプロである長倉が<br>企画・コンセプトを決めます！</h2>
+
+      <img src="https://assets.st-note.com/img/1771485866-VBntqklcFWP7psy6T2hrjS50.png" alt="" class="section-img" loading="lazy">
 
       <p>オレは24年間、数百のプロジェクトに関わってきた。</p>
       <p>編集者時代には担当した<strong>142作中65作が5万部以上、22作が10万部以上。</strong></p>
@@ -639,6 +640,8 @@ body::after{
 
       <h2>ブートキャンプ形式はいつも大好評！</h2>
 
+      <img src="https://assets.st-note.com/img/1771485867-Il2jXiyJcOv7ozCqF4V5Dpxu.png" alt="" class="section-img" loading="lazy">
+
       <p>電子書籍ブートキャンプでは、<br>
       参加者30人中<strong>29人が1日で電子書籍を書き上げた。</strong></p>
 
@@ -660,24 +663,17 @@ body::after{
 
     </div>
 
-    <!-- CTA 1 -->
-    <div class="cta-section">
-      <h3>💡 あなたの企画をオレが直接決める</h3>
-      <p>「企画・コンセプトで何ヶ月も悩んだ」経験のある方へ。<br>
-      ブートキャンプでは、オレが全員の企画をその場で決めます。</p>
-      <a href="https://factory-llc.teachable.com/purchase?product_id=6634849" class="cta-btn" target="_blank" rel="noopener">
-        ブートキャンプに申し込む →
-      </a>
-      <div class="cta-price">
-        <span class="price-original">定価 297,000円</span>
-        <span class="price-tag">198,000円（税込）</span>
-      </div>
-    </div>
+    <!-- CTA IMAGE 1 -->
+    <a href="#" class="cta-img-link payment-link" target="_blank" rel="noopener">
+      <img src="https://assets.st-note.com/img/1771485866-71H8EqvcATLzaYrjhUGemgOW.png" alt="ブートキャンプに申し込む">
+    </a>
 
     <!-- PROGRAM DETAILS -->
     <div class="lp-body section">
 
       <h2>【プログラム１】<br>コンテンツビジネスブートキャンプ</h2>
+
+      <img src="https://assets.st-note.com/img/1771572022-gndoCDeRBzPFlKvN9jV13G8L.png" alt="" class="section-img" loading="lazy">
 
       <p>ブートキャンプでは具体的に、</p>
       <ul>
@@ -706,6 +702,8 @@ body::after{
 
       <h2>【プログラム２】<br>コンテンツビジネスの全てが学べるオンライン教材</h2>
 
+      <img src="https://assets.st-note.com/img/1771566118-Yu1NRpsxV0DTwAfrSohzaEjZ.png" alt="" class="section-img" loading="lazy">
+
       <p>ブートキャンプと合わせて、オンライン教材「コンテンツビジネス大全」が付属します。</p>
 
       <div class="program-box">
@@ -730,6 +728,8 @@ body::after{
 
       <h2>今回のブートキャンプで何ができるか</h2>
 
+      <img src="https://assets.st-note.com/img/1771485866-0UbeRLPm8QDFJjG9nHKstolX.png" alt="" class="section-img" loading="lazy">
+
       <ul>
         <li>セミナーを開催したい人 → <strong>セミナーの構成・台本</strong>が完成</li>
         <li>オンライン講座を作りたい人 → <strong>オンライン講座用の資料・構成</strong>が完成</li>
@@ -739,31 +739,103 @@ body::after{
 
       <hr>
 
-      <h2>２０名限定！早期割引でご案内します！</h2>
+      <h2>飲み会もやります！</h2>
 
-      <p>ブートキャンプは、先行販売の時点で1０名の枠が埋まっています。<br>
-      残り<strong>２０名限定</strong>での募集となります！</p>
+      <img src="https://assets.st-note.com/img/1771485866-egxWMqQfnEYX1m56wN82HJly.png" alt="" class="section-img" loading="lazy">
 
-      <p>早期申込をした先着20名に限り</p>
+      <p>ブートキャンプ後に懇親会（飲み会）もやります！</p>
 
-      <div class="emphasis-box">
-        <p><span class="price-original">通常価格：297,000円のところ</span><br>
-        <span class="price-tag">特別価格：198,000円（税込）</span></p>
+      <p>オレが毎月1000人と会うことを目標にしているのは、<br>
+      コンテンツビジネスは<strong>「人とのつながり」</strong>が全ての基盤だから。</p>
+
+      <p>ブートキャンプ参加者同士でつながって、<br>
+      お互いを紹介し合ったり、コラボしたりすることで<br>
+      ビジネスが加速する。</p>
+
+      <p>せっかくリアルで集まるんだから、<br>
+      飲みながら話せる時間もつくりましょう！</p>
+
+      <div class="program-box">
+        <h4>懇親会詳細</h4>
+        <p style="margin:0;font-size:.9rem">
+          <strong>日時：</strong>3月22日（日）19:30〜21:30<br>
+          <strong>参加：</strong>任意参加・参加費別途<br>
+          <strong>場所：</strong>会場付近を予定
+        </p>
       </div>
 
     </div>
 
-    <!-- CTA 2 (Main) -->
+    <!-- CTA IMAGE 2 -->
+    <a href="#" class="cta-img-link payment-link" target="_blank" rel="noopener">
+      <img src="https://assets.st-note.com/img/1771485866-71H8EqvcATLzaYrjhUGemgOW.png" alt="ブートキャンプに申し込む">
+    </a>
+
+    <!-- PRICING SECTION -->
+    <div class="lp-body section">
+
+      <h2>気になる参加費について</h2>
+
+      <ul>
+        <li>コンテンツビジネスブートキャンプ</li>
+        <li>コンテンツビジネス大全（オンライン教材）</li>
+      </ul>
+
+      <p>オンラインで事前学習してもらい、リアルの場でコンテンツ制作をする。</p>
+
+      <p>コンテンツビジネス大全を過去に買ってくれた人を見ていても、実際にコンテンツ制作まで進むのは1割いるかいないか。</p>
+
+      <p>だから、コンテンツビジネスブートキャンプを企画したんです。</p>
+
+      <p>オンライン教材を30万円で販売していたことも考えて、ブートキャンプの参加費は</p>
+
+      <div class="price-box">
+        <div class="label">定価</div>
+        <div class="main-price">297,000円<span class="tax">（税込）</span></div>
+      </div>
+
+      <p>としました！</p>
+
+      <p>ブートキャンプ中は、オレがその場で企画、コンセプトを決めていく。<br>
+      つまり、<strong>実質コンサルを受けながらコンテンツ制作ができる</strong>わけです。<br>
+      オレの普段のコンサル、コーチングの価格を考えれば破格であることは言うまでもありません！</p>
+
+      <hr>
+
+      <h2>２０名限定！早期割引でご案内します！</h2>
+
+      <p>っていうことも考えると３０名が限界。しかし、<strong>先行販売の時点で１０名の枠が埋まっています。</strong><br>
+      なので、コンテンツビジネスブートキャンプは<strong>２０名限定</strong>での募集となります！</p>
+
+      <p>さらに、コンテンツビジネスは、</p>
+      <ul>
+        <li>能力がなくていい</li>
+        <li>お金がなくていい</li>
+      </ul>
+      <p>まさに「誰でもできる」ビジネスだから少しでも心理的ハードルを下げたい。</p>
+
+      <div class="emphasis-box">
+        <p><span class="price-original">定価：297,000円のところ</span><br>
+        早期申込をした先着20名に限り<br>
+        <span class="price-tag">特別価格：198,000円（税込）</span></p>
+      </div>
+
+      <p>ちなみに「コンテンツも何もない」って人も安心してきてほしい。<br>
+      そういう人のために「コンテンツビジネス大全」っていうオンライン教材を用意してるので！</p>
+
+    </div>
+
+    <!-- CTA MAIN -->
     <div class="cta-section">
       <h3>🔥 残り20名限定・早期割引でご案内</h3>
       <p>1日で企画からコンテンツ制作まで完成させる。<br>
       長倉が直接あなたの企画を決めます。</p>
-      <a href="https://factory-llc.teachable.com/purchase?product_id=6634849" class="cta-btn" target="_blank" rel="noopener">
+      <a href="#" class="cta-btn payment-link" target="_blank" rel="noopener">
         今すぐ申し込む（198,000円）
       </a>
       <div class="cta-price">
         <span class="price-original">定価 297,000円 →</span>
-        <span style="color:var(--accent);font-weight:700">早期割引価格 198,000円（税込）</span>
+        <span style="color:var(--primary);font-weight:700">早期割引価格 198,000円（税込）</span>
       </div>
     </div>
 
@@ -771,6 +843,8 @@ body::after{
     <div class="lp-body section">
 
       <h2>追伸：AIに企画を相談しないでください</h2>
+
+      <img src="https://assets.st-note.com/img/1771485866-vNYRCqes8KXcPrQFGgkO45hx.png" alt="" class="section-img" loading="lazy">
 
       <p>AIのおかげで、コンテンツビジネスは格段にやりやすくなった。</p>
 
@@ -808,7 +882,7 @@ body::after{
 
     <!-- FAQ -->
     <div class="section">
-      <h2 class="lp-body" style="margin-bottom:20px;font-size:1.1rem">よくある質問</h2>
+      <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:20px;color:var(--text)">よくある質問</h2>
 
       <div class="faq-item">
         <div class="faq-q">Q：コンテンツビジネス初心者ですが参加しても大丈夫ですか？</div>
@@ -841,16 +915,17 @@ body::after{
       <h3>お問い合わせ</h3>
       <p>
         「銀行振込で参加したい」などのお問い合わせは以下まで。<br>
-        メール：<a href="mailto:mail.nagakura@factory-llc.jp" style="color:var(--primary-light)">mail.nagakura@factory-llc.jp</a><br>
+        メール：<a href="mailto:mail.nagakura@factory-llc.jp" style="color:var(--primary)">mail.nagakura@factory-llc.jp</a><br>
         TEL：03-4520-5423（10時〜夜22時まで対応）
       </p>
-      <a href="https://factory-llc.teachable.com/purchase?product_id=6634849" class="cta-btn" target="_blank" rel="noopener">
+      <a href="#" class="cta-btn payment-link" target="_blank" rel="noopener">
         ブートキャンプに申し込む →
       </a>
     </div>
 
     <!-- PROFILE -->
     <div class="profile-section section">
+      <img src="https://assets.st-note.com/img/1771485866-Ek3BeJRZgi2N64QoYFHOCsUq.png" alt="長倉顕太" class="profile-img" loading="lazy">
       <div class="profile-name">長倉顕太</div>
       <div class="profile-title">1,100万部編集者 / 作家 / プロデューサー</div>
       <div class="profile-bio">
@@ -860,6 +935,11 @@ body::after{
         <p>自身も著者として14冊出版。主な著書に20万部を突破した『移動する人はうまくいく』など多数。</p>
       </div>
     </div>
+
+    <!-- CTA IMAGE 3 (final) -->
+    <a href="#" class="cta-img-link payment-link" target="_blank" rel="noopener">
+      <img src="https://assets.st-note.com/img/1771485866-71H8EqvcATLzaYrjhUGemgOW.png" alt="ブートキャンプに申し込む">
+    </a>
 
     <div style="text-align:center;padding:20px 0;font-size:.75rem;color:var(--text-sub)">
       <a href="https://internationalpublishers-syndicate.com/ips/tokushohou.html" target="_blank" style="color:var(--text-sub);margin-right:16px">特定商取引法</a>
@@ -871,14 +951,15 @@ body::after{
 </div><!-- /container -->
 
 <script>
-// ── Type definitions ──
-const TYPES = {
-  reporter:  {name:"📡 レポーター型",    color:"#FF6B6B"},
-  arbitrage: {name:"🌏 アービトラージ型", color:"#4ECDC4"},
-  collab:    {name:"🤝 コラボ型",        color:"#FFE66D"},
-  prosumer:  {name:"📚 プロシューマー型", color:"#A29BFE"},
-  uber:      {name:"📦 ウーバーイーツ型", color:"#FF9FF3"}
+// ── Payment URLs by type ──
+const PAYMENT_URLS = {
+  reporter:  'https://factory-llc.teachable.com/purchase?product_id=6643494',
+  arbitrage: 'https://factory-llc.teachable.com/purchase?product_id=6643495',
+  collab:    'https://factory-llc.teachable.com/purchase?product_id=6643497',
+  prosumer:  'https://factory-llc.teachable.com/purchase?product_id=6643498',
+  uber:      'https://factory-llc.teachable.com/purchase?product_id=6643499'
 };
+const DEFAULT_PAYMENT = 'https://factory-llc.teachable.com/purchase?product_id=6643494';
 
 // ── Read profile from localStorage ──
 function getProfile() {
@@ -890,21 +971,25 @@ function getProfile() {
 }
 
 // ── Compute personalized type ──
-// Phase 1: uses v1 quiz only
-// Phase 2+: can cross-reference multiple quizzes
 function computeType(profile) {
   if (!profile.quizzes) return null;
-
   const v1 = profile.quizzes.v1;
   if (!v1 || !v1.type) return null;
-
-  // Phase 1: just return v1 type
-  // TODO Phase 2: when v2 added, cross-reference here
-  // Example future logic:
-  // const v2 = profile.quizzes.v2;
-  // if (v2) { return crossReference(v1.type, v2.type); }
-
   return v1.type;
+}
+
+// ── Share page ──
+function sharePage() {
+  const text = 'コンテンツビジネスブートキャンプ｜1日で売れるコンテンツを作り上げる';
+  if (navigator.share) {
+    navigator.share({ title: text, url: location.href }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(location.href).then(() => {
+      alert('URLをコピーしました！');
+    }).catch(() => {
+      prompt('以下のURLをシェアしてください：', location.href);
+    });
+  }
 }
 
 // ── Initialize page ──
@@ -912,15 +997,18 @@ function init() {
   const profile = getProfile();
   const type = computeType(profile);
 
+  // Set payment URL for all .payment-link elements
+  const payUrl = (type && PAYMENT_URLS[type]) ? PAYMENT_URLS[type] : DEFAULT_PAYMENT;
+  document.querySelectorAll('.payment-link').forEach(el => {
+    el.href = payUrl;
+  });
+
   if (!type) {
-    // No quiz result found
     document.getElementById('no-profile').style.display = 'block';
     document.getElementById('lp-main').style.display = 'block';
     document.getElementById('intro-default').style.display = 'block';
     return;
   }
-
-  const typeInfo = TYPES[type];
 
   // Show main content
   document.getElementById('lp-main').style.display = 'block';
@@ -929,8 +1017,6 @@ function init() {
   const introEl = document.getElementById('intro-' + type);
   if (introEl) {
     introEl.style.display = 'block';
-    // Apply type color to the intro card
-    introEl.style.setProperty('--type-color', typeInfo.color);
   } else {
     document.getElementById('intro-default').style.display = 'block';
   }
