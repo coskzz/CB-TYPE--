@@ -197,32 +197,40 @@ function doPost(e) {
 }
 
 function doGet(e) {
-  if (e.parameter.auth !== ADMIN_PASSWORD) {
-    return ContentService
-      .createTextOutput(JSON.stringify({error: 'unauthorized'}))
-      .setMimeType(ContentService.MimeType.JSON);
+  var callback = e.parameter.callback;
+  var auth = e.parameter.auth;
+  var result;
+
+  if (auth !== ADMIN_PASSWORD) {
+    result = JSON.stringify({error: 'unauthorized'});
+  } else {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(SHEET_NAME);
+    if (!sheet) {
+      result = JSON.stringify({rows: [], total: 0});
+    } else {
+      var values = sheet.getDataRange().getValues();
+      if (values.length <= 1) {
+        result = JSON.stringify({rows: [], total: 0});
+      } else {
+        var headers = values[0];
+        var rows = values.slice(1).map(function(row) {
+          var obj = {};
+          headers.forEach(function(h, i) { obj[h] = row[i]; });
+          return obj;
+        });
+        result = JSON.stringify({rows: rows, total: rows.length});
+      }
+    }
   }
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName(SHEET_NAME);
-  if (!sheet) {
+
+  if (callback) {
     return ContentService
-      .createTextOutput(JSON.stringify({rows: [], total: 0}))
-      .setMimeType(ContentService.MimeType.JSON);
+      .createTextOutput(callback + '(' + result + ')')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
   }
-  var values = sheet.getDataRange().getValues();
-  if (values.length <= 1) {
-    return ContentService
-      .createTextOutput(JSON.stringify({rows: [], total: 0}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-  var headers = values[0];
-  var rows = values.slice(1).map(function(row) {
-    var obj = {};
-    headers.forEach(function(h, i) { obj[h] = row[i]; });
-    return obj;
-  });
   return ContentService
-    .createTextOutput(JSON.stringify({rows: rows, total: rows.length}))
+    .createTextOutput(result)
     .setMimeType(ContentService.MimeType.JSON);
 }</pre>
       <button class="copy-btn" id="copy-btn" onclick="copyGAS()">コピー</button>
@@ -387,15 +395,43 @@ function logout(){
   showPanel('login-panel');
 }
 
+// ── JSONP helper (CORSを回避してGASに接続) ──
+function fetchJSONP(url){
+  return new Promise(function(resolve, reject){
+    const cbName = '__gasCb' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(function(){
+      cleanup();
+      reject(new Error('タイムアウト（10秒）'));
+    }, 10000);
+
+    function cleanup(){
+      clearTimeout(timer);
+      delete window[cbName];
+      if(script.parentNode) script.parentNode.removeChild(script);
+    }
+
+    window[cbName] = function(data){
+      cleanup();
+      resolve(data);
+    };
+
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName;
+    script.onerror = function(){
+      cleanup();
+      reject(new Error('GASへの接続に失敗しました'));
+    };
+    document.head.appendChild(script);
+  });
+}
+
 // ── Data ──
 async function fetchData(pass){
   setDashboardLoading();
   try {
-    const res  = await fetch(`${gasUrl}?auth=${encodeURIComponent(pass)}`);
-    const json = await res.json();
+    const json = await fetchJSONP(`${gasUrl}?auth=${encodeURIComponent(pass)}`);
 
     if(json.error){
-      // Auth failed — go back to login
       localStorage.removeItem('cbAdmin_pass');
       savedPass = '';
       showPanel('login-panel');
