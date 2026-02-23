@@ -109,37 +109,12 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
 }
 .start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(108,92,231,.45)}
 
-/* ── Transition screen ── */
-.transition-screen{
-  text-align:center;padding:60px 24px;
-}
-.transition-screen .check{
-  font-size:3rem;margin-bottom:20px;
-  animation:popIn .4s ease both;
-}
-@keyframes popIn{
-  from{opacity:0;transform:scale(.5)}
-  to{opacity:1;transform:scale(1)}
-}
-.transition-screen h2{
-  font-size:1.2rem;font-weight:800;color:var(--text);
-  margin-bottom:12px;
-}
-.transition-screen p{color:var(--text-sub);font-size:.9rem;margin-bottom:24px}
-.loading-dots{
-  display:inline-flex;gap:6px;align-items:center;
-  margin-top:8px;
-}
-.loading-dots span{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--primary);opacity:.3;
-  animation:dot-pulse 1.2s ease-in-out infinite;
-}
-.loading-dots span:nth-child(2){animation-delay:.2s}
-.loading-dots span:nth-child(3){animation-delay:.4s}
-@keyframes dot-pulse{
-  0%,100%{opacity:.3;transform:scale(1)}
-  50%{opacity:1;transform:scale(1.3)}
+/* ── Attr question badge ── */
+.attr-badge{
+  display:inline-block;background:var(--surface2);
+  border:1px solid var(--border);border-radius:60px;
+  font-size:.75rem;font-weight:600;color:var(--text-sub);
+  padding:4px 14px;margin-bottom:12px;
 }
 
 .retry-link{
@@ -168,6 +143,11 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
   .q-text{font-size:1.05rem}
   .opt-btn{padding:14px 16px;font-size:.88rem}
 }
+
+@keyframes popIn{
+  from{opacity:0;transform:scale(.5)}
+  to{opacity:1;transform:scale(1)}
+}
 </style>
 </head>
 <body>
@@ -176,7 +156,7 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
 
   <header>
     <h1>コンテンツビジネス<br>5つの型 診断</h1>
-    <p>7つの質問に答えるだけで、あなたにぴったりの型がわかる</p>
+    <p>8つの質問に答えるだけで、あなたにぴったりの型がわかる</p>
   </header>
 
   <!-- ====== INTRO ====== -->
@@ -194,7 +174,7 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
       <span style="color:var(--uber)">📦 ウーバーイーツ型</span>
     </div>
     <button class="start-btn" onclick="startQuiz()">診断スタート →</button>
-    <p style="margin-top:16px;font-size:.75rem;color:var(--text-sub)">所要時間：約2分 ／ 全7問</p>
+    <p style="margin-top:16px;font-size:.75rem;color:var(--text-sub)">所要時間：約2分 ／ 全8問</p>
   </div>
 
   <!-- ====== PROGRESS ====== -->
@@ -206,13 +186,12 @@ header p{margin-top:8px;color:var(--text-sub);font-size:.9rem}
   <!-- ====== QUESTION ====== -->
   <div id="question-card" class="card hidden"></div>
 
-  <!-- ====== RESULT (transition) ====== -->
+  <!-- ====== RESULT ====== -->
   <div id="result" class="card screen hidden"></div>
 
 </div>
 
 <script>
-// ── GAS endpoint for analytics (set after Google Apps Script deployment) ──
 const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxuFasSFzxGpZoOnSjFlGFz9GWVapCQsKyH1M0hqv-7g20MpduXCOo2S8Z-wR1trk2H/exec';
 
 const TYPES = {
@@ -221,6 +200,59 @@ const TYPES = {
   collab:    {name:"コラボ型",        emoji:"🤝", color:"#D97706"},
   prosumer:  {name:"プロシューマー型", emoji:"📚", color:"#7C3AED"},
   uber:      {name:"ウーバーイーツ型", emoji:"📦", color:"#DB2777"}
+};
+
+const TYPE_INFO = {
+  reporter: {
+    catchphrase: "人との出会いが、あなたのコンテンツになる",
+    strengths: [
+      "インタビューや対話で相手の本音を引き出せる",
+      "人脈・ネットワークを活かした情報収集が得意",
+      "現場のリアルをそのままコンテンツ化できる"
+    ]
+  },
+  arbitrage: {
+    catchphrase: "まだ誰も気づいていない情報を、いち早くつかむ",
+    strengths: [
+      "トレンドや変化をいち早くキャッチできる",
+      "「情報の差」をビジネス価値に変えられる",
+      "未開拓の市場やニーズを先読みできる"
+    ]
+  },
+  collab: {
+    catchphrase: "一人ではできないことを、みんなと実現する",
+    strengths: [
+      "協力関係を構築してシナジーを生み出せる",
+      "コミュニティや場を活性化させる力がある",
+      "他者の強みを引き出してまとめられる"
+    ]
+  },
+  prosumer: {
+    catchphrase: "学びながら発信し、専門性を積み上げる",
+    strengths: [
+      "深く掘り下げて専門性をどこまでも磨ける",
+      "自分の学び・経験をそのままコンテンツにできる",
+      "誠実さと丁寧さで読者・視聴者から信頼を得られる"
+    ]
+  },
+  uber: {
+    catchphrase: "仕組みで動かし、誰でも再現できる形をつくる",
+    strengths: [
+      "複雑なことをシンプルに体系化できる",
+      "再現性の高いノウハウを作れる",
+      "仕組み化・効率化で成果を最大化できる"
+    ]
+  }
+};
+
+const ATTR_QUESTION = {
+  text: "最後にひとつだけ。現在のあなたの状況は？",
+  opts: [
+    {icon:"💼", label:"会社員（まだ副業はしていない）",      value:"会社員（副業なし）"},
+    {icon:"⚡", label:"会社員（副業中 or 副業を検討中）",   value:"会社員（副業中）"},
+    {icon:"🦋", label:"フリーランス・個人事業主",            value:"フリーランス"},
+    {icon:"🔍", label:"コンテンツビジネスをこれから始めたい", value:"検討中"}
+  ]
 };
 
 const QUESTIONS = [
@@ -296,8 +328,11 @@ const QUESTIONS = [
   }
 ];
 
+const TOTAL_QUESTIONS = QUESTIONS.length + 1; // 7 scoring + 1 attribute = 8
+
 let currentQ = 0;
 let currentShuffled = [];
+let resolvedType = null;
 const scores = {reporter:0, arbitrage:0, collab:0, prosumer:0, uber:0};
 
 function $(id){return document.getElementById(id)}
@@ -310,11 +345,9 @@ function startQuiz(){
 
 function showQuestion(){
   const q = QUESTIONS[currentQ];
-  const total = QUESTIONS.length;
-  $("progress-fill").style.width = ((currentQ)/total*100)+"%";
-  $("progress-label").textContent = `${currentQ+1} / ${total}`;
+  $("progress-fill").style.width = (currentQ / TOTAL_QUESTIONS * 100) + "%";
+  $("progress-label").textContent = `${currentQ + 1} / ${TOTAL_QUESTIONS}`;
 
-  // Shuffle options for display (scores stay attached to each option object)
   currentShuffled = [...q.opts].sort(() => Math.random() - 0.5);
 
   const card = $("question-card");
@@ -323,10 +356,10 @@ function showQuestion(){
   void card.offsetWidth;
   card.style.animation = "";
 
-  let html = `<div class="q-number">Question ${currentQ+1}</div>`;
+  let html = `<div class="q-number">Question ${currentQ + 1}</div>`;
   html += `<div class="q-text">${q.text}</div>`;
   html += `<div class="options">`;
-  currentShuffled.forEach((o,i) => {
+  currentShuffled.forEach((o, i) => {
     html += `<button class="opt-btn" onclick="answer(${i})">
       <span class="icon">${o.icon}</span><span>${o.label}</span>
     </button>`;
@@ -336,7 +369,6 @@ function showQuestion(){
 }
 
 function answer(idx){
-  // Use shuffled order to get scores
   const chosen = currentShuffled[idx].scores;
   for(const k in chosen) scores[k] += chosen[k];
 
@@ -344,23 +376,58 @@ function answer(idx){
   if(currentQ < QUESTIONS.length){
     showQuestion();
   } else {
-    showResult();
+    // All scoring questions done — compute type, then show attribute question
+    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    resolvedType = sorted[0][0];
+    showAttrQuestion();
   }
 }
 
-function saveProfile(type, allScores){
+function showAttrQuestion(){
+  $("progress-fill").style.width = (QUESTIONS.length / TOTAL_QUESTIONS * 100) + "%";
+  $("progress-label").textContent = `${TOTAL_QUESTIONS} / ${TOTAL_QUESTIONS}`;
+
+  const card = $("question-card");
+  card.style.animation = "none";
+  void card.offsetWidth;
+  card.style.animation = "";
+
+  let html = `<div class="q-number">Question ${TOTAL_QUESTIONS}</div>`;
+  html += `<div class="attr-badge">あと1問だけ！</div>`;
+  html += `<div class="q-text">${ATTR_QUESTION.text}</div>`;
+  html += `<div class="options">`;
+  ATTR_QUESTION.opts.forEach((o, i) => {
+    html += `<button class="opt-btn" onclick="answerAttr(${i})">
+      <span class="icon">${o.icon}</span><span>${o.label}</span>
+    </button>`;
+  });
+  html += `</div>`;
+  card.innerHTML = html;
+}
+
+function answerAttr(idx){
+  const situation = ATTR_QUESTION.opts[idx].value;
+  $("question-card").classList.add("hidden");
+  saveProfile(resolvedType, scores, situation);
+  sendToGAS(resolvedType, scores, situation);
+  showResult(situation);
+}
+
+function saveProfile(type, allScores, situation){
   const profile = JSON.parse(localStorage.getItem('cbProfile') || '{"quizzes":{}}');
   profile.quizzes = profile.quizzes || {};
   profile.quizzes.v1 = {
     type: type,
     scores: {...allScores},
+    situation: situation || null,
     timestamp: new Date().toISOString()
   };
   profile.primaryType = type;
+  profile.situation = situation || null;
   localStorage.setItem('cbProfile', JSON.stringify(profile));
 }
 
-function sendToGAS(type, allScores){
+function sendToGAS(type, allScores, situation){
   if(!GAS_ENDPOINT) return;
   try {
     fetch(GAS_ENDPOINT, {
@@ -369,6 +436,7 @@ function sendToGAS(type, allScores){
       body: JSON.stringify({
         type: type,
         scores: allScores,
+        situation: situation || '',
         ua: navigator.userAgent.substring(0, 200),
         ref: document.referrer.substring(0, 200)
       })
@@ -376,16 +444,13 @@ function sendToGAS(type, allScores){
   } catch(e){}
 }
 
-function showResult(){
-  $("question-card").classList.add("hidden");
+function showResult(situation){
   $("progress-fill").style.width = "100%";
   $("progress-label").textContent = "完了！";
 
-  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
-  const topKey = sorted[0][0];
-
-  saveProfile(topKey, scores);
-  sendToGAS(topKey, scores);
+  const type = resolvedType;
+  const t = TYPES[type];
+  const ti = TYPE_INFO[type];
 
   const card = $("result");
   card.classList.remove("hidden");
@@ -394,27 +459,37 @@ function showResult(){
   card.style.animation = "";
 
   card.innerHTML = `
-    <div class="transition-screen">
-      <div class="check">✅</div>
-      <h2>診断が完了しました！</h2>
-      <p>あなたの型に合わせた<br>特別なページをご用意しています。</p>
-      <div class="loading-dots">
-        <span></span><span></span><span></span>
-      </div>
-      <br>
+    <div style="text-align:center;padding:4px 0 24px">
+      <div style="font-size:3.5rem;margin-bottom:12px;animation:popIn .4s ease both">${t.emoji}</div>
+      <span style="display:inline-block;background:${t.color};color:#fff;padding:4px 20px;border-radius:60px;font-size:.8rem;font-weight:700;margin-bottom:16px">${t.name}</span>
+      <p style="font-size:1.1rem;font-weight:800;color:var(--text);line-height:1.6">${ti.catchphrase}</p>
+    </div>
+    <div style="background:var(--surface2);border-radius:12px;padding:20px 24px;margin-bottom:24px">
+      <p style="font-size:.72rem;font-weight:700;color:var(--text-sub);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px">あなたの強み</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        ${ti.strengths.map(s => `
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:.9rem;line-height:1.6">
+            <span style="color:${t.color};flex-shrink:0;font-weight:700;margin-top:2px">✓</span>${s}
+          </li>`).join('')}
+      </ul>
+    </div>
+    <button class="start-btn" onclick="goToLP()" style="width:100%;margin-bottom:4px">
+      あなたにぴったりの戦略を見る →
+    </button>
+    <div style="text-align:center">
       <button class="retry-link" onclick="retry()">🔄 もう一度診断する</button>
     </div>
   `;
+}
 
-  // Auto-redirect after 1.5s
-  setTimeout(() => {
-    window.location.href = './lp/';
-  }, 1500);
+function goToLP(){
+  window.location.href = './lp/';
 }
 
 function retry(){
   currentQ = 0;
   currentShuffled = [];
+  resolvedType = null;
   for(const k in scores) scores[k] = 0;
   $("result").classList.add("hidden");
   $("result").innerHTML = "";

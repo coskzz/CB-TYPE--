@@ -119,6 +119,7 @@ function copyGAS(){
 
 document.getElementById('gas-code').textContent = `var ADMIN_PASSWORD = 'helloCB46';
 var SHEET_NAME = 'responses';
+// situation（属性）列を追加。既存シートには手動で列を追加してください。
 
 var TYPE_LABELS = {reporter:'レポーター型',arbitrage:'アービトラージ型',collab:'コラボ型',prosumer:'プロシューマー型',uber:'ウーバーイーツ型'};
 var TYPE_COLORS = {reporter:'#DC2626',arbitrage:'#0891B2',collab:'#D97706',prosumer:'#7C3AED',uber:'#DB2777'};
@@ -131,11 +132,11 @@ function doPost(e) {
     var sheet = ss.getSheetByName(SHEET_NAME);
     if (!sheet) {
       sheet = ss.insertSheet(SHEET_NAME);
-      sheet.appendRow(['timestamp','type','reporter','arbitrage','collab','prosumer','uber','ua','ref']);
+      sheet.appendRow(['timestamp','type','situation','reporter','arbitrage','collab','prosumer','uber','ua','ref']);
       sheet.setFrozenRows(1);
     }
     sheet.appendRow([
-      new Date().toISOString(), data.type||'',
+      new Date().toISOString(), data.type||'', data.situation||'',
       data.scores&&data.scores.reporter||0, data.scores&&data.scores.arbitrage||0,
       data.scores&&data.scores.collab||0, data.scores&&data.scores.prosumer||0,
       data.scores&&data.scores.uber||0,
@@ -236,6 +237,7 @@ function renderDashboard(rows) {
       tbodyHtml += '<tr>' +
         '<td style="padding:10px 14px;border-bottom:1px solid #E2E8F0;font-size:13px">' + d + '</td>' +
         '<td style="padding:10px 14px;border-bottom:1px solid #E2E8F0"><span style="background:'+tc+';color:#fff;padding:3px 10px;border-radius:60px;font-size:12px;font-weight:700">'+tn+'</span></td>' +
+        '<td style="padding:10px 14px;border-bottom:1px solid #E2E8F0;font-size:12px;color:#64748B">'+(r.situation||'-')+'</td>' +
         '<td style="padding:10px 14px;border-bottom:1px solid #E2E8F0;font-family:monospace;font-size:12px;color:#64748B">R:'+(r.reporter||0)+' A:'+(r.arbitrage||0)+' C:'+(r.collab||0)+' P:'+(r.prosumer||0)+' U:'+(r.uber||0)+'</td>' +
       '</tr>';
     });
@@ -258,6 +260,7 @@ function renderDashboard(rows) {
     '<thead><tr style="background:#F0F2F8">' +
     '<th style="padding:10px 14px;text-align:left;font-size:12px;font-weight:700;color:#64748B;border-bottom:2px solid #E2E8F0">日時</th>' +
     '<th style="padding:10px 14px;text-align:left;font-size:12px;font-weight:700;color:#64748B;border-bottom:2px solid #E2E8F0">タイプ</th>' +
+    '<th style="padding:10px 14px;text-align:left;font-size:12px;font-weight:700;color:#64748B;border-bottom:2px solid #E2E8F0">状況</th>' +
     '<th style="padding:10px 14px;text-align:left;font-size:12px;font-weight:700;color:#64748B;border-bottom:2px solid #E2E8F0">スコア詳細</th>' +
     '</tr></thead><tbody>' + tbodyHtml + '</tbody></table></div>' +
     '</div>' +
