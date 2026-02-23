@@ -78,9 +78,9 @@ summary:hover{color:var(--primary)}
     <h2 style="font-size:1.05rem;font-weight:700;margin-bottom:20px">パスワードを入力してダッシュボードを開く</h2>
     <label for="pass">管理パスワード</label>
     <input type="password" id="pass" placeholder="パスワードを入力"
-      onkeydown="if(event.key==='Enter')open()">
+      onkeydown="if(event.key==='Enter')openDashboard()">
     <button class="btn" onclick="openDashboard()">ダッシュボードを開く →</button>
-    <p class="note">ダッシュボードは別タブで開きます。<br>Google Apps Script が回答データをレンダリングします。</p>
+    <p class="note">ダッシュボードは別タブで開きます。<br>GASページ内でパスワードを確認します。</p>
   </div>
 
   <!-- GAS更新ガイド -->
@@ -92,11 +92,32 @@ summary:hover{color:var(--primary)}
       <li>「デプロイ」→「デプロイを管理」→ 鉛筆アイコン → バージョン「新しいバージョン」→「デプロイ」</li>
     </ol>
     <div class="code-wrap">
-      <pre id="gas-code" class="code-block">// =============================
-// CB TYPE 診断 - Google Apps Script
-// パスワードを変更してデプロイしてください
-// =============================
-var ADMIN_PASSWORD = 'helloCB46';
+      <pre id="gas-code" class="code-block"></pre>
+      <button class="copy-btn" id="copy-btn" onclick="copyGAS()">コピー</button>
+    </div>
+  </details>
+</div>
+
+<script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxuFasSFzxGpZoOnSjFlGFz9GWVapCQsKyH1M0hqv-7g20MpduXCOo2S8Z-wR1trk2H/exec';
+
+function openDashboard(){
+  const pass = document.getElementById('pass').value.trim();
+  if(!pass){ alert('パスワードを入力してください'); return; }
+  window.open(GAS_URL + '#' + encodeURIComponent(pass), '_blank');
+}
+
+function copyGAS(){
+  const code = document.getElementById('gas-code').textContent;
+  navigator.clipboard.writeText(code).then(function(){
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = 'コピー完了 ✓';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = 'コピー'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+document.getElementById('gas-code').textContent = `var ADMIN_PASSWORD = 'helloCB46';
 var SHEET_NAME = 'responses';
 
 var TYPE_LABELS = {reporter:'レポーター型',arbitrage:'アービトラージ型',collab:'コラボ型',prosumer:'プロシューマー型',uber:'ウーバーイーツ型'};
@@ -129,19 +150,48 @@ function doPost(e) {
 }
 
 function doGet(e) {
-  var auth = e.parameter.auth;
-  if (auth !== ADMIN_PASSWORD) {
-    return HtmlService.createHtmlOutput(
-      '<html><body style="font-family:sans-serif;padding:60px;text-align:center">' +
-      '<h2 style="color:#DC2626">認証エラー</h2>' +
-      '<p>パスワードが正しくありません。</p>' +
-      '</body></html>'
-    );
-  }
-  var rows = getData();
-  return HtmlService.createHtmlOutput(renderDashboard(rows))
+  return HtmlService.createHtmlOutput(getLoginHtml())
     .setTitle('CB TYPE 管理ダッシュボード')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function getDashboard(pass) {
+  if (pass !== ADMIN_PASSWORD) return {ok: false};
+  var rows = getData();
+  return {ok: true, html: renderDashboard(rows)};
+}
+
+function getLoginHtml() {
+  return '<html lang="ja"><head><meta charset="UTF-8"><title>CB TYPE 管理</title>' +
+    '<style>*{box-sizing:border-box;margin:0;padding:0}' +
+    'body{font-family:sans-serif;background:#F7F8FC;min-height:100vh;display:flex;align-items:center;justify-content:center}' +
+    '.p{background:#fff;border:1px solid #E2E8F0;border-radius:16px;padding:40px;width:420px;max-width:95%}' +
+    'h1{font-size:1.2rem;font-weight:800;color:#6C5CE7;margin-bottom:20px}' +
+    'input{width:100%;padding:13px;border:2px solid #E2E8F0;border-radius:10px;font-size:1rem;background:#F0F2F8;outline:none;margin-bottom:14px}' +
+    'input:focus{border-color:#6C5CE7}' +
+    'button{width:100%;padding:14px;background:linear-gradient(135deg,#6C5CE7,#00A86B);color:#fff;border:none;border-radius:60px;font-size:.95rem;font-weight:700;cursor:pointer}' +
+    '.e{color:#DC2626;font-size:.85rem;margin-top:10px;text-align:center;display:none}</style></head>' +
+    '<body><div class="p"><h1>管理ダッシュボード</h1>' +
+    '<input type="password" id="pw" placeholder="パスワード" onkeydown="if(event.key===\'Enter\')go()">' +
+    '<button id="b" onclick="go()">ログイン →</button>' +
+    '<p class="e" id="e">パスワードが正しくありません</p></div>' +
+    '<script>function go(){' +
+    'var p=document.getElementById("pw").value.trim();if(!p)return;' +
+    'document.getElementById("b").textContent="読み込み中...";' +
+    'document.getElementById("e").style.display="none";' +
+    'google.script.run' +
+    '.withSuccessHandler(function(r){' +
+    'if(r&&r.ok){document.open();document.write(r.html);document.close();}' +
+    'else{document.getElementById("e").style.display="block";document.getElementById("b").textContent="ログイン →";}' +
+    '})' +
+    '.withFailureHandler(function(){' +
+    'document.getElementById("e").style.display="block";' +
+    'document.getElementById("b").textContent="ログイン →";' +
+    '})' +
+    '.getDashboard(p);}' +
+    'var h=location.hash.replace("#","");' +
+    'if(h){document.getElementById("pw").value=decodeURIComponent(h);go();}' +
+    '<\\/script></body></html>';
 }
 
 function getData() {
@@ -170,7 +220,7 @@ function renderDashboard(rows) {
     chartHtml += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">' +
       '<div style="width:140px;text-align:right;font-size:13px;font-weight:600;flex-shrink:0">' + TYPE_LABELS[t] + '</div>' +
       '<div style="flex:1;background:#F0F2F8;border-radius:4px;height:22px;overflow:hidden">' +
-        '<div style="height:100%;width:'+pct+'%;background:'+TYPE_COLORS[t]+';border-radius:4px;min-width:'+( n>0?2:0)+'px"></div>' +
+        '<div style="height:100%;width:'+pct+'%;background:'+TYPE_COLORS[t]+';border-radius:4px;min-width:'+(n>0?2:0)+'px"></div>' +
       '</div>' +
       '<div style="width:90px;font-size:13px;color:#64748B">'+n+'人 ('+pct+'%)</div>' +
     '</div>';
@@ -213,30 +263,7 @@ function renderDashboard(rows) {
     '</div>' +
     '<p style="font-size:12px;color:#64748B;margin-top:16px;text-align:right">最終更新: '+new Date().toLocaleString('ja-JP')+'</p>' +
     '</div></body></html>';
-}</pre>
-      <button class="copy-btn" id="copy-btn" onclick="copyGAS()">コピー</button>
-    </div>
-  </details>
-</div>
-
-<script>
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbxuFasSFzxGpZoOnSjFlGFz9GWVapCQsKyH1M0hqv-7g20MpduXCOo2S8Z-wR1trk2H/exec';
-
-function openDashboard(){
-  const pass = document.getElementById('pass').value.trim();
-  if(!pass){ alert('パスワードを入力してください'); return; }
-  window.open(GAS_URL + '?auth=' + encodeURIComponent(pass), '_blank');
-}
-
-function copyGAS(){
-  const code = document.getElementById('gas-code').textContent;
-  navigator.clipboard.writeText(code).then(function(){
-    const btn = document.getElementById('copy-btn');
-    btn.textContent = 'コピー完了 ✓';
-    btn.classList.add('copied');
-    setTimeout(function(){ btn.textContent = 'コピー'; btn.classList.remove('copied'); }, 2000);
-  });
-}
+}`;
 </script>
 </body>
 </html>
